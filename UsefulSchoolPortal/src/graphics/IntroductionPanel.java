@@ -3,13 +3,15 @@ package graphics;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout;
 
 public class IntroductionPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel northPanel;
-	private JPanel centerPanel;
 	
 	
 	public IntroductionPanel() {
@@ -20,7 +22,7 @@ public class IntroductionPanel extends JPanel {
 	
 	
 	private void prepareNorthPanel() {
-		northPanel = new JPanel();
+		JPanel northPanel = new JPanel();
 		northPanel.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		northPanel.setPreferredSize(new Dimension(getWidth(), 75));
 		
@@ -29,11 +31,25 @@ public class IntroductionPanel extends JPanel {
 	
 	
 	private void prepareCenterPanel() {
-		centerPanel = new JPanel();
+		JPanel centerPanel = new JPanel(new BorderLayout());
 		centerPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
+		
+		JLabel intro = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("EDUPORTAL_INTRO.png")));
+		centerPanel.add(intro, BorderLayout.CENTER);
+		
 		
 		add(centerPanel, BorderLayout.CENTER);
 		
+	}
+	
+	
+	public void addChangePageButtons(JButton register, JButton login, JButton toc) {
+		JPanel southPanel = new JPanel();
+		southPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
+		southPanel.add(register);
+		southPanel.add(login);
+		southPanel.add(toc);
+		add(southPanel, BorderLayout.SOUTH);
 	}
 	
 }
