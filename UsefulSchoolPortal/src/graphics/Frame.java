@@ -63,9 +63,25 @@ public class Frame extends JFrame {
 		
 		JButton buttonPanelToCReturn = new JButton("Return");
 		buttonPanelToCReturn.setBackground(GraphicsConstants.COLOR_BG_HEADER);
+		buttonPanelToCReturn.setForeground(Color.WHITE);
+		buttonPanelToCReturn.setPreferredSize(new Dimension(220, 45));
+		buttonPanelIntroToC.setFont(GraphicsConstants.FONT_BUTTON);
+		
+		JButton buttonPanelRegisterReturn = new JButton("Return");
+		buttonPanelRegisterReturn.setBackground(GraphicsConstants.COLOR_BG_HEADER);
+		buttonPanelRegisterReturn.setForeground(Color.WHITE);
+		buttonPanelRegisterReturn.setPreferredSize(new Dimension(220, 45));
+		buttonPanelRegisterReturn.setFont(GraphicsConstants.FONT_BUTTON);
+		
+		JButton buttonPanelLoginReturn = new JButton("Return");
+		buttonPanelLoginReturn.setBackground(GraphicsConstants.COLOR_BG_HEADER);
+		buttonPanelLoginReturn.setForeground(Color.WHITE);
+		buttonPanelLoginReturn.setPreferredSize(new Dimension(220, 45));
+		buttonPanelLoginReturn.setFont(GraphicsConstants.FONT_BUTTON);
 		
 
 		panelIntro.addChangePageButtons(buttonPanelIntroRegister, buttonPanelIntroLogin, buttonPanelIntroToC);
+		panelToC.addChangePageButtons(buttonPanelToCReturn);
 		
 		ActionListener al = new ActionListener() {
 
@@ -80,6 +96,15 @@ public class Frame extends JFrame {
 					cl.next(container);
 					cl.next(container);
 					cl.next(container);
+				} else if (e.getSource() == buttonPanelToCReturn) {
+					cl.previous(container);
+				} else if (e.getSource() == buttonPanelRegisterReturn) {
+					cl.previous(container);
+					cl.previous(container);
+				} else if (e.getSource() == buttonPanelLoginReturn) {
+					cl.previous(container);
+					cl.previous(container);
+					cl.previous(container);
 				}
 			}
 			
@@ -88,6 +113,9 @@ public class Frame extends JFrame {
 		buttonPanelIntroRegister.addActionListener(al);
 		buttonPanelIntroLogin.addActionListener(al);
 		buttonPanelIntroToC.addActionListener(al);
+		buttonPanelToCReturn.addActionListener(al);
+		buttonPanelRegisterReturn.addActionListener(al);
+		buttonPanelLoginReturn.addActionListener(al);
 		
 		container.add(panelIntro);
 		container.add(panelToC);

@@ -5,18 +5,15 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.SpringLayout;
 
 public class TermsAndConditionsPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel northPanel;
-	private JPanel centerPanel;
 	
 	
 	public TermsAndConditionsPanel() {
@@ -27,7 +24,7 @@ public class TermsAndConditionsPanel extends JPanel {
 	
 	
 	private void prepareNorthPanel() {
-		northPanel = new JPanel();
+		JPanel northPanel = new JPanel();
 		northPanel.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		northPanel.setPreferredSize(new Dimension(getWidth(), 75));
 		
@@ -39,52 +36,67 @@ public class TermsAndConditionsPanel extends JPanel {
 	
 	
 	private void prepareCenterPanel() {
-		centerPanel = new JPanel();
+		JPanel centerPanel = new JPanel();
 		centerPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
 		centerPanel.setLayout(new FlowLayout());
 		
-		JTextArea textArea = new JTextArea(50, 120);
+		JTextArea textArea = new JTextArea(50, 150);
 		textArea.setLineWrap(true);
 		textArea.setEditable(false);
 		textArea.setWrapStyleWord(true);
 		textArea.setText("TERMS AND CONDITIONS\r\n"
-				+ "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------\r\n"
-				+ "The Useful School Portal (\"Product\") is made by DS Tech (\"Owner\"). The Product was made between January and May 2025 for various educators and students (\"User\") as a backbone to their educational system. All Users must follow the following terms outlined by the Owner to use this Product.\r\n"
-				+ "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------\r\n"
-				+ "PROPER USE:\r\n"
-				+ "Each User must have their own separate account with the given role associating to their role in the school (e.g., Administrator, Student, Teacher, etc.). Administrators must ensure that Users are properly created with the correct roles. Failure to do so will result in your school's suspension from the Product.\r\n"
+				+ "-----------------------------------------------------------------------------------------------------------------------------------------------------\r\n"
+				+ "Eduportal (\"Product\") is operated and manufactured by DS Tech (\"Owner\", we, us, or our). We are from Alexandria, VA and are registered under company number 01302025 and have our registered office at 50 Virtual Avenue, Alexandria, VA 22314.\r\n"
 				+ "\r\n"
-				+ "Users must use the Product properly and avoid any attempt at exploiting the Product or collecting the data embedded in the Product. Any attempts will result in immediate suspension from the Product and, if necessary, the involvement of law enforcement services depending on the severity of the exploitation or data breach. Data breaches are unlawful and illegal.\r\n"
+				+ "1. Please read these terms and conditions (\"the Terms\") carefully. By accessing any page of the Product, you agree to abide by these terms and any other instructions provided by us.\r\n"
+				+ "2. If you do not accept these Terms, please do not use our Product.\r\n"
+				+ "3. The Terms are subject to change at any time. Please review the Terms frequently so you are made known of any changes. You are still legally bound to our Terms despite alterations.\r\n"
 				+ "\r\n"
-				+ "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\r\n"
-				+ "LITIGATION:\r\n"
-				+ "The Owner ensured that malware was not included as part of the Product. Any malware potentially caused by the Product means the Product was tampered by a third party source. The Owner is not liable for any destruction of computer hardware caused by the program. Any decisions to send the Owner to court over the Product will result in immediate suspension of the case. Judges have been instructed to decline any litigation concerning the Product.\r\n"
+				+ "-----------------------------------------------------------------------------------------------------------------------------------------------------\r\n"
 				+ "\r\n"
-				+ "Any further reasons to send the Owner to court concerning the Product will be fairly handled by a court of law. The Owner will not participate in any corruption to ensure your failure in the case.\r\n"
+				+ "USE OF OUR SERVICES\r\n"
+				+ "1. You can only use our Product for lawful purposes only and in a way that does not infringe anybody's privacy or use of the Product.\r\n"
+				+ "2. By accessing the Product, you agree to only use it for use through your institution. \r\n"
+				+ "3. Please protect your username and password at all times. If you believe your data has been breached, please change your password immediately.\r\n"
+				+ "4. If you are under 18, you must be a student in your institution. If you are under 18 and own an institution as an administrator, we can press charges for unlawful use.\r\n"
 				+ "\r\n"
-				+ "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\r\n"
-				+ "INSTRUCTIONS [I REALLY NEED TO EDIT THIS STUFF]:\r\n"
-				+ "Begin by creating a school user through the register button. Follow the prompts. The first account you create under this new school is an administrator account.\r\n"
+				+ "-----------------------------------------------------------------------------------------------------------------------------------------------------\r\n"
 				+ "\r\n"
-				+ "Administrators have the ability to create other administrator accounts, teacher accounts, and student accounts. They can be given a username and password.\r\n"
+				+ "INTELLECTUAL PROPERTY RIGHTS\r\n"
+				+ "1. All data and widgets of the Product are protected by copyright.\r\n"
+				+ "2. Except if permitted by us, you may not redistribute the Product or modify it whatsoever in accordance with the Copyright Law of the United States.\r\n"
 				+ "\r\n"
-				+ "Users can change their password at any time, but administrators will have access to change these passwords to default settings if needed. Administrators will never have the current password on file. \r\n"
+				+ "-----------------------------------------------------------------------------------------------------------------------------------------------------\r\n"
 				+ "\r\n"
-				+ "Administrators also have the ability to create classes of various levels and assign both teachers and students to these classes. Classes can be changed at any time. Note that students and teachers alike cannot have overlap in their schedule, which can be created through the administrator page.\r\n"
+				+ "USER CONTRIBUTIONS\r\n"
+				+ "1. If you have any issue with the Product or have suggestions for improvement, please contact us at contact@eduportalmanager.com. We would be delighted to hear your feedback.\r\n"
+				+ "2. Any prank messages to the email will be deleted, and the IP address associated with the email account will be blocked from sending further emails.\r\n"
+				+ "\r\n"
+				+ "-----------------------------------------------------------------------------------------------------------------------------------------------------\r\n"
+				+ "\r\n"
+				+ "LIMITATION OF LIABILITY\r\n"
+				+ "1. We accept no liability in respect of potential data breaches from potential players with malicious intent. It is your duty to protect your password in the event of a data breach. Please contact us if you have any questions.\r\n"
+				+ "2. We will not be responsible for any breach of the Terms.\r\n"
+				+ "\r\n"
+				+ "-----------------------------------------------------------------------------------------------------------------------------------------------------\r\n"
+				+ "\r\n"
+				+ "VIRUSES AND HACKING\r\n"
+				+ "1. You cannot misuse the Product by introducing, transmitting, or arranging viruses, corrupt files, cancelbots, Trojan horses, worm, time, or logic bombs, keystroke logger, spyware, and any other material that damages computer software, the Product itself, or the data stored in the Product. You may not attempt a denial-of-service or distributed denial-of-service attack. Other attacks are not permitted and can be subject to litigation by us.\r\n"
+				+ "\r\n"
+				+ "-----------------------------------------------------------------------------------------------------------------------------------------------------\r\n"
+				+ "\r\n"
+				+ "ADVERTISING\r\n"
+				+ "1. Please let us know if you would like to advertise our company. Failure to do so could result in legal action.\r\n"
+				+ "\r\n"
+				+ "-----------------------------------------------------------------------------------------------------------------------------------------------------\r\n"
+				+ "\r\n"
+				+ "JURISDICTION AND DISPUTES\r\n"
+				+ "\r\n"
+				+ "1. The Terms are governed by and construed in accordance with the laws of the United States. Any disputes concerning the Product will be subject to Virginia State Courts.\r\n"
 				+ "\r\n"
 				+ "\r\n"
 				+ "\r\n"
 				+ "\r\n"
-				+ "Teachers have the ability to create assignments within their class. They can also edit their class pages and view student information. Again, teachers do not have the ability to view student passwords.\r\n"
-				+ "\r\n"
-				+ "Teachers can grade assignments according to the proper systems given by the program. \r\n"
-				+ "\r\n"
-				+ "\r\n"
-				+ "\r\n"
-				+ "\r\n"
-				+ "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\r\n"
-				+ "EASTER EGG:\r\n"
-				+ "Holy [expletive]! You read the entire terms and conditions. As a reward, please say \"I support DS Tech\" and you will get a complimentary guide on how to go to heaven.\r\n"
 				+ "\r\n"
 				+ "\r\n"
 				+ "\r\n"
@@ -97,13 +109,29 @@ public class TermsAndConditionsPanel extends JPanel {
 				+ "\r\n"
 				+ "\r\n"
 				+ "\r\n"
-				+ "does jscroll work");
+				+ "\r\n"
+				+ "\r\n"
+				+ "\r\n"
+				+ "\r\n"
+				+ "\r\n"
+				+ "\r\n"
+				+ "\r\n"
+				+ "So you decided to read all the way down here? We salute you. Please email us with the words \"DS Tech supports a TikTok and DeepSeek ban\" to get a free sneak peek of the next products coming from us.");
 		JScrollPane jsp = new JScrollPane(textArea);
 		
 		centerPanel.add(jsp);
 		
 		add(centerPanel, BorderLayout.CENTER);
 		
+	}
+	
+	
+	public void addChangePageButtons(JButton goHome) {
+		JPanel southPanel = new JPanel();
+		southPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
+		goHome.setFont(GraphicsConstants.FONT_BUTTON);
+		southPanel.add(goHome);
+		add(southPanel, BorderLayout.SOUTH);
 	}
 	
 }
