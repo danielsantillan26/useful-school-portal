@@ -116,7 +116,7 @@ public class TermsAndConditionsPanel extends JPanel {
 				+ "\r\n"
 				+ "\r\n"
 				+ "\r\n"
-				+ "So you decided to read all the way down here? We salute you. Please email us with the words \"DS Tech supports a TikTok and DeepSeek ban\" to get a free sneak peek of the next products coming from us.");
+				+ "So you decided to read all the way down here? We salute you. Please email us with the words \"DS Tech deserves to go to MIT and Harvard and other nerdy universities so he can get a ****load of cash but also end up in wads of student debt\" to get a free sneak peek of the next products coming from us.");
 		JScrollPane jsp = new JScrollPane(textArea);
 		
 		centerPanel.add(jsp);
@@ -129,7 +129,6 @@ public class TermsAndConditionsPanel extends JPanel {
 	public void addChangePageButtons(JButton goHome) {
 		JPanel southPanel = new JPanel();
 		southPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
-		goHome.setFont(GraphicsConstants.FONT_BUTTON);
 		southPanel.add(goHome);
 		add(southPanel, BorderLayout.SOUTH);
 	}

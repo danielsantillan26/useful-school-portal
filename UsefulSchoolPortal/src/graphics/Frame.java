@@ -65,7 +65,13 @@ public class Frame extends JFrame {
 		buttonPanelToCReturn.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelToCReturn.setForeground(Color.WHITE);
 		buttonPanelToCReturn.setPreferredSize(new Dimension(220, 45));
-		buttonPanelIntroToC.setFont(GraphicsConstants.FONT_BUTTON);
+		buttonPanelToCReturn.setFont(GraphicsConstants.FONT_BUTTON);
+		
+		JButton buttonPanelRegisterCreate = new JButton("Create Account");
+		buttonPanelRegisterCreate.setBackground(GraphicsConstants.COLOR_BG_HEADER);
+		buttonPanelRegisterCreate.setForeground(Color.WHITE);
+		buttonPanelRegisterCreate.setPreferredSize(new Dimension(450, 45));
+		buttonPanelRegisterCreate.setFont(GraphicsConstants.FONT_BUTTON);
 		
 		JButton buttonPanelRegisterReturn = new JButton("Return");
 		buttonPanelRegisterReturn.setBackground(GraphicsConstants.COLOR_BG_HEADER);
@@ -82,6 +88,7 @@ public class Frame extends JFrame {
 
 		panelIntro.addChangePageButtons(buttonPanelIntroRegister, buttonPanelIntroLogin, buttonPanelIntroToC);
 		panelToC.addChangePageButtons(buttonPanelToCReturn);
+		panelRegister.addChangePageButtons(buttonPanelRegisterCreate, buttonPanelRegisterReturn);
 		
 		ActionListener al = new ActionListener() {
 
