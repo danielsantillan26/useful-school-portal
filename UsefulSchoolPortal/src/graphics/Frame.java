@@ -79,6 +79,12 @@ public class Frame extends JFrame {
 		buttonPanelRegisterReturn.setPreferredSize(new Dimension(220, 45));
 		buttonPanelRegisterReturn.setFont(GraphicsConstants.FONT_BUTTON);
 		
+		JButton buttonPanelLoginLogin = new JButton("Log In");
+		buttonPanelLoginLogin.setBackground(GraphicsConstants.COLOR_BG_HEADER);
+		buttonPanelLoginLogin.setForeground(Color.WHITE);
+		buttonPanelLoginLogin.setPreferredSize(new Dimension(200, 45));
+		buttonPanelLoginLogin.setFont(GraphicsConstants.FONT_BUTTON);
+		
 		JButton buttonPanelLoginReturn = new JButton("Return");
 		buttonPanelLoginReturn.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelLoginReturn.setForeground(Color.WHITE);
@@ -89,6 +95,7 @@ public class Frame extends JFrame {
 		panelIntro.addChangePageButtons(buttonPanelIntroRegister, buttonPanelIntroLogin, buttonPanelIntroToC);
 		panelToC.addChangePageButtons(buttonPanelToCReturn);
 		panelRegister.addChangePageButtons(buttonPanelRegisterCreate, buttonPanelRegisterReturn);
+		panelLogin.addChangePageButtons(buttonPanelLoginLogin, buttonPanelLoginReturn);
 		
 		ActionListener al = new ActionListener() {
 
@@ -122,6 +129,7 @@ public class Frame extends JFrame {
 		buttonPanelIntroToC.addActionListener(al);
 		buttonPanelToCReturn.addActionListener(al);
 		buttonPanelRegisterReturn.addActionListener(al);
+		buttonPanelLoginLogin.addActionListener(al);
 		buttonPanelLoginReturn.addActionListener(al);
 		
 		container.add(panelIntro);
