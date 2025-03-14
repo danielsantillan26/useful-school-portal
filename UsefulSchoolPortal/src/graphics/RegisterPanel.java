@@ -20,6 +20,10 @@ public class RegisterPanel extends JPanel {
 	private JPanel centerPanel;
 	private SpringLayout sl;
 	
+	private JTextField givenSchoolName;
+	private JTextField givenUsername;
+	private JTextField givenFirstName;
+	private JTextField givenLastName;
 	private boolean isPasswordShown;
 	private JPasswordField givenPassword;
 	private JLabel failed;
@@ -52,7 +56,7 @@ public class RegisterPanel extends JPanel {
 		JLabel enterSchoolName = new JLabel("Enter School Name:");
 		enterSchoolName.setFont(GraphicsConstants.FONT_ROBOTO_B50);
 		
-		JTextField givenSchoolName = new JTextField();
+		givenSchoolName = new JTextField();
 		givenSchoolName.setMinimumSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
 		givenSchoolName.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
 		givenSchoolName.setFont(GraphicsConstants.FONT_ROBOTO_B30);
@@ -60,7 +64,7 @@ public class RegisterPanel extends JPanel {
 		JLabel enterUsername = new JLabel("Enter Username:");
 		enterUsername.setFont(GraphicsConstants.FONT_ROBOTO_B50);
 		
-		JTextField givenUsername = new JTextField();
+		givenUsername = new JTextField();
 		givenUsername.setMinimumSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
 		givenUsername.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
 		givenUsername.setFont(GraphicsConstants.FONT_ROBOTO_B30);
@@ -68,7 +72,7 @@ public class RegisterPanel extends JPanel {
 		JLabel enterFirstName = new JLabel("Enter First Name:");
 		enterFirstName.setFont(GraphicsConstants.FONT_ROBOTO_B50);
 		
-		JTextField givenFirstName = new JTextField();
+		givenFirstName = new JTextField();
 		givenFirstName.setMinimumSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
 		givenFirstName.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
 		givenFirstName.setFont(GraphicsConstants.FONT_ROBOTO_B30);
@@ -76,7 +80,7 @@ public class RegisterPanel extends JPanel {
 		JLabel enterLastName = new JLabel("Enter Last Name:");
 		enterLastName.setFont(GraphicsConstants.FONT_ROBOTO_B50);
 		
-		JTextField givenLastName = new JTextField();
+		givenLastName = new JTextField();
 		givenLastName.setMinimumSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
 		givenLastName.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
 		givenLastName.setFont(GraphicsConstants.FONT_ROBOTO_B30);
@@ -193,6 +197,27 @@ public class RegisterPanel extends JPanel {
 		}
 		
 		return true;
+	}
+	
+	
+	
+	public String getSchoolName() {
+		return givenSchoolName.getText();
+	}
+	
+	
+	public String getUsername() {
+		return givenUsername.getText();
+	}
+	
+	
+	public String getFirstName() {
+		return givenFirstName.getText();
+	}
+	
+	
+	public String getLastName() {
+		return givenLastName.getText();
 	}
 	
 }

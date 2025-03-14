@@ -112,6 +112,8 @@ public class Frame extends JFrame {
 					cl.next(container);
 				} else if (e.getSource() == buttonPanelToCReturn) {
 					cl.previous(container);
+				} else if (e.getSource() == buttonPanelRegisterCreate) {
+					System.out.println("test");
 				} else if (e.getSource() == buttonPanelRegisterReturn) {
 					cl.previous(container);
 					cl.previous(container);
@@ -128,6 +130,7 @@ public class Frame extends JFrame {
 		buttonPanelIntroLogin.addActionListener(al);
 		buttonPanelIntroToC.addActionListener(al);
 		buttonPanelToCReturn.addActionListener(al);
+		buttonPanelRegisterCreate.addActionListener(al);
 		buttonPanelRegisterReturn.addActionListener(al);
 		buttonPanelLoginLogin.addActionListener(al);
 		buttonPanelLoginReturn.addActionListener(al);
