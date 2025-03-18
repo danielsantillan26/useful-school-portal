@@ -45,6 +45,7 @@ public class Frame extends JFrame {
 		TermsAndConditionsPanel panelToC = new TermsAndConditionsPanel();
 		RegisterPanel panelRegister = new RegisterPanel();
 		LoginPanel panelLogin = new LoginPanel();
+		AdminHomepagePanel panelAdminHomepage = new AdminHomepagePanel();
 
 		JButton buttonPanelIntroRegister = new JButton("Register");
 		buttonPanelIntroRegister.setBackground(GraphicsConstants.COLOR_BG_HEADER);
@@ -93,13 +94,78 @@ public class Frame extends JFrame {
 		buttonPanelLoginReturn.setForeground(Color.WHITE);
 		buttonPanelLoginReturn.setPreferredSize(new Dimension(220, 45));
 		buttonPanelLoginReturn.setFont(GraphicsConstants.FONT_BUTTON);
+		
+		JButton buttonPanelAdminHomepageManageSchedule = new JButton("Manage Schedule");
+		buttonPanelAdminHomepageManageSchedule.setBackground(GraphicsConstants.COLOR_BG_HEADER);
+		buttonPanelAdminHomepageManageSchedule.setForeground(Color.WHITE);
+		buttonPanelAdminHomepageManageSchedule.setPreferredSize(new Dimension(350, 45));
+		buttonPanelAdminHomepageManageSchedule.setFont(GraphicsConstants.FONT_BUTTON);
+		
+		JButton buttonPanelAdminHomepageAddUsers = new JButton("Add Users");
+		buttonPanelAdminHomepageAddUsers.setBackground(GraphicsConstants.COLOR_BG_HEADER);
+		buttonPanelAdminHomepageAddUsers.setForeground(Color.WHITE);
+		buttonPanelAdminHomepageAddUsers.setPreferredSize(new Dimension(275, 45));
+		buttonPanelAdminHomepageAddUsers.setFont(GraphicsConstants.FONT_BUTTON);
+		
+		JButton buttonPanelAdminHomepageAddClasses = new JButton("Add Classes");
+		buttonPanelAdminHomepageAddClasses.setBackground(GraphicsConstants.COLOR_BG_HEADER);
+		buttonPanelAdminHomepageAddClasses.setForeground(Color.WHITE);
+		buttonPanelAdminHomepageAddClasses.setPreferredSize(new Dimension(300, 45));
+		buttonPanelAdminHomepageAddClasses.setFont(GraphicsConstants.FONT_BUTTON);
+		
+		JButton buttonPanelAdminHomepageDeleteUsers = new JButton("Delete Users");
+		buttonPanelAdminHomepageDeleteUsers.setBackground(GraphicsConstants.COLOR_BG_HEADER);
+		buttonPanelAdminHomepageDeleteUsers.setForeground(Color.WHITE);
+		buttonPanelAdminHomepageDeleteUsers.setPreferredSize(new Dimension(300, 45));
+		buttonPanelAdminHomepageDeleteUsers.setFont(GraphicsConstants.FONT_BUTTON);
+		
+		JButton buttonPanelAdminHomepageDeleteClasses = new JButton("Delete Classes");
+		buttonPanelAdminHomepageDeleteClasses.setBackground(GraphicsConstants.COLOR_BG_HEADER);
+		buttonPanelAdminHomepageDeleteClasses.setForeground(Color.WHITE);
+		buttonPanelAdminHomepageDeleteClasses.setPreferredSize(new Dimension(325, 45));
+		buttonPanelAdminHomepageDeleteClasses.setFont(GraphicsConstants.FONT_BUTTON);
+		
+		JButton buttonPanelAdminHomepageManageTeachers = new JButton("Manage Teachers");
+		buttonPanelAdminHomepageManageTeachers.setBackground(GraphicsConstants.COLOR_BG_HEADER);
+		buttonPanelAdminHomepageManageTeachers.setForeground(Color.WHITE);
+		buttonPanelAdminHomepageManageTeachers.setPreferredSize(new Dimension(350, 45));
+		buttonPanelAdminHomepageManageTeachers.setFont(GraphicsConstants.FONT_BUTTON);
+		
+		JButton buttonPanelAdminHomepageManageStudents = new JButton("Manage Students");
+		buttonPanelAdminHomepageManageStudents.setBackground(GraphicsConstants.COLOR_BG_HEADER);
+		buttonPanelAdminHomepageManageStudents.setForeground(Color.WHITE);
+		buttonPanelAdminHomepageManageStudents.setPreferredSize(new Dimension(350, 45));
+		buttonPanelAdminHomepageManageStudents.setFont(GraphicsConstants.FONT_BUTTON);
+	
+		JButton buttonPanelAdminHomepageManageClasses = new JButton("Manage Classes");
+		buttonPanelAdminHomepageManageClasses.setBackground(GraphicsConstants.COLOR_BG_HEADER);
+		buttonPanelAdminHomepageManageClasses.setForeground(Color.WHITE);
+		buttonPanelAdminHomepageManageClasses.setPreferredSize(new Dimension(350, 45));
+		buttonPanelAdminHomepageManageClasses.setFont(GraphicsConstants.FONT_BUTTON);
+		
+		JButton buttonPanelAdminHomepageEditProfile = new JButton("Edit Profile");
+		buttonPanelAdminHomepageEditProfile.setBackground(GraphicsConstants.COLOR_BG_HEADER);
+		buttonPanelAdminHomepageEditProfile.setForeground(Color.WHITE);
+		buttonPanelAdminHomepageEditProfile.setPreferredSize(new Dimension(300, 45));
+		buttonPanelAdminHomepageEditProfile.setFont(GraphicsConstants.FONT_BUTTON);
+		
+		JButton buttonPanelAdminHomepageLogOut = new JButton("Log Out");
+		buttonPanelAdminHomepageLogOut.setBackground(GraphicsConstants.COLOR_BG_HEADER);
+		buttonPanelAdminHomepageLogOut.setForeground(Color.WHITE);
+		buttonPanelAdminHomepageLogOut.setPreferredSize(new Dimension(250, 45));
+		buttonPanelAdminHomepageLogOut.setFont(GraphicsConstants.FONT_BUTTON);
+
 
 
 		panelIntro.addChangePageButtons(buttonPanelIntroRegister, buttonPanelIntroLogin, buttonPanelIntroToC);
 		panelToC.addChangePageButtons(buttonPanelToCReturn);
 		panelRegister.addChangePageButtons(buttonPanelRegisterCreate, buttonPanelRegisterReturn);
 		panelLogin.addChangePageButtons(buttonPanelLoginLogin, buttonPanelLoginReturn);
-
+		panelAdminHomepage.addChangePageButtons(buttonPanelAdminHomepageManageSchedule, buttonPanelAdminHomepageAddUsers, 
+				buttonPanelAdminHomepageAddClasses, buttonPanelAdminHomepageDeleteUsers, buttonPanelAdminHomepageDeleteClasses, 
+				buttonPanelAdminHomepageManageTeachers, buttonPanelAdminHomepageManageStudents, buttonPanelAdminHomepageManageClasses, 
+				buttonPanelAdminHomepageEditProfile, buttonPanelAdminHomepageLogOut);
+		
 		ActionListener al = new ActionListener() {
 
 			@Override
@@ -119,7 +185,12 @@ public class Frame extends JFrame {
 				}
 
 				// TODO: Fix spacing when you are done
+				// TODO: Remove comments when you finish with the admin pages
 				else if (e.getSource() == buttonPanelRegisterCreate) {
+					cl.next(container);
+					cl.next(container);
+					
+					/**
 					String givenSchoolName = panelRegister.getSchoolName();
 					String givenUsername = panelRegister.getUsername();
 					String givenFirstName = panelRegister.getFirstName();
@@ -148,6 +219,7 @@ public class Frame extends JFrame {
 					
 					UserActions.addSchoolAndAdministrator(givenSchoolName, 
 							givenUsername, givenFirstName, givenLastName, givenPassword);
+							*/
 				} 
 
 
@@ -176,6 +248,7 @@ public class Frame extends JFrame {
 		container.add(panelToC);
 		container.add(panelRegister);
 		container.add(panelLogin);
+		container.add(panelAdminHomepage);
 	}
 
 }

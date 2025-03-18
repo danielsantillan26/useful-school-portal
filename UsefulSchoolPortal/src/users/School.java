@@ -36,5 +36,10 @@ public class School {
 	public String getName() {
 		return name;
 	}
+	
+	
+	public int getSchoolID() {
+		return schoolID;
+	}
 
 }
