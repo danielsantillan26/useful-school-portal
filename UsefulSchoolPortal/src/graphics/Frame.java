@@ -10,14 +10,17 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import files.UserActions;
 
 public class Frame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private CardLayout cl;
 	private Container container;
-	
-	
+
+
 	public Frame() {
 		setTitle("Useful School Portal");
 		Dimension x = Toolkit.getDefaultToolkit().getScreenSize();
@@ -35,68 +38,68 @@ public class Frame extends JFrame {
 		container.setLayout(cl);
 		prepareCardLayout();
 	}
-	
-	
+
+
 	private void prepareCardLayout() {
 		IntroductionPanel panelIntro = new IntroductionPanel();
 		TermsAndConditionsPanel panelToC = new TermsAndConditionsPanel();
 		RegisterPanel panelRegister = new RegisterPanel();
 		LoginPanel panelLogin = new LoginPanel();
-		
+
 		JButton buttonPanelIntroRegister = new JButton("Register");
 		buttonPanelIntroRegister.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelIntroRegister.setForeground(Color.WHITE);
 		buttonPanelIntroRegister.setPreferredSize(new Dimension(200, 45));
 		buttonPanelIntroRegister.setFont(GraphicsConstants.FONT_BUTTON);
-		
+
 		JButton buttonPanelIntroLogin = new JButton("Login");
 		buttonPanelIntroLogin.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelIntroLogin.setForeground(Color.WHITE);
 		buttonPanelIntroLogin.setPreferredSize(new Dimension(200, 45));
 		buttonPanelIntroLogin.setFont(GraphicsConstants.FONT_BUTTON);
-		
+
 		JButton buttonPanelIntroToC = new JButton("View Terms");
 		buttonPanelIntroToC.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelIntroToC.setForeground(Color.WHITE);
 		buttonPanelIntroToC.setPreferredSize(new Dimension(300, 45));
 		buttonPanelIntroToC.setFont(GraphicsConstants.FONT_BUTTON);
-		
+
 		JButton buttonPanelToCReturn = new JButton("Return");
 		buttonPanelToCReturn.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelToCReturn.setForeground(Color.WHITE);
 		buttonPanelToCReturn.setPreferredSize(new Dimension(220, 45));
 		buttonPanelToCReturn.setFont(GraphicsConstants.FONT_BUTTON);
-		
+
 		JButton buttonPanelRegisterCreate = new JButton("Create Account");
 		buttonPanelRegisterCreate.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelRegisterCreate.setForeground(Color.WHITE);
 		buttonPanelRegisterCreate.setPreferredSize(new Dimension(450, 45));
 		buttonPanelRegisterCreate.setFont(GraphicsConstants.FONT_BUTTON);
-		
+
 		JButton buttonPanelRegisterReturn = new JButton("Return");
 		buttonPanelRegisterReturn.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelRegisterReturn.setForeground(Color.WHITE);
 		buttonPanelRegisterReturn.setPreferredSize(new Dimension(220, 45));
 		buttonPanelRegisterReturn.setFont(GraphicsConstants.FONT_BUTTON);
-		
+
 		JButton buttonPanelLoginLogin = new JButton("Log In");
 		buttonPanelLoginLogin.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelLoginLogin.setForeground(Color.WHITE);
 		buttonPanelLoginLogin.setPreferredSize(new Dimension(200, 45));
 		buttonPanelLoginLogin.setFont(GraphicsConstants.FONT_BUTTON);
-		
+
 		JButton buttonPanelLoginReturn = new JButton("Return");
 		buttonPanelLoginReturn.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelLoginReturn.setForeground(Color.WHITE);
 		buttonPanelLoginReturn.setPreferredSize(new Dimension(220, 45));
 		buttonPanelLoginReturn.setFont(GraphicsConstants.FONT_BUTTON);
-		
+
 
 		panelIntro.addChangePageButtons(buttonPanelIntroRegister, buttonPanelIntroLogin, buttonPanelIntroToC);
 		panelToC.addChangePageButtons(buttonPanelToCReturn);
 		panelRegister.addChangePageButtons(buttonPanelRegisterCreate, buttonPanelRegisterReturn);
 		panelLogin.addChangePageButtons(buttonPanelLoginLogin, buttonPanelLoginReturn);
-		
+
 		ActionListener al = new ActionListener() {
 
 			@Override
@@ -112,9 +115,43 @@ public class Frame extends JFrame {
 					cl.next(container);
 				} else if (e.getSource() == buttonPanelToCReturn) {
 					cl.previous(container);
-				} else if (e.getSource() == buttonPanelRegisterCreate) {
-					System.out.println("test");
-				} else if (e.getSource() == buttonPanelRegisterReturn) {
+
+				}
+
+				// TODO: Fix spacing when you are done
+				else if (e.getSource() == buttonPanelRegisterCreate) {
+					String givenSchoolName = panelRegister.getSchoolName();
+					String givenUsername = panelRegister.getUsername();
+					String givenFirstName = panelRegister.getFirstName();
+					String givenLastName = panelRegister.getLastName();
+					String givenPassword = panelRegister.getPassword();
+
+					if (givenSchoolName.trim().equals("") ||
+							givenUsername.trim().equals("") ||
+							givenFirstName.trim().equals("") ||
+							givenLastName.trim().equals("") ||
+							givenPassword.trim().equals("")) {
+						JOptionPane.showMessageDialog(panelRegister, "You " +
+								"have an empty field somewhere. Please fill " +
+								"out all values.", "Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					if (givenPassword.equals(GraphicsConstants.DELIMITER_FAILURE)) {
+						JOptionPane.showMessageDialog(panelRegister, "Password must\n"
+								+ "- Be between 10 and 50 characters\n" +
+								"- Have no spaces\n" +
+								"- Have both an uppercase and lowercase letter\n" +
+								"- Have a number", "Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					UserActions.addSchoolAndAdministrator(givenSchoolName, 
+							givenUsername, givenFirstName, givenLastName, givenPassword);
+				} 
+
+
+				else if (e.getSource() == buttonPanelRegisterReturn) {
 					cl.previous(container);
 					cl.previous(container);
 				} else if (e.getSource() == buttonPanelLoginReturn) {
@@ -123,9 +160,9 @@ public class Frame extends JFrame {
 					cl.previous(container);
 				}
 			}
-			
+
 		};
-		
+
 		buttonPanelIntroRegister.addActionListener(al);
 		buttonPanelIntroLogin.addActionListener(al);
 		buttonPanelIntroToC.addActionListener(al);
@@ -134,11 +171,11 @@ public class Frame extends JFrame {
 		buttonPanelRegisterReturn.addActionListener(al);
 		buttonPanelLoginLogin.addActionListener(al);
 		buttonPanelLoginReturn.addActionListener(al);
-		
+
 		container.add(panelIntro);
 		container.add(panelToC);
 		container.add(panelRegister);
 		container.add(panelLogin);
 	}
-	
+
 }
