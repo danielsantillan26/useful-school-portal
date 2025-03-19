@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import files.Constants;
+import files.FileManagement;
 import files.UserActions;
 
 public class Frame extends JFrame {
@@ -94,61 +96,61 @@ public class Frame extends JFrame {
 		buttonPanelLoginReturn.setForeground(Color.WHITE);
 		buttonPanelLoginReturn.setPreferredSize(new Dimension(220, 45));
 		buttonPanelLoginReturn.setFont(GraphicsConstants.FONT_BUTTON);
-		
+
 		JButton buttonPanelAdminHomepageManageSchedule = new JButton("Manage Schedule");
 		buttonPanelAdminHomepageManageSchedule.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelAdminHomepageManageSchedule.setForeground(Color.WHITE);
 		buttonPanelAdminHomepageManageSchedule.setPreferredSize(new Dimension(350, 45));
 		buttonPanelAdminHomepageManageSchedule.setFont(GraphicsConstants.FONT_BUTTON);
-		
+
 		JButton buttonPanelAdminHomepageAddUsers = new JButton("Add Users");
 		buttonPanelAdminHomepageAddUsers.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelAdminHomepageAddUsers.setForeground(Color.WHITE);
 		buttonPanelAdminHomepageAddUsers.setPreferredSize(new Dimension(275, 45));
 		buttonPanelAdminHomepageAddUsers.setFont(GraphicsConstants.FONT_BUTTON);
-		
+
 		JButton buttonPanelAdminHomepageAddClasses = new JButton("Add Classes");
 		buttonPanelAdminHomepageAddClasses.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelAdminHomepageAddClasses.setForeground(Color.WHITE);
 		buttonPanelAdminHomepageAddClasses.setPreferredSize(new Dimension(300, 45));
 		buttonPanelAdminHomepageAddClasses.setFont(GraphicsConstants.FONT_BUTTON);
-		
+
 		JButton buttonPanelAdminHomepageDeleteUsers = new JButton("Delete Users");
 		buttonPanelAdminHomepageDeleteUsers.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelAdminHomepageDeleteUsers.setForeground(Color.WHITE);
 		buttonPanelAdminHomepageDeleteUsers.setPreferredSize(new Dimension(300, 45));
 		buttonPanelAdminHomepageDeleteUsers.setFont(GraphicsConstants.FONT_BUTTON);
-		
+
 		JButton buttonPanelAdminHomepageDeleteClasses = new JButton("Delete Classes");
 		buttonPanelAdminHomepageDeleteClasses.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelAdminHomepageDeleteClasses.setForeground(Color.WHITE);
 		buttonPanelAdminHomepageDeleteClasses.setPreferredSize(new Dimension(325, 45));
 		buttonPanelAdminHomepageDeleteClasses.setFont(GraphicsConstants.FONT_BUTTON);
-		
+
 		JButton buttonPanelAdminHomepageManageTeachers = new JButton("Manage Teachers");
 		buttonPanelAdminHomepageManageTeachers.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelAdminHomepageManageTeachers.setForeground(Color.WHITE);
 		buttonPanelAdminHomepageManageTeachers.setPreferredSize(new Dimension(350, 45));
 		buttonPanelAdminHomepageManageTeachers.setFont(GraphicsConstants.FONT_BUTTON);
-		
+
 		JButton buttonPanelAdminHomepageManageStudents = new JButton("Manage Students");
 		buttonPanelAdminHomepageManageStudents.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelAdminHomepageManageStudents.setForeground(Color.WHITE);
 		buttonPanelAdminHomepageManageStudents.setPreferredSize(new Dimension(350, 45));
 		buttonPanelAdminHomepageManageStudents.setFont(GraphicsConstants.FONT_BUTTON);
-	
+
 		JButton buttonPanelAdminHomepageManageClasses = new JButton("Manage Classes");
 		buttonPanelAdminHomepageManageClasses.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelAdminHomepageManageClasses.setForeground(Color.WHITE);
 		buttonPanelAdminHomepageManageClasses.setPreferredSize(new Dimension(350, 45));
 		buttonPanelAdminHomepageManageClasses.setFont(GraphicsConstants.FONT_BUTTON);
-		
+
 		JButton buttonPanelAdminHomepageEditProfile = new JButton("Edit Profile");
 		buttonPanelAdminHomepageEditProfile.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelAdminHomepageEditProfile.setForeground(Color.WHITE);
 		buttonPanelAdminHomepageEditProfile.setPreferredSize(new Dimension(300, 45));
 		buttonPanelAdminHomepageEditProfile.setFont(GraphicsConstants.FONT_BUTTON);
-		
+
 		JButton buttonPanelAdminHomepageLogOut = new JButton("Log Out");
 		buttonPanelAdminHomepageLogOut.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		buttonPanelAdminHomepageLogOut.setForeground(Color.WHITE);
@@ -165,7 +167,7 @@ public class Frame extends JFrame {
 				buttonPanelAdminHomepageAddClasses, buttonPanelAdminHomepageDeleteUsers, buttonPanelAdminHomepageDeleteClasses, 
 				buttonPanelAdminHomepageManageTeachers, buttonPanelAdminHomepageManageStudents, buttonPanelAdminHomepageManageClasses, 
 				buttonPanelAdminHomepageEditProfile, buttonPanelAdminHomepageLogOut);
-		
+
 		ActionListener al = new ActionListener() {
 
 			@Override
@@ -203,50 +205,50 @@ public class Frame extends JFrame {
 								"out all values.", "Error", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-					
+
 					boolean hasComma = false;
 					for (int i = 0; i < givenSchoolName.length(); i++) {
 						if (givenSchoolName.substring(i, i+1).equals(",")) {
 							hasComma = true;
 						}
 					}
-					
+
 					for (int i = 0; i < givenUsername.length(); i++) {
 						if (givenUsername.substring(i, i+1).equals(",")) {
 							hasComma = true;
 						}
 					}
-					
-					
+
+
 					for (int i = 0; i < givenFirstName.length(); i++) {
 						if (givenFirstName.substring(i, i+1).equals(",")) {
 							hasComma = true;
 						}
 					}
-					
-					
+
+
 					for (int i = 0; i < givenLastName.length(); i++) {
 						if (givenLastName.substring(i, i+1).equals(",")) {
 							hasComma = true;
 						}
 					}
-					
+
 					for (int i = 0; i < givenPassword.length(); i++) {
 						if (givenPassword.substring(i, i+1).equals(",")) {
 							hasComma = true;
 						}
 					}
-					
-					
-					
+
+
+
 					if (hasComma) {
 						JOptionPane.showMessageDialog(panelRegister, "You cannot"
 								+ " have commas in any of your fields to ensure proper"
 								+ " data storage.", "Error", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-					
-					
+
+
 					if (givenPassword.equals(GraphicsConstants.DELIMITER_FAILURE)) {
 						JOptionPane.showMessageDialog(panelRegister, "Password must\n"
 								+ "- Be between 10 and 50 characters\n" +
@@ -255,19 +257,34 @@ public class Frame extends JFrame {
 								"- Have a number", "Error", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-					
+
 					UserActions.addSchoolAndAdministrator(givenSchoolName, 
 							givenUsername, givenFirstName, givenLastName, givenPassword);
-					
+
 					cl.next(container);
 					cl.next(container);
-							
+
 				} 
 
 
 				else if (e.getSource() == buttonPanelRegisterReturn) {
 					cl.previous(container);
 					cl.previous(container);
+				} else if (e.getSource() == buttonPanelLoginLogin) { 
+					String username = panelLogin.getUsername();
+					String password = panelLogin.getPassword();
+
+					if (FileManagement.login(username, password)) {
+						switch (FileManagement.getLoggedInUserRole()) {
+						case Constants.ADMINISTRATOR_VALUE:
+							break;
+						case Constants.TEACHER_VALUE:
+							break;
+						case Constants.STUDENT_VALUE:
+							break;
+						}
+					}
+
 				} else if (e.getSource() == buttonPanelLoginReturn) {
 					cl.previous(container);
 					cl.previous(container);

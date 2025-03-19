@@ -57,7 +57,7 @@ public class FileWorker {
 	}
 
 
-	private static ArrayList<String> readFile(File f) {
+	public static ArrayList<String> readFile(File f) {
 		ArrayList<String> contents = new ArrayList<String>();
 
 		try {

@@ -36,22 +36,9 @@ public class FileManagement {
 
 
 	public static void setup() {
-		file = new File(FILENAME);
-
-		try {
-			file.createNewFile();;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		setupGroups();
+	
 	}
-
-
-	private static void setupGroups() {
-
-	}
-
+	
 
 	public static boolean addUser(User u) {
 		try {
@@ -74,6 +61,38 @@ public class FileManagement {
 	}
 	
 	
+	public static boolean addNewAdministrator(String username, String
+			firstName, String lastName, String password) {
+		try {
+			users.add(new Administrator(username, firstName, lastName, password, currentSchoolID));
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	
+	public static boolean addNewTeacher(String username, String
+			firstName, String lastName, String password) {
+		try {
+			users.add(new Teacher(username, firstName, lastName, password, currentSchoolID));
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	
+	public static boolean addNewStudent(String username, String
+			firstName, String lastName, String password) {
+		try {
+			users.add(new Student(username, firstName, lastName, password, currentSchoolID));
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
 	
 	public static boolean addSchool(School s) {
 		try {
@@ -83,6 +102,17 @@ public class FileManagement {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	
+	public static boolean login(String username, String password) {
+		for (User u : users) {
+			if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
+				setLoggedInUser(u);
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	

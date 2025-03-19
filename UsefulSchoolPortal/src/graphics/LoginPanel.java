@@ -17,6 +17,7 @@ import javax.swing.SpringLayout;
 public class LoginPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private JTextField givenUsername;
 	private JPasswordField givenPassword;
 	private boolean isPasswordShown;
 	
@@ -49,7 +50,7 @@ public class LoginPanel extends JPanel {
 		JLabel enterUsername = new JLabel("Enter Username:");
 		enterUsername.setFont(GraphicsConstants.FONT_ROBOTO_B50);
 		
-		JTextField givenUsername = new JTextField();
+		givenUsername = new JTextField();
 		givenUsername.setMinimumSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
 		givenUsername.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
 		givenUsername.setFont(GraphicsConstants.FONT_ROBOTO_B30);
@@ -132,6 +133,16 @@ public class LoginPanel extends JPanel {
 		southPanel.add(goHome);
 		
 		add(southPanel, BorderLayout.SOUTH);
+	}
+	
+	
+	public String getUsername() {
+		return givenUsername.getText();
+	}
+	
+	
+	public String getPassword() {
+		return String.valueOf(givenPassword.getPassword());
 	}
 	
 }
