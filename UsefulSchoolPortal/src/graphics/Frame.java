@@ -187,10 +187,6 @@ public class Frame extends JFrame {
 				// TODO: Fix spacing when you are done
 				// TODO: Remove comments when you finish with the admin pages
 				else if (e.getSource() == buttonPanelRegisterCreate) {
-					cl.next(container);
-					cl.next(container);
-					
-					/**
 					String givenSchoolName = panelRegister.getSchoolName();
 					String givenUsername = panelRegister.getUsername();
 					String givenFirstName = panelRegister.getFirstName();
@@ -208,6 +204,49 @@ public class Frame extends JFrame {
 						return;
 					}
 					
+					boolean hasComma = false;
+					for (int i = 0; i < givenSchoolName.length(); i++) {
+						if (givenSchoolName.substring(i, i+1).equals(",")) {
+							hasComma = true;
+						}
+					}
+					
+					for (int i = 0; i < givenUsername.length(); i++) {
+						if (givenUsername.substring(i, i+1).equals(",")) {
+							hasComma = true;
+						}
+					}
+					
+					
+					for (int i = 0; i < givenFirstName.length(); i++) {
+						if (givenFirstName.substring(i, i+1).equals(",")) {
+							hasComma = true;
+						}
+					}
+					
+					
+					for (int i = 0; i < givenLastName.length(); i++) {
+						if (givenLastName.substring(i, i+1).equals(",")) {
+							hasComma = true;
+						}
+					}
+					
+					for (int i = 0; i < givenPassword.length(); i++) {
+						if (givenPassword.substring(i, i+1).equals(",")) {
+							hasComma = true;
+						}
+					}
+					
+					
+					
+					if (hasComma) {
+						JOptionPane.showMessageDialog(panelRegister, "You cannot"
+								+ " have commas in any of your fields to ensure proper"
+								+ " data storage.", "Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					
 					if (givenPassword.equals(GraphicsConstants.DELIMITER_FAILURE)) {
 						JOptionPane.showMessageDialog(panelRegister, "Password must\n"
 								+ "- Be between 10 and 50 characters\n" +
@@ -219,7 +258,10 @@ public class Frame extends JFrame {
 					
 					UserActions.addSchoolAndAdministrator(givenSchoolName, 
 							givenUsername, givenFirstName, givenLastName, givenPassword);
-							*/
+					
+					cl.next(container);
+					cl.next(container);
+							
 				} 
 
 

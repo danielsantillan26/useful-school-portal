@@ -1,8 +1,6 @@
 package users;
 
 public class Administrator extends User {
-
-	private int schoolID;
 	
 	public Administrator(String username, String firstName, String lastName,
 			String password, int schoolID) {
@@ -11,7 +9,12 @@ public class Administrator extends User {
 	
 	public Administrator(String username, String firstName, String lastName, 
 			String password, int id, int schoolID) {
-		super(username, firstName, lastName, password, id);
-		this.schoolID = schoolID;	
+		super(username, firstName, lastName, password, id, schoolID);
+	}
+	
+	
+	@Override
+	public boolean isAdministrator() {
+		return true;
 	}
 }

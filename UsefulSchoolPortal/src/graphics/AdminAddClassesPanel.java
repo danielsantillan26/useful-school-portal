@@ -4,11 +4,11 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
-public class AddClassesPanel extends JPanel {
+public class AdminAddClassesPanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public AddClassesPanel() {
+	public AdminAddClassesPanel() {
 		setLayout(new BorderLayout());
 	}
 	

@@ -7,19 +7,34 @@ public class User {
 	private String lastName;
 	private String password;
 	private int id;
+	private int schoolID;
 	
 	
-	public User(String username, String firstName, String lastName, String password) {
-		this(username, firstName, lastName, password, (int)Math.random()*1000000);
+	public User(String username, String firstName, String lastName, String password, int schoolID) {
+		this(username, firstName, lastName, password, (int)Math.random()*1000000, schoolID);
 	}
 	
 	
-	public User(String username, String firstName, String lastName, String password, int id) {
+	public User(String username, String firstName, String lastName, String password, int id, int schoolID) {
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
 		this.id = id;
+		this.schoolID = schoolID;
+	}
+	
+	
+	public boolean isAdministrator() {
+		return false;
+	}
+	
+	public boolean isTeacher() {
+		return false;
+	}
+	
+	public boolean isStudent() {
+		return false;
 	}
 
 
@@ -46,6 +61,11 @@ public class User {
 	public int getId() {
 		return id;
 	}
+	
+	
+	public int getSchoolID() {
+		return schoolID;
+	}
 
 
 	public void setUsername(String username) {
@@ -65,11 +85,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-
-	public void setId(int id) {
-		this.id = id;
 	}
 	
 	

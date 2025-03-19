@@ -14,13 +14,13 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
-public class AddUsersPanel extends JPanel {
+public class AdminAddUsersPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JPasswordField givenPassword;
 	private boolean isPasswordShown;
 	
-	public AddUsersPanel() {
+	public AdminAddUsersPanel() {
 		setLayout(new BorderLayout());
 		addNorthPanel();
 		prepareCenterPanel();

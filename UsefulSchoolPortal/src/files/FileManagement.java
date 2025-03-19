@@ -22,6 +22,7 @@ public class FileManagement {
 	private static final char DELIMITER_CLASS_STUDENT = '伟';
 	private static final char DELIMITER_CLASS_END = '习';
 
+	private static User loggedInUser;
 	private static int currentSchoolID;
 	private static int loggedInUserID;
 
@@ -62,6 +63,17 @@ public class FileManagement {
 	}
 	
 	
+	public static boolean addNewSchoolAdministrator(Administrator a) {
+		try {
+			users.add(a);
+			setLoggedInUser(a);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	
 	
 	public static boolean addSchool(School s) {
 		try {
@@ -71,6 +83,31 @@ public class FileManagement {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	
+	public static void setLoggedInUser(User u) {
+		loggedInUser = u;
+		loggedInUserID = u.getId();
+		currentSchoolID = u.getSchoolID();
+	}
+	
+	
+	public static int getLoggedInUserRole() {
+		if (loggedInUser.isAdministrator()) {
+			return Constants.ADMINISTRATOR_VALUE;
+		} else if (loggedInUser.isTeacher()) {
+			return Constants.TEACHER_VALUE;
+		} else if (loggedInUser.isStudent()) {
+			return Constants.STUDENT_VALUE;
+		}
+		return -1;
+	}
+	
+	
+	public static void logOutUser() {
+		loggedInUserID = -1;
+		currentSchoolID = -1;
 	}
 
 

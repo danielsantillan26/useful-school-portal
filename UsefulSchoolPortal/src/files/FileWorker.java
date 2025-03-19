@@ -37,8 +37,7 @@ public class FileWorker {
 
 	public static boolean writeSchool(School s){
 		try {
-			ArrayList<String> contents = readFile();
-			System.out.println(contents.size());
+			ArrayList<String> contents = readFile(schoolList);
 
 			FileWriter writer = new FileWriter(schoolList, false);
 			BufferedWriter bWriter = new BufferedWriter(writer);
@@ -50,7 +49,6 @@ public class FileWorker {
 			bWriter.write(s.getName() + "," + s.getSchoolID());
 			bWriter.close();
 			
-			makeSchoolFiles(s);
 			return true;
 
 		} catch (Exception e) {
@@ -59,11 +57,11 @@ public class FileWorker {
 	}
 
 
-	private static ArrayList<String> readFile() {
+	private static ArrayList<String> readFile(File f) {
 		ArrayList<String> contents = new ArrayList<String>();
 
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(schoolList));
+			BufferedReader reader = new BufferedReader(new FileReader(f));
 			String line;
 			while ((line = reader.readLine()) != null) {
 				contents.add(line);
@@ -74,22 +72,6 @@ public class FileWorker {
 		}
 
 		return contents;
-	}
-
-
-	private static void makeSchoolFiles(School s) {
-		String schoolUsersFilename = "SchoolUsers_" + s.getSchoolID() + ".csv";
-		String schoolClassesFilename = "SchoolClasses_" + s.getSchoolID() + ".csv";
-
-		File schoolUsers = new File(schoolUsersFilename);
-		File schoolClasses = new File(schoolClassesFilename);
-
-		try {
-			schoolUsers.createNewFile();
-			schoolClasses.createNewFile();
-		} catch (Exception e) {
-
-		}
 	}
 
 }
