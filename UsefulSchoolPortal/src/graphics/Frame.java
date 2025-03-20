@@ -304,23 +304,38 @@ public class Frame extends JFrame {
 					cl.previous(container);
 					cl.previous(container);
 				} else if (e.getSource() == buttonPanelAdminHomepageManageSchedule) {
-					
+					cl.next(container);
 				} else if (e.getSource() == buttonPanelAdminHomepageAddUsers) {
-					
+					cl.next(container);
+					cl.next(container);
 				} else if (e.getSource() == buttonPanelAdminHomepageAddClasses) {
-					
+					cl.next(container);
+					cl.next(container);
+					cl.next(container);
 				} else if (e.getSource() == buttonPanelAdminHomepageDeleteUsers) {
-					
+					for (int i = 0 ; i < 4; i++) {
+						cl.next(container);
+					}
 				} else if (e.getSource() == buttonPanelAdminHomepageDeleteClasses) {
-					
+					for (int i = 0 ; i < 5; i++) {
+						cl.next(container);
+					}
 				} else if (e.getSource() == buttonPanelAdminHomepageManageTeachers) {
-					
+					for (int i = 0 ; i < 6; i++) {
+						cl.next(container);
+					}
 				} else if (e.getSource() == buttonPanelAdminHomepageManageStudents) {
-					
+					for (int i = 0 ; i < 7; i++) {
+						cl.next(container);
+					}
 				} else if (e.getSource() == buttonPanelAdminHomepageManageClasses) {
-					
+					for (int i = 0 ; i < 8; i++) {
+						cl.next(container);
+					}
 				} else if (e.getSource() == buttonPanelAdminHomepageEditProfile) {
-					
+					for (int i = 0 ; i < 9; i++) {
+						cl.next(container);
+					}
 				} else if (e.getSource() == buttonPanelAdminHomepageLogOut) {
 					cl.first(container);
 					FileManagement.logOutUser();
