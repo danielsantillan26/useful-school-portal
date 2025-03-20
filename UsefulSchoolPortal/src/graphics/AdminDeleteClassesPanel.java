@@ -1,5 +1,9 @@
 package graphics;
 
-public class AdminDeleteClassesPanel {
+import javax.swing.JPanel;
 
+public class AdminDeleteClassesPanel extends JPanel {
+
+	private static final long serialVersionUID = 1L;
+	
 }

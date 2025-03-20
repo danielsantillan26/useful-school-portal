@@ -2,7 +2,7 @@ package graphics;
 
 import javax.swing.JPanel;
 
-public class AdminManageSchedulePanel extends JPanel {
+public class AdminManageClassesPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	

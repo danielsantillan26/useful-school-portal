@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -43,6 +44,15 @@ public class AdminAddUsersPanel extends JPanel {
 		JPanel centerPanel = new JPanel(sl);
 		
 		centerPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
+		
+		JLabel enterRole = new JLabel("Enter Role:");
+		enterRole.setFont(GraphicsConstants.FONT_ROBOTO_B50);
+
+		JComboBox<String> givenRole = new JComboBox<String>();
+		givenRole.addItem("Administrator");
+		givenRole.addItem("Teacher");
+		givenRole.addItem("Student");
+		givenRole.setFont(GraphicsConstants.FONT_ROBOTO_B30);
 		
 		JLabel enterUsername = new JLabel("Enter Username:");
 		enterUsername.setFont(GraphicsConstants.FONT_ROBOTO_B50);
@@ -105,6 +115,44 @@ public class AdminAddUsersPanel extends JPanel {
 		};
 		
 		showHidePassword.addActionListener(al);
+		
+		centerPanel.add(enterRole);
+		centerPanel.add(givenRole);
+		centerPanel.add(enterUsername);
+		centerPanel.add(givenUsername);
+		centerPanel.add(enterFirstName);
+		centerPanel.add(givenFirstName);
+		centerPanel.add(enterLastName);
+		centerPanel.add(givenLastName);
+		centerPanel.add(enterPassword);
+		centerPanel.add(givenPassword);
+		centerPanel.add(visiblePassword);
+		centerPanel.add(showHidePassword);
+		
+		sl.putConstraint(SpringLayout.WEST, enterRole, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, enterRole, 100, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, givenRole, 150, SpringLayout.EAST, enterRole);
+		sl.putConstraint(SpringLayout.NORTH, givenRole, 100, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, enterUsername, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, enterUsername, 300, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, givenUsername, 150, SpringLayout.EAST, enterUsername);
+		sl.putConstraint(SpringLayout.NORTH, givenUsername, 300, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, enterFirstName, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, enterFirstName, 450, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, givenFirstName, 150, SpringLayout.EAST, enterFirstName);
+		sl.putConstraint(SpringLayout.NORTH, givenFirstName, 450, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, enterLastName, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, enterLastName, 600, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, givenLastName, 150, SpringLayout.EAST, enterLastName);
+		sl.putConstraint(SpringLayout.NORTH, givenLastName, 600, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, enterPassword, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, enterPassword, 750, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, givenPassword, 150, SpringLayout.EAST, enterPassword);
+		sl.putConstraint(SpringLayout.NORTH, givenPassword, 750, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, visiblePassword, 0, SpringLayout.WEST, givenPassword);
+		sl.putConstraint(SpringLayout.NORTH, visiblePassword, 850, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, showHidePassword, 610, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, showHidePassword, 900, SpringLayout.NORTH, centerPanel);
 	}
 	
 }

@@ -48,6 +48,16 @@ public class Frame extends JFrame {
 		RegisterPanel panelRegister = new RegisterPanel();
 		LoginPanel panelLogin = new LoginPanel();
 		AdminHomepagePanel panelAdminHomepage = new AdminHomepagePanel();
+		AdminManageSchedulePanel panelAdminManageSchedule = new AdminManageSchedulePanel();
+		AdminAddUsersPanel panelAdminAddUsers = new AdminAddUsersPanel();
+		AdminAddClassesPanel panelAdminAddClasses = new AdminAddClassesPanel();
+		AdminDeleteUsersPanel panelAdminDeleteUsers = new AdminDeleteUsersPanel();
+		AdminDeleteClassesPanel panelAdminDeleteClasses = new AdminDeleteClassesPanel();
+		AdminManageTeachersPanel panelAdminManageTeachers = new AdminManageTeachersPanel();
+		AdminManageStudentsPanel panelAdminManageStudents = new AdminManageStudentsPanel();
+		AdminManageClassesPanel panelAdminManageClasses = new AdminManageClassesPanel();
+		AdminEditProfilePanel panelAdminEditProfile = new AdminEditProfilePanel();
+		
 
 		JButton buttonPanelIntroRegister = new JButton("Register");
 		buttonPanelIntroRegister.setBackground(GraphicsConstants.COLOR_BG_HEADER);
@@ -344,6 +354,15 @@ public class Frame extends JFrame {
 		container.add(panelRegister);
 		container.add(panelLogin);
 		container.add(panelAdminHomepage);
+		container.add(panelAdminManageSchedule);
+		container.add(panelAdminAddUsers);
+		container.add(panelAdminAddClasses);
+		container.add(panelAdminDeleteUsers);
+		container.add(panelAdminDeleteClasses);
+		container.add(panelAdminManageTeachers);
+		container.add(panelAdminManageStudents);
+		container.add(panelAdminManageClasses);
+		container.add(panelAdminEditProfile);
 	}
 
 }
