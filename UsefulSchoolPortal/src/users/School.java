@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+import files.FileManagement;
 import files.FileWorker;
 
 public class School {
@@ -38,10 +39,14 @@ public class School {
 				BufferedWriter bWriter = new BufferedWriter(writer);
 				bWriter.write("Username,First Name,Last Name, Role,User ID,Password");
 				bWriter.close();
+			} else {
+				addExistingUsers();
 			}
 
 			if (!classList.exists()) {
 				classList.createNewFile();
+			} else {
+				
 			}
 		} catch (Exception e) {
 
@@ -49,7 +54,7 @@ public class School {
 	}
 
 
-	public boolean addAdminstrator(Administrator a) {
+	public boolean addAdministrator(Administrator a) {
 		try {
 			admins.add(a);
 			writeInUser(a, "Administrator");
@@ -84,9 +89,9 @@ public class School {
 
 	private void writeInUser(User u, String role) {
 		try {
+			ArrayList<String> contents = FileWorker.readFile(userList);
 			FileWriter writer = new FileWriter(userList, false);
 			BufferedWriter bWriter = new BufferedWriter(writer);
-			ArrayList<String> contents = FileWorker.readFile(userList);
 
 			for (int i = 0; i < contents.size(); i++) {
 				bWriter.write(contents.get(i) + "\n");
@@ -94,9 +99,45 @@ public class School {
 
 			bWriter.write(u.getUsername() + "," + u.getFirstName() + "," + u.getLastName()
 			+ "," + role + "," + u.getId() + "," + u.getPassword());
-			writer.close();
+			bWriter.close();
 		} catch (Exception e) {
 
+		}
+	}
+	
+
+	private void addExistingUsers() {
+		ArrayList<String> contents = FileWorker.readFile(userList);
+		for (int i = 1; i < contents.size(); i++) {
+			String x = contents.get(i);
+			String username = x.substring(0, x.indexOf(","));
+			x = x.substring(x.indexOf(",") + 1);
+			String firstName = x.substring(0, x.indexOf(","));
+			x = x.substring(x.indexOf(",") + 1);
+			String lastName = x.substring(0, x.indexOf(","));
+			x = x.substring(x.indexOf(",") + 1);
+			String role = x.substring(0, x.indexOf(","));
+			x = x.substring(x.indexOf(",") + 1);
+			int id = Integer.parseInt(x.substring(0, x.indexOf(",")));
+			x = x.substring(x.indexOf(",") + 1);
+			String password = x;
+			
+			if (role.equals("Administrator")) {
+				Administrator a = new Administrator(username, firstName, lastName,
+						password, id, this.schoolID);
+				admins.add(a);
+				FileManagement.addAdministratorToList(a);
+			} else if (role.equals("Teacher")) {
+				Teacher t = new Teacher(username, firstName, lastName,
+						password, id, this.schoolID);
+				teachers.add(t);
+				FileManagement.addTeacherToList(t);
+			} else {
+				Student s = new Student(username, firstName, lastName,
+						password, id, this.schoolID);
+				students.add(s);
+				FileManagement.addStudentToList(s);
+			}
 		}
 	}
 

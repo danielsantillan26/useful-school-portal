@@ -3,6 +3,7 @@ package graphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Label;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -10,11 +11,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
+import files.FileManagement;
+
 public class AdminHomepagePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel centerPanel;
 	private SpringLayout sl;
+	private JLabel welcome;
 
 	public AdminHomepagePanel() {
 		setLayout(new BorderLayout());
@@ -41,12 +45,11 @@ public class AdminHomepagePanel extends JPanel {
 
 		centerPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
 
-		//TODO: I need to get the username
-		JLabel welcome = new JLabel("Welcome, USER!");
+		welcome = new JLabel();
 		welcome.setFont(GraphicsConstants.FONT_ROBOTO_B50);
 
 		centerPanel.add(welcome);
-		sl.putConstraint(SpringLayout.WEST, welcome, 650, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, welcome, 350, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, welcome, 50, SpringLayout.NORTH, centerPanel);
 
 		add(centerPanel, BorderLayout.CENTER);
@@ -91,6 +94,13 @@ public class AdminHomepagePanel extends JPanel {
 		southPanel.add(logOut);
 		add(southPanel, BorderLayout.SOUTH);
 
+	}
+	
+	
+	public void updateUsername() {
+		String welcomeText = "Welcome, " + FileManagement.getLoggedInUserName() + "!";
+		welcome.setText(welcomeText);
+		repaint();
 	}
 
 }

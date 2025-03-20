@@ -26,7 +26,6 @@ public class RegisterPanel extends JPanel {
 	private JTextField givenLastName;
 	private boolean isPasswordShown;
 	private JPasswordField givenPassword;
-	private JLabel failed;
 	
 	
 	public RegisterPanel() {
@@ -123,10 +122,6 @@ public class RegisterPanel extends JPanel {
 		
 		showHidePassword.addActionListener(al);
 		
-		failed = new JLabel();
-		failed.setFont(GraphicsConstants.FONT_ROBOTO_B50);
-		// TODO: Use the failed part when you get to handling the school information.
-		
 		centerPanel.add(enterSchoolName);
 		centerPanel.add(givenSchoolName);
 		centerPanel.add(enterUsername);
@@ -137,7 +132,6 @@ public class RegisterPanel extends JPanel {
 		centerPanel.add(givenLastName);
 		centerPanel.add(enterPassword);
 		centerPanel.add(givenPassword);
-		//centerPanel.add(failed);
 		centerPanel.add(showHidePassword);
 		centerPanel.add(visiblePassword);
 
@@ -161,8 +155,6 @@ public class RegisterPanel extends JPanel {
 		sl.putConstraint(SpringLayout.NORTH, enterPassword, 450, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, givenPassword, 150, SpringLayout.EAST, enterPassword);
 		sl.putConstraint(SpringLayout.NORTH, givenPassword, 450, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, failed, 100, SpringLayout.WEST, centerPanel);
-		sl.putConstraint(SpringLayout.NORTH, failed, 500, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, showHidePassword, 625, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, showHidePassword, 600, SpringLayout.NORTH,centerPanel);
 		sl.putConstraint(SpringLayout.WEST, visiblePassword, 0, SpringLayout.WEST, givenPassword);
@@ -186,7 +178,6 @@ public class RegisterPanel extends JPanel {
 	
 	public boolean isPasswordValid() {
 		String password = String.valueOf(givenPassword.getPassword());
-		failed.setText("");
 		
 		if (!password.strip().equals(password)) {
 			return false;
@@ -254,6 +245,15 @@ public class RegisterPanel extends JPanel {
 		} else {
 			return GraphicsConstants.DELIMITER_FAILURE;
 		}
+	}
+	
+	
+	public void clearText() {
+		givenSchoolName.setText("");
+		givenUsername.setText("");
+		givenFirstName.setText("");
+		givenLastName.setText("");
+		givenPassword.setText("");
 	}
 	
 }

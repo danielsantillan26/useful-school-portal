@@ -36,7 +36,20 @@ public class FileManagement {
 
 
 	public static void setup() {
-	
+		ArrayList<String> contents = FileWorker.readSchoolFile();
+		
+		ArrayList<String> schoolNames = new ArrayList<String>();
+		ArrayList<Integer> schoolIDs = new ArrayList<Integer>();
+		
+		for (int i = 1; i < contents.size(); i++) {
+			schoolNames.add(contents.get(i).substring(0, contents.get(i).indexOf(',')));
+			schoolIDs.add(Integer.parseInt(contents.get(i).substring(contents.get(i).indexOf(',') + 1)));
+		}
+		
+		for (int j = 0; j < schoolNames.size(); j++) {
+			schools.add(new School(schoolNames.get(j), schoolIDs.get(j)));
+		}
+		
 	}
 	
 
@@ -54,6 +67,13 @@ public class FileManagement {
 		try {
 			users.add(a);
 			setLoggedInUser(a);
+			
+			for (School s: schools) {
+				if (s.getSchoolID() == currentSchoolID) {
+					s.addAdministrator(a);
+				}
+			}
+			
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -64,7 +84,14 @@ public class FileManagement {
 	public static boolean addNewAdministrator(String username, String
 			firstName, String lastName, String password) {
 		try {
-			users.add(new Administrator(username, firstName, lastName, password, currentSchoolID));
+			Administrator a = new Administrator(username, firstName, lastName, password, currentSchoolID);
+			users.add(a);
+			
+			for (School s: schools) {
+				if (s.getSchoolID() == currentSchoolID) {
+					s.addAdministrator(a);
+				}
+			}
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -75,7 +102,14 @@ public class FileManagement {
 	public static boolean addNewTeacher(String username, String
 			firstName, String lastName, String password) {
 		try {
-			users.add(new Teacher(username, firstName, lastName, password, currentSchoolID));
+			Teacher t = new Teacher(username, firstName, lastName, password, currentSchoolID);
+			users.add(t);
+			
+			for (School s: schools) {
+				if (s.getSchoolID() == currentSchoolID) {
+					s.addTeacher(t);
+				}
+			}
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -86,7 +120,14 @@ public class FileManagement {
 	public static boolean addNewStudent(String username, String
 			firstName, String lastName, String password) {
 		try {
-			users.add(new Student(username, firstName, lastName, password, currentSchoolID));
+			Student s = new Student(username, firstName, lastName, password, currentSchoolID);
+			users.add(s);
+			
+			for (School sc: schools) {
+				if (sc.getSchoolID() == currentSchoolID) {
+					sc.addStudent(s);
+				}
+			}
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -98,6 +139,36 @@ public class FileManagement {
 		try {
 			schools.add(s);
 			FileWorker.writeSchool(s);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	
+	public static boolean addAdministratorToList(Administrator a) {
+		try {
+			users.add(a);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	
+	public static boolean addTeacherToList(Teacher t) {
+		try {
+			users.add(t);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	
+	public static boolean addStudentToList(Student s) {
+		try {
+			users.add(s);
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -132,6 +203,14 @@ public class FileManagement {
 			return Constants.STUDENT_VALUE;
 		}
 		return -1;
+	}
+	
+	
+	public static String getLoggedInUserName() {
+		if (loggedInUser == null) {
+			return ("User");
+		}
+		return loggedInUser.getFirstName() + " " + loggedInUser.getLastName();
 	}
 	
 	

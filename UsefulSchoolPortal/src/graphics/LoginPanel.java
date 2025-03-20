@@ -145,4 +145,10 @@ public class LoginPanel extends JPanel {
 		return String.valueOf(givenPassword.getPassword());
 	}
 	
+	
+	public void clearText() {
+		givenUsername.setText("");
+		givenPassword.setText("");
+	}
+	
 }

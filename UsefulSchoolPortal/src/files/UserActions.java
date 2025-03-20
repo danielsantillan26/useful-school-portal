@@ -9,9 +9,10 @@ public class UserActions {
 			String adminLastName, String adminPassword) {
 		try {
 			int schoolID = (int)(Math.random()*100000);
-			if (FileManagement.addNewSchoolAdministrator(new Administrator(adminUsername,
+			if (FileManagement.addSchool(new School(schoolName, schoolID)) &&
+					FileManagement.addNewSchoolAdministrator(new Administrator(adminUsername,
 					adminFirstName, adminLastName, adminPassword,
-					schoolID)) & FileManagement.addSchool(new School(schoolName, schoolID))) {
+					schoolID))) {
 				return true;
 			} else {
 				return false;

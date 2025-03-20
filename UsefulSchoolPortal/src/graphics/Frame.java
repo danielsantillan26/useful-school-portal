@@ -258,6 +258,7 @@ public class Frame extends JFrame {
 						return;
 					}
 
+					panelRegister.clearText();
 					UserActions.addSchoolAndAdministrator(givenSchoolName, 
 							givenUsername, givenFirstName, givenLastName, givenPassword);
 
@@ -275,8 +276,11 @@ public class Frame extends JFrame {
 					String password = panelLogin.getPassword();
 
 					if (FileManagement.login(username, password)) {
+						panelLogin.clearText();
 						switch (FileManagement.getLoggedInUserRole()) {
 						case Constants.ADMINISTRATOR_VALUE:
+							cl.next(container);
+							panelAdminHomepage.updateUsername();
 							break;
 						case Constants.TEACHER_VALUE:
 							break;
@@ -289,8 +293,31 @@ public class Frame extends JFrame {
 					cl.previous(container);
 					cl.previous(container);
 					cl.previous(container);
+				} else if (e.getSource() == buttonPanelAdminHomepageManageSchedule) {
+					
+				} else if (e.getSource() == buttonPanelAdminHomepageAddUsers) {
+					
+				} else if (e.getSource() == buttonPanelAdminHomepageAddClasses) {
+					
+				} else if (e.getSource() == buttonPanelAdminHomepageDeleteUsers) {
+					
+				} else if (e.getSource() == buttonPanelAdminHomepageDeleteClasses) {
+					
+				} else if (e.getSource() == buttonPanelAdminHomepageManageTeachers) {
+					
+				} else if (e.getSource() == buttonPanelAdminHomepageManageStudents) {
+					
+				} else if (e.getSource() == buttonPanelAdminHomepageManageClasses) {
+					
+				} else if (e.getSource() == buttonPanelAdminHomepageEditProfile) {
+					
+				} else if (e.getSource() == buttonPanelAdminHomepageLogOut) {
+					cl.first(container);
+					FileManagement.logOutUser();
 				}
-			}
+				
+				
+			} 
 
 		};
 
@@ -302,6 +329,15 @@ public class Frame extends JFrame {
 		buttonPanelRegisterReturn.addActionListener(al);
 		buttonPanelLoginLogin.addActionListener(al);
 		buttonPanelLoginReturn.addActionListener(al);
+		buttonPanelAdminHomepageManageSchedule.addActionListener(al);
+		buttonPanelAdminHomepageAddUsers.addActionListener(al);
+		buttonPanelAdminHomepageAddClasses.addActionListener(al);
+		buttonPanelAdminHomepageDeleteUsers.addActionListener(al);
+		buttonPanelAdminHomepageDeleteClasses.addActionListener(al);
+		buttonPanelAdminHomepageManageTeachers.addActionListener(al);
+		buttonPanelAdminHomepageManageClasses.addActionListener(al);
+		buttonPanelAdminHomepageEditProfile.addActionListener(al);
+		buttonPanelAdminHomepageLogOut.addActionListener(al);
 
 		container.add(panelIntro);
 		container.add(panelToC);

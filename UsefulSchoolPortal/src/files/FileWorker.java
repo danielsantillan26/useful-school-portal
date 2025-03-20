@@ -73,5 +73,23 @@ public class FileWorker {
 
 		return contents;
 	}
+	
+	
+	public static ArrayList<String> readSchoolFile() {
+			ArrayList<String> contents = new ArrayList<String>();
+	
+			try {
+				BufferedReader reader = new BufferedReader(new FileReader(schoolList));
+				String line;
+				while ((line = reader.readLine()) != null) {
+					contents.add(line);
+				}
+				reader.close();
+			} catch (Exception e) {
+	
+			}
+	
+			return contents;
+	}
 
 }
