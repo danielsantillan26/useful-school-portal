@@ -1,6 +1,11 @@
-package helpermethods;
+package graphics;
 
-public class Helpers {
+import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.JButton;
+
+public class GraphicsHelpers {
 
 	public static boolean isPasswordValid(String password) {
 		if (!password.strip().equals(password)) {
@@ -39,6 +44,14 @@ public class Helpers {
 		}
 		
 		return true;
+	}
+	
+	
+	public static void modifyButton(JButton button, int width, int height) {
+		button.setBackground(GraphicsConstants.COLOR_BG_HEADER);
+		button.setForeground(Color.WHITE);
+		button.setPreferredSize(new Dimension(width, height));
+		button.setFont(GraphicsConstants.FONT_BUTTON);
 	}
 	
 }

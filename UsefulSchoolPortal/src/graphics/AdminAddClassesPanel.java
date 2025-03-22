@@ -10,6 +10,8 @@ public class AdminAddClassesPanel extends JPanel {
 	
 	public AdminAddClassesPanel() {
 		setLayout(new BorderLayout());
+		prepareNorthPanel();
+		prepareCenterPanel();
 	}
 	
 	

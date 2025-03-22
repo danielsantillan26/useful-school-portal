@@ -68,10 +68,7 @@ public class LoginPanel extends JPanel {
 		isPasswordShown = false;
 		
 		JButton showHidePassword = new JButton("Show/Hide Password");
-		showHidePassword.setPreferredSize(new Dimension(500, 45));
-		showHidePassword.setBackground(GraphicsConstants.COLOR_BG_HEADER);
-		showHidePassword.setForeground(Color.WHITE);
-		showHidePassword.setFont(GraphicsConstants.FONT_BUTTON);
+		GraphicsHelpers.modifyButton(showHidePassword, 500, 45);
 		
 		ActionListener al = new ActionListener() {
 
@@ -93,17 +90,12 @@ public class LoginPanel extends JPanel {
 		
 		showHidePassword.addActionListener(al);
 		
-		JLabel failed = new JLabel();
-		failed.setFont(GraphicsConstants.FONT_ROBOTO_B30);
-		failed.setForeground(Color.RED);
-		
 		centerPanel.add(enterUsername);
 		centerPanel.add(givenUsername);
 		centerPanel.add(enterPassword);
 		centerPanel.add(givenPassword);
 		centerPanel.add(visiblePassword);
 		centerPanel.add(showHidePassword);
-		centerPanel.add(failed);
 		
 		sl.putConstraint(SpringLayout.WEST, enterUsername, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, enterUsername, 100, SpringLayout.NORTH, centerPanel);
@@ -117,8 +109,6 @@ public class LoginPanel extends JPanel {
 		sl.putConstraint(SpringLayout.NORTH, visiblePassword, 400, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, showHidePassword, 610, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, showHidePassword, 500, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, failed, 150, SpringLayout.WEST, centerPanel);
-		sl.putConstraint(SpringLayout.NORTH, failed, 420, SpringLayout.NORTH, centerPanel);
 		
 		add(centerPanel, BorderLayout.CENTER);
 		

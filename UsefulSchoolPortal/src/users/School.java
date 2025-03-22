@@ -150,5 +150,24 @@ public class School {
 	public int getSchoolID() {
 		return schoolID;
 	}
+	
+	
+	public ArrayList<String> getUserNames() {
+		ArrayList<String> names = new ArrayList<String>();
+		
+		for (Administrator a : admins) {
+			names.add(a.getFirstName() + " " + a.getLastName() + ", Administrator");
+		}
+		
+		for (Teacher t : teachers) {
+			names.add(t.getFirstName() + " " + t.getLastName() + ", Teacher");
+		}
+		
+		for (Student s : students) {
+			names.add(s.getFirstName() + " " + s.getLastName() + ", Student");
+		}
+		
+		return names;
+	}
 
 }

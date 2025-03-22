@@ -99,6 +99,25 @@ public class FileManagement {
 	}
 	
 	
+	public static boolean addSchoolAndAdministrator(String schoolName, 
+			String adminUsername, String adminFirstName,
+			String adminLastName, String adminPassword) {
+		try {
+			int schoolID = (int)(Math.random()*100000);
+			if (addSchool(new School(schoolName, schoolID)) &&
+					addNewSchoolAdministrator(new Administrator(adminUsername,
+					adminFirstName, adminLastName, adminPassword,
+					schoolID))) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	
 	public static boolean addNewTeacher(String username, String
 			firstName, String lastName, String password) {
 		try {
@@ -217,6 +236,16 @@ public class FileManagement {
 	public static void logOutUser() {
 		loggedInUserID = -1;
 		currentSchoolID = -1;
+	}
+	
+	
+	public static ArrayList<String> getCurrentSchoolUserNames() {
+		for (School s : schools) {
+			if (s.getSchoolID() == currentSchoolID) {
+				return s.getUserNames();
+			}
+		}
+		return null;
 	}
 
 

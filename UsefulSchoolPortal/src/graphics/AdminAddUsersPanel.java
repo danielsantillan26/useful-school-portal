@@ -1,7 +1,6 @@
 package graphics;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,8 +15,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
-import files.UserActions;
-import helpermethods.Helpers;
+import files.FileManagement;
 
 public class AdminAddUsersPanel extends JPanel {
 
@@ -26,11 +24,11 @@ public class AdminAddUsersPanel extends JPanel {
 
 	public AdminAddUsersPanel() {
 		setLayout(new BorderLayout());
-		addNorthPanel();
+		prepareNorthPanel();
 		prepareCenterPanel();
 	}
 
-	private void addNorthPanel() {
+	private void prepareNorthPanel() {
 		JPanel northPanel = new JPanel();
 		northPanel.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		northPanel.setPreferredSize(new Dimension(getWidth(), 75));
@@ -94,16 +92,10 @@ public class AdminAddUsersPanel extends JPanel {
 		isPasswordShown = false;
 
 		JButton showHidePassword = new JButton("Show/Hide Password");
-		showHidePassword.setPreferredSize(new Dimension(500, 45));
-		showHidePassword.setBackground(GraphicsConstants.COLOR_BG_HEADER);
-		showHidePassword.setForeground(Color.WHITE);
-		showHidePassword.setFont(GraphicsConstants.FONT_BUTTON);
+		GraphicsHelpers.modifyButton(showHidePassword, 500, 45);
 
 		JButton createAccount = new JButton("Create Account");
-		createAccount.setPreferredSize(new Dimension(500, 45));
-		createAccount.setBackground(GraphicsConstants.COLOR_BG_HEADER);
-		createAccount.setForeground(Color.WHITE);
-		createAccount.setFont(GraphicsConstants.FONT_BUTTON);
+		GraphicsHelpers.modifyButton(createAccount, 500, 45);
 
 		ActionListener al = new ActionListener() {
 
@@ -170,7 +162,7 @@ public class AdminAddUsersPanel extends JPanel {
 					}
 
 					
-					if (!Helpers.isPasswordValid(password)) {
+					if (!GraphicsHelpers.isPasswordValid(password)) {
 						JOptionPane.showMessageDialog(centerPanel, "Password must\n"
 								+ "- Be between 10 and 50 characters\n" +
 								"- Have no spaces\n" +
@@ -181,13 +173,13 @@ public class AdminAddUsersPanel extends JPanel {
 					
 					switch (givenRole.getSelectedIndex()) {
 					case 0:
-						UserActions.addAdministrator(username, firstName, lastName, password);
+						FileManagement.addNewAdministrator(username, firstName, lastName, password);
 						break;
 					case 1:
-						UserActions.addTeacher(username, firstName, lastName, password);
+						FileManagement.addNewTeacher(username, firstName, lastName, password);
 						break;
 					case 2:
-						UserActions.addStudent(username, firstName, lastName, password);
+						FileManagement.addNewStudent(username, firstName, lastName, password);
 						break;
 					}
 				}
@@ -240,6 +232,14 @@ public class AdminAddUsersPanel extends JPanel {
 		sl.putConstraint(SpringLayout.NORTH, createAccount, 850, SpringLayout.NORTH, centerPanel);
 
 		add(centerPanel, BorderLayout.CENTER);
+	}
+	
+	
+	public void addChangePageButtons(JButton goHome) {
+		JPanel southPanel = new JPanel();
+		southPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
+		southPanel.add(goHome);
+		add(southPanel, BorderLayout.SOUTH);
 	}
 
 }

@@ -1,7 +1,6 @@
 package graphics;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,8 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
-
-import helpermethods.Helpers;
 
 public class RegisterPanel extends JPanel {
 
@@ -99,10 +96,7 @@ public class RegisterPanel extends JPanel {
 		isPasswordShown = false;
 		
 		JButton showHidePassword = new JButton("Show/Hide Password");
-		showHidePassword.setPreferredSize(new Dimension(500, 45));
-		showHidePassword.setBackground(GraphicsConstants.COLOR_BG_HEADER);
-		showHidePassword.setForeground(Color.WHITE);
-		showHidePassword.setFont(GraphicsConstants.FONT_BUTTON);
+		GraphicsHelpers.modifyButton(showHidePassword, 500, 45);
 		
 		ActionListener al = new ActionListener() {
 
@@ -201,7 +195,7 @@ public class RegisterPanel extends JPanel {
 	
 	public String getPassword() {
 		String password = String.valueOf(givenPassword.getPassword());
-		if (Helpers.isPasswordValid(password)) {
+		if (GraphicsHelpers.isPasswordValid(password)) {
 			return password;
 		} else {
 			return GraphicsConstants.DELIMITER_FAILURE;
