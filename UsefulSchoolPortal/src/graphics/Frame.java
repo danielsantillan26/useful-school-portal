@@ -278,28 +278,28 @@ public class Frame extends JFrame {
 					cl.next(container);
 					cl.next(container);
 				} else if (e.getSource() == buttonPanelAdminHomepageDeleteUsers) {
-					for (int i = 0 ; i < 4; i++) {
+					for (int i = 0; i < 4; i++) {
 						cl.next(container);
 					}
 					panelAdminDeleteUsers.refreshComboBox();
 				} else if (e.getSource() == buttonPanelAdminHomepageDeleteClasses) {
-					for (int i = 0 ; i < 5; i++) {
+					for (int i = 0; i < 5; i++) {
 						cl.next(container);
 					}
 				} else if (e.getSource() == buttonPanelAdminHomepageManageTeachers) {
-					for (int i = 0 ; i < 6; i++) {
+					for (int i = 0; i < 6; i++) {
 						cl.next(container);
 					}
 				} else if (e.getSource() == buttonPanelAdminHomepageManageStudents) {
-					for (int i = 0 ; i < 7; i++) {
+					for (int i = 0; i < 7; i++) {
 						cl.next(container);
 					}
 				} else if (e.getSource() == buttonPanelAdminHomepageManageClasses) {
-					for (int i = 0 ; i < 8; i++) {
+					for (int i = 0; i < 8; i++) {
 						cl.next(container);
 					}
 				} else if (e.getSource() == buttonPanelAdminHomepageEditProfile) {
-					for (int i = 0 ; i < 9; i++) {
+					for (int i = 0; i < 9; i++) {
 						cl.next(container);
 					}
 				} else if (e.getSource() == buttonPanelAdminHomepageLogOut) {
@@ -309,8 +309,8 @@ public class Frame extends JFrame {
 					cl.previous(container);
 					cl.previous(container);
 				} else if (e.getSource() == buttonPanelAdminDeleteUsersReturn) {
-					for (int i = 0 ; i < 4; i++) {
-						cl.next(container);
+					for (int i = 0; i < 4; i++) {
+						cl.previous(container);
 					}
 				}
 				

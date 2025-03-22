@@ -1,7 +1,6 @@
 package graphics;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,11 +14,13 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
 import files.FileManagement;
+import users.User;
 
 public class AdminDeleteUsersPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JComboBox<String> userList;
+	private ArrayList<User> users;
 
 
 	public AdminDeleteUsersPanel() {
@@ -59,12 +60,24 @@ public class AdminDeleteUsersPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				int index = userList.getSelectedIndex();
+				FileManagement.deleteUser(users.get(index).getId());
+				refreshComboBox();
 			}
-			
+
 		});
-		
+
+		centerPanel.add(selectUser);
+		centerPanel.add(userList);
+		centerPanel.add(deleteUser);
+
+		sl.putConstraint(SpringLayout.WEST, selectUser, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, selectUser, 100, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, userList, 100, SpringLayout.EAST, selectUser);
+		sl.putConstraint(SpringLayout.NORTH, userList, 100, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, deleteUser, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, deleteUser, 300, SpringLayout.NORTH, centerPanel);
+
 		add(centerPanel, BorderLayout.CENTER);
 	}
 
@@ -75,14 +88,24 @@ public class AdminDeleteUsersPanel extends JPanel {
 		southPanel.add(goHome);
 		add(southPanel, BorderLayout.SOUTH);
 	}
-	
-	
+
+
 	public void refreshComboBox() {
-		ArrayList<String> users = FileManagement.getCurrentSchoolUserNames();
+		userList.removeAllItems();
+		users = FileManagement.getCurrentSchoolUsers();
+
 
 		if (users != null) {
-			for (String s : users) {
-				userList.addItem(s);
+			for (User u : users) {
+				if (u.getId() != FileManagement.getLoggedInUser().getId()) {
+					if (u.isAdministrator()) {
+						userList.addItem(u.getFirstName() + " " + u.getLastName() + ", Administrator");
+					} else if (u.isTeacher()) {
+						userList.addItem(u.getFirstName() + " " + u.getLastName() + ", Teacher");
+					} else if (u.isStudent()) {
+						userList.addItem(u.getFirstName() + " " + u.getLastName() + ", Student");
+					}
+				}
 			}
 		}
 	}

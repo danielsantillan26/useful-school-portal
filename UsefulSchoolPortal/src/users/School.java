@@ -46,7 +46,7 @@ public class School {
 			if (!classList.exists()) {
 				classList.createNewFile();
 			} else {
-				
+
 			}
 		} catch (Exception e) {
 
@@ -74,8 +74,8 @@ public class School {
 			return false;
 		}
 	}
-	
-	
+
+
 	public boolean addStudent(Student s) {
 		try {
 			students.add(s);
@@ -104,7 +104,7 @@ public class School {
 
 		}
 	}
-	
+
 
 	private void addExistingUsers() {
 		ArrayList<String> contents = FileWorker.readFile(userList);
@@ -121,7 +121,7 @@ public class School {
 			int id = Integer.parseInt(x.substring(0, x.indexOf(",")));
 			x = x.substring(x.indexOf(",") + 1);
 			String password = x;
-			
+
 			if (role.equals("Administrator")) {
 				Administrator a = new Administrator(username, firstName, lastName,
 						password, id, this.schoolID);
@@ -142,6 +142,36 @@ public class School {
 	}
 
 
+	public void deleteUser(User u) {
+		if (u.isAdministrator()) {
+			for (int i = 0; i < admins.size(); i++) {
+				if (admins.get(i).getId() == u.getId()) {
+					admins.remove(i);
+				}
+			}
+		} else if (u.isTeacher()) {
+			for (int i = 0; i < teachers.size(); i++) {
+				if (teachers.get(i).getId() == u.getId()) {
+					teachers.remove(i);
+				}
+			}
+		} else if (u.isStudent()) {
+			for (int i = 0; i < students.size(); i++) {
+				if (students.get(i).getId() == u.getId()) {
+					students.remove(i);
+				}
+			}
+		}
+
+		try {
+			FileWorker.removeLine(userList, u.getId());
+		} catch (Exception e) {
+
+		}
+
+	}
+
+
 	public String getName() {
 		return name;
 	}
@@ -150,24 +180,24 @@ public class School {
 	public int getSchoolID() {
 		return schoolID;
 	}
-	
-	
-	public ArrayList<String> getUserNames() {
-		ArrayList<String> names = new ArrayList<String>();
-		
+
+
+	public ArrayList<User> getUsers() {
+		ArrayList<User> users = new ArrayList<User>();
+
 		for (Administrator a : admins) {
-			names.add(a.getFirstName() + " " + a.getLastName() + ", Administrator");
+			users.add(a);
 		}
-		
+
 		for (Teacher t : teachers) {
-			names.add(t.getFirstName() + " " + t.getLastName() + ", Teacher");
+			users.add(t);
 		}
-		
+
 		for (Student s : students) {
-			names.add(s.getFirstName() + " " + s.getLastName() + ", Student");
+			users.add(s);
 		}
-		
-		return names;
+
+		return users;
 	}
 
 }

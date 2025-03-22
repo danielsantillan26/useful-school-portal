@@ -91,5 +91,34 @@ public class FileWorker {
 	
 			return contents;
 	}
+	
+	
+	public static boolean removeLine(File f, int id) {
+		ArrayList<String> contents = readFile(f);
+	
+		int forgetIndex = -1;
+		for (int i = 0; i < contents.size(); i++) {
+			if (contents.get(i).contains(Integer.toString(id))) {
+				forgetIndex = i;
+			}
+		}	
+		
+		try {
+			FileWriter writer = new FileWriter(f, false);
+			BufferedWriter bWriter = new BufferedWriter(writer);
+			
+			for (int i = 0; i < contents.size(); i++) {
+				if (i != forgetIndex) {
+					bWriter.write(contents.get(i) + "\n");
+				}
+			}
+			
+			bWriter.close();
+			
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 }

@@ -182,6 +182,11 @@ public class AdminAddUsersPanel extends JPanel {
 						FileManagement.addNewStudent(username, firstName, lastName, password);
 						break;
 					}
+					
+					givenUsername.setText("");
+					givenFirstName.setText("");
+					givenLastName.setText("");
+					givenPassword.setText("");
 				}
 			}
 

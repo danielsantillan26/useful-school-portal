@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
 import files.FileManagement;
+import users.User;
 
 public class AdminHomepagePanel extends JPanel {
 
@@ -96,7 +97,8 @@ public class AdminHomepagePanel extends JPanel {
 	
 	
 	public void updateUsername() {
-		String welcomeText = "Welcome, " + FileManagement.getLoggedInUserName() + "!";
+		User u = FileManagement.getLoggedInUser();
+		String welcomeText = "Welcome, " + u.getFirstName() + " " + u.getLastName() + "!";
 		welcome.setText(welcomeText);
 		repaint();
 	}
