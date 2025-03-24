@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
-import files.FileManagement;
+import files.DataManagement;
 import users.User;
 
 public class AdminDeleteUsersPanel extends JPanel {
@@ -61,7 +61,7 @@ public class AdminDeleteUsersPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int index = userList.getSelectedIndex();
-				FileManagement.deleteUser(users.get(index).getId());
+				DataManagement.deleteUser(users.get(index).getId());
 				refreshComboBox();
 			}
 
@@ -92,12 +92,12 @@ public class AdminDeleteUsersPanel extends JPanel {
 
 	public void refreshComboBox() {
 		userList.removeAllItems();
-		users = FileManagement.getCurrentSchoolUsers();
+		users = DataManagement.getCurrentSchoolUsers();
 
 
 		if (users != null) {
 			for (User u : users) {
-				if (u.getId() != FileManagement.getLoggedInUser().getId()) {
+				if (u.getId() != DataManagement.getLoggedInUser().getId()) {
 					if (u.isAdministrator()) {
 						userList.addItem(u.getFirstName() + " " + u.getLastName() + ", Administrator");
 					} else if (u.isTeacher()) {

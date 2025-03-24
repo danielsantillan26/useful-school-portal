@@ -9,7 +9,11 @@ public class SchoolClass {
 	private int teacherID;
 	private ArrayList<Integer> studentIDs;
 	private int gradingMethod;
-	private ArrayList<Integer> assignments;
+	private ArrayList<Assignment> assignments;
 	private ArrayList<String> weightCategories;
 	
+	public SchoolClass(String name, int block, int gradingMethod) {
+		
+	}
+		
 }

@@ -1,6 +1,6 @@
 package run;
 
-import files.FileManagement;
+import files.DataManagement;
 import files.FileWorker;
 import graphics.Frame;
 
@@ -26,7 +26,7 @@ public class Run {
 		frame.setVisible(true);
 		
 		FileWorker.makeFile();
-		FileManagement.setup();
+		DataManagement.setup();
 		
 		System.out.println(new Run());
 	}

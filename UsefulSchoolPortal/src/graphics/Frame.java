@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import files.Constants;
-import files.FileManagement;
+import files.DataManagement;
 
 public class Frame extends JFrame {
 
@@ -113,6 +113,9 @@ public class Frame extends JFrame {
 		JButton buttonPanelAdminHomepageLogOut = new JButton("Log Out");
 		GraphicsHelpers.modifyButton(buttonPanelAdminHomepageLogOut, 250, 45);
 		
+		JButton buttonPanelAdminManageScheduleReturn = new JButton("Return");
+		GraphicsHelpers.modifyButton(buttonPanelAdminManageScheduleReturn, 220, 45);
+		
 		JButton buttonPanelAdminAddUsersReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelAdminAddUsersReturn, 220, 45);
 		
@@ -130,6 +133,7 @@ public class Frame extends JFrame {
 				buttonPanelAdminHomepageAddClasses, buttonPanelAdminHomepageDeleteUsers, buttonPanelAdminHomepageDeleteClasses, 
 				buttonPanelAdminHomepageManageTeachers, buttonPanelAdminHomepageManageStudents, buttonPanelAdminHomepageManageClasses, 
 				buttonPanelAdminHomepageEditProfile, buttonPanelAdminHomepageLogOut);
+		panelAdminManageSchedule.addChangePageButtons(buttonPanelAdminManageScheduleReturn);
 		panelAdminAddUsers.addChangePageButtons(buttonPanelAdminAddUsersReturn);
 		panelAdminDeleteUsers.addChangePageButtons(buttonPanelAdminDeleteUsersReturn);
 
@@ -223,7 +227,7 @@ public class Frame extends JFrame {
 					}
 
 					panelRegister.clearText();
-					FileManagement.addSchoolAndAdministrator(givenSchoolName, 
+					DataManagement.addSchoolAndAdministrator(givenSchoolName, 
 							givenUsername, givenFirstName, givenLastName, givenPassword);
 
 					cl.next(container);
@@ -239,9 +243,9 @@ public class Frame extends JFrame {
 					String username = panelLogin.getUsername();
 					String password = panelLogin.getPassword();
 
-					if (FileManagement.login(username, password)) {
+					if (DataManagement.login(username, password)) {
 						panelLogin.clearText();
-						switch (FileManagement.getLoggedInUserRole()) {
+						switch (DataManagement.getLoggedInUserRole()) {
 						case Constants.ADMINISTRATOR_VALUE:
 							cl.next(container);
 							panelAdminHomepage.updateUsername();
@@ -304,8 +308,10 @@ public class Frame extends JFrame {
 					}
 				} else if (e.getSource() == buttonPanelAdminHomepageLogOut) {
 					cl.first(container);
-					FileManagement.logOutUser();
-				} else if (e.getSource() == buttonPanelAdminAddUsersReturn) {
+					DataManagement.logOutUser();
+				} else if (e.getSource() == buttonPanelAdminManageScheduleReturn) {
+					cl.previous(container);
+				} if (e.getSource() == buttonPanelAdminAddUsersReturn) {
 					cl.previous(container);
 					cl.previous(container);
 				} else if (e.getSource() == buttonPanelAdminDeleteUsersReturn) {
@@ -336,6 +342,7 @@ public class Frame extends JFrame {
 		buttonPanelAdminHomepageManageClasses.addActionListener(al);
 		buttonPanelAdminHomepageEditProfile.addActionListener(al);
 		buttonPanelAdminHomepageLogOut.addActionListener(al);
+		buttonPanelAdminManageScheduleReturn.addActionListener(al);
 		buttonPanelAdminAddUsersReturn.addActionListener(al);
 		buttonPanelAdminDeleteUsersReturn.addActionListener(al);
 

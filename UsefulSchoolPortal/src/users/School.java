@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
-import files.FileManagement;
+import files.DataManagement;
 import files.FileWorker;
 
 public class School {
@@ -126,17 +126,17 @@ public class School {
 				Administrator a = new Administrator(username, firstName, lastName,
 						password, id, this.schoolID);
 				admins.add(a);
-				FileManagement.addAdministratorToList(a);
+				DataManagement.addAdministratorToList(a);
 			} else if (role.equals("Teacher")) {
 				Teacher t = new Teacher(username, firstName, lastName,
 						password, id, this.schoolID);
 				teachers.add(t);
-				FileManagement.addTeacherToList(t);
+				DataManagement.addTeacherToList(t);
 			} else {
 				Student s = new Student(username, firstName, lastName,
 						password, id, this.schoolID);
 				students.add(s);
-				FileManagement.addStudentToList(s);
+				DataManagement.addStudentToList(s);
 			}
 		}
 	}
