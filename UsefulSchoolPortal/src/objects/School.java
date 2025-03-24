@@ -1,10 +1,11 @@
-package users;
+package objects;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+import files.Constants;
 import files.DataManagement;
 import files.FileWorker;
 
@@ -199,5 +200,16 @@ public class School {
 
 		return users;
 	}
+
+
+	@Override
+	public String toString() {
+		return "School [name=" + name + ", schoolID=" + schoolID + ", userList=" + userList + ", classList=" + classList
+				+ ", admins=" + admins + ", teachers=" + teachers + ", students=" + students + ", classes=" + classes
+				+ "]";
+	}
+	
+	
+	
 
 }

@@ -1,4 +1,4 @@
-package users;
+package objects;
 
 import java.util.ArrayList;
 
@@ -50,5 +50,14 @@ public class Assignment {
 			return false;
 		}
 	}
+
+
+	@Override
+	public String toString() {
+		return "Assignment [name=" + name + ", points=" + points + ", weightCategory=" + weightCategory + ", grades="
+				+ grades + "]";
+	}
+	
+	
 
 }

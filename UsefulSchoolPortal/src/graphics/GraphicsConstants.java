@@ -14,6 +14,5 @@ public class GraphicsConstants {
 	public static final Font FONT_ROBOTO_B50 = new Font("Roboto", Font.BOLD, 50);
 	
 	public static final Dimension DIMENSION_TEXTFIELD_DEFAULT = new Dimension(800, 75);
-	
-	public static final String DELIMITER_FAILURE = "失";
+
 }

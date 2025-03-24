@@ -2,21 +2,16 @@ package files;
 
 import java.util.ArrayList;
 
-import users.*;
+import objects.*;
 
 public class DataManagement {
-
-	private static final char DELIMITER_CLASS_CLASS = '大';
-	private static final char DELIMITER_CLASS_TEACHER = '张';
-	private static final char DELIMITER_CLASS_STUDENT = '伟';
-	private static final char DELIMITER_CLASS_END = '习';
 
 	private static User loggedInUser;
 	private static int currentSchoolID;
 
-	private static ArrayList<User> users = new ArrayList<User>();
-	private static ArrayList<School> schools = new ArrayList<School>();
-	private static ArrayList<SchoolClass> classes = new ArrayList<SchoolClass>();
+	private static ArrayList<User> users;
+	private static ArrayList<School> schools;
+	private static ArrayList<SchoolClass> classes;
 
 	public DataManagement() {
 
@@ -24,6 +19,10 @@ public class DataManagement {
 
 
 	public static void setup() {
+		users = new ArrayList<User>();
+		schools = new ArrayList<School>();
+		classes = new ArrayList<SchoolClass>();
+		
 		ArrayList<String> contents = FileWorker.readSchoolFile();
 
 		ArrayList<String> schoolNames = new ArrayList<String>();
@@ -51,7 +50,7 @@ public class DataManagement {
 	}
 
 
-	public static boolean addNewSchoolAdministrator(Administrator a) {
+	private static boolean addNewSchoolAdministrator(Administrator a) {
 		try {
 			users.add(a);
 			setLoggedInUser(a);
@@ -240,6 +239,7 @@ public class DataManagement {
 
 
 	public static void logOutUser() {
+		loggedInUser = null;
 		currentSchoolID = -1;
 	}
 

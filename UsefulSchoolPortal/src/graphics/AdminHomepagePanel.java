@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
 import files.DataManagement;
-import users.User;
+import objects.User;
 
 public class AdminHomepagePanel extends JPanel {
 

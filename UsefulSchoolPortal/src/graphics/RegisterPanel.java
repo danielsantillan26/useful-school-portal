@@ -195,11 +195,7 @@ public class RegisterPanel extends JPanel {
 	
 	public String getPassword() {
 		String password = String.valueOf(givenPassword.getPassword());
-		if (GraphicsHelpers.isPasswordValid(password)) {
-			return password;
-		} else {
-			return GraphicsConstants.DELIMITER_FAILURE;
-		}
+		return password;
 	}
 	
 	

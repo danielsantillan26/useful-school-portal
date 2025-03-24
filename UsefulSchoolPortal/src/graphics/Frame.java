@@ -119,6 +119,9 @@ public class Frame extends JFrame {
 		JButton buttonPanelAdminAddUsersReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelAdminAddUsersReturn, 220, 45);
 		
+		JButton buttonPanelAdminAddClassesReturn = new JButton("Return");
+		GraphicsHelpers.modifyButton(buttonPanelAdminAddClassesReturn, 220, 45);
+		
 		JButton buttonPanelAdminDeleteUsersReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelAdminDeleteUsersReturn, 220, 45);
 		
@@ -135,6 +138,7 @@ public class Frame extends JFrame {
 				buttonPanelAdminHomepageEditProfile, buttonPanelAdminHomepageLogOut);
 		panelAdminManageSchedule.addChangePageButtons(buttonPanelAdminManageScheduleReturn);
 		panelAdminAddUsers.addChangePageButtons(buttonPanelAdminAddUsersReturn);
+		panelAdminAddClasses.addChangePageButtons(buttonPanelAdminAddClassesReturn);
 		panelAdminDeleteUsers.addChangePageButtons(buttonPanelAdminDeleteUsersReturn);
 
 		ActionListener al = new ActionListener() {
@@ -217,7 +221,7 @@ public class Frame extends JFrame {
 					}
 
 
-					if (givenPassword.equals(GraphicsConstants.DELIMITER_FAILURE)) {
+					if (!GraphicsHelpers.isPasswordValid(givenPassword)) {
 						JOptionPane.showMessageDialog(panelRegister, "Password must\n"
 								+ "- Be between 10 and 50 characters\n" +
 								"- Have no spaces\n" +
@@ -312,6 +316,10 @@ public class Frame extends JFrame {
 				} else if (e.getSource() == buttonPanelAdminManageScheduleReturn) {
 					cl.previous(container);
 				} if (e.getSource() == buttonPanelAdminAddUsersReturn) {
+					cl.previous(container);
+					cl.previous(container);
+				} else if (e.getSource() == buttonPanelAdminAddClassesReturn) {
+					cl.previous(container);
 					cl.previous(container);
 					cl.previous(container);
 				} else if (e.getSource() == buttonPanelAdminDeleteUsersReturn) {

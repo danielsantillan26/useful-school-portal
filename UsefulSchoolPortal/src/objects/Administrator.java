@@ -1,4 +1,4 @@
-package users;
+package objects;
 
 public class Administrator extends User {
 	
@@ -17,4 +17,11 @@ public class Administrator extends User {
 	public boolean isAdministrator() {
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Administrator []";
+	}
+	
+	
 }

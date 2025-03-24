@@ -1,4 +1,4 @@
-package users;
+package objects;
 
 public class User {
 
@@ -86,7 +86,12 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
+
+
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", firstName=" + firstName + ", lastName=" + lastName + ", password="
+				+ password + ", id=" + id + ", schoolID=" + schoolID + "]";
+	}
 	
 }

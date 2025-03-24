@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -46,7 +47,15 @@ public class AdminAddClassesPanel extends JPanel {
 		givenClassName.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
 		givenClassName.setFont(GraphicsConstants.FONT_ROBOTO_B30);
 		
-		
+		add(centerPanel, BorderLayout.CENTER);
+	}
+	
+	
+	public void addChangePageButtons(JButton goHome) {
+		JPanel southPanel = new JPanel();
+		southPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
+		southPanel.add(goHome);
+		add(southPanel, BorderLayout.SOUTH);
 	}
 
 }

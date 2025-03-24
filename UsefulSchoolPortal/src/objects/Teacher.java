@@ -1,4 +1,4 @@
-package users;
+package objects;
 
 public class Teacher extends User {
 
@@ -17,5 +17,12 @@ public class Teacher extends User {
 	public boolean isTeacher() {
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Teacher []";
+	}
+	
+	
 	
 }

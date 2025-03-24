@@ -37,9 +37,6 @@ public class AdminManageSchedulePanel extends JPanel {
 		
 		centerPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
 		
-		JLabel selectPeriods = new JLabel("Enter Total Number of Periods");
-		selectPeriods.setFont(GraphicsConstants.FONT_ROBOTO_B50);
-		
 		add(centerPanel, BorderLayout.CENTER);
 	}
 	
