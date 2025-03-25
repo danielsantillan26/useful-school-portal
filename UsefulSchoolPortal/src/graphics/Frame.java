@@ -354,6 +354,7 @@ public class Frame extends JFrame {
 		buttonPanelAdminManageScheduleReturn.addActionListener(al);
 		buttonPanelAdminAddUsersReturn.addActionListener(al);
 		buttonPanelAdminDeleteUsersReturn.addActionListener(al);
+		buttonPanelAdminAddClassesReturn.addActionListener(al);
 
 		container.add(panelIntro);
 		container.add(panelToC);
