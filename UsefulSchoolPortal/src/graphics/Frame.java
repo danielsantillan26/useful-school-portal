@@ -285,6 +285,7 @@ public class Frame extends JFrame {
 					cl.next(container);
 					cl.next(container);
 					cl.next(container);
+					panelAdminAddClasses.refreshComboBox();
 				} else if (e.getSource() == buttonPanelAdminHomepageDeleteUsers) {
 					for (int i = 0; i < 4; i++) {
 						cl.next(container);

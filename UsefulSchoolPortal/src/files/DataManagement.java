@@ -7,7 +7,7 @@ import objects.*;
 public class DataManagement {
 
 	private static User loggedInUser;
-	private static int currentSchoolID;
+	private static School currentSchool;
 
 	private static ArrayList<User> users;
 	private static ArrayList<School> schools;
@@ -22,7 +22,7 @@ public class DataManagement {
 		users = new ArrayList<User>();
 		schools = new ArrayList<School>();
 		classes = new ArrayList<SchoolClass>();
-		
+
 		ArrayList<String> contents = FileWorker.readSchoolFile();
 
 		ArrayList<String> schoolNames = new ArrayList<String>();
@@ -55,11 +55,7 @@ public class DataManagement {
 			users.add(a);
 			setLoggedInUser(a);
 
-			for (School s: schools) {
-				if (s.getSchoolID() == currentSchoolID) {
-					s.addAdministrator(a);
-				}
-			}
+			currentSchool.addAdministrator(a);
 
 			return true;
 		} catch (Exception e) {
@@ -71,14 +67,9 @@ public class DataManagement {
 	public static boolean addNewAdministrator(String username, String
 			firstName, String lastName, String password) {
 		try {
-			Administrator a = new Administrator(username, firstName, lastName, password, currentSchoolID);
+			Administrator a = new Administrator(username, firstName, lastName, password, currentSchool.getSchoolID());
 			users.add(a);
-
-			for (School s: schools) {
-				if (s.getSchoolID() == currentSchoolID) {
-					s.addAdministrator(a);
-				}
-			}
+			currentSchool.addAdministrator(a);
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -91,7 +82,9 @@ public class DataManagement {
 			String adminLastName, String adminPassword) {
 		try {
 			int schoolID = (int)(Math.random()*100000);
-			if (addSchool(new School(schoolName, schoolID)) &&
+			School s = new School(schoolName, schoolID);
+			currentSchool = s;
+			if (addSchool(s) &&
 					addNewSchoolAdministrator(new Administrator(adminUsername,
 							adminFirstName, adminLastName, adminPassword,
 							schoolID))) {
@@ -108,14 +101,9 @@ public class DataManagement {
 	public static boolean addNewTeacher(String username, String
 			firstName, String lastName, String password) {
 		try {
-			Teacher t = new Teacher(username, firstName, lastName, password, currentSchoolID);
+			Teacher t = new Teacher(username, firstName, lastName, password, currentSchool.getSchoolID());
 			users.add(t);
-
-			for (School s: schools) {
-				if (s.getSchoolID() == currentSchoolID) {
-					s.addTeacher(t);
-				}
-			}
+			currentSchool.addTeacher(t);
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -126,14 +114,9 @@ public class DataManagement {
 	public static boolean addNewStudent(String username, String
 			firstName, String lastName, String password) {
 		try {
-			Student s = new Student(username, firstName, lastName, password, currentSchoolID);
+			Student s = new Student(username, firstName, lastName, password, currentSchool.getSchoolID());
 			users.add(s);
-
-			for (School sc: schools) {
-				if (sc.getSchoolID() == currentSchoolID) {
-					sc.addStudent(s);
-				}
-			}
+			currentSchool.addStudent(s);
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -187,7 +170,7 @@ public class DataManagement {
 			for (int i = 0; i < users.size(); i++) {
 				if (users.get(i).getId() == id) {
 					for (School sc: schools) {
-						if (sc.getSchoolID() == currentSchoolID) {
+						if (sc.getSchoolID() == currentSchool.getSchoolID()) {
 							sc.deleteUser(users.get(i));
 							return true;
 						}
@@ -214,7 +197,11 @@ public class DataManagement {
 
 	public static void setLoggedInUser(User u) {
 		loggedInUser = u;
-		currentSchoolID = u.getSchoolID();
+		for (School s : schools) {
+			if (s.getSchoolID() == u.getSchoolID()) {
+				currentSchool = s;
+			}
+		}
 	}
 
 
@@ -240,16 +227,24 @@ public class DataManagement {
 
 	public static void logOutUser() {
 		loggedInUser = null;
-		currentSchoolID = -1;
+		currentSchool = null;
 	}
 
 
 	public static ArrayList<User> getCurrentSchoolUsers() {
-		for (School s : schools) {
-			if (s.getSchoolID() == currentSchoolID) {
-				return s.getUsers();
-			}
+		return currentSchool.getUsers();
+	}
+
+
+	public static void setBlocks(int blocks) {
+		currentSchool.setBlocks(blocks);
+	}
+
+
+	public static int getBlocks() {
+		if (currentSchool != null) {
+			return currentSchool.getBlocks();
 		}
-		return null;
+		return -1;
 	}
 }

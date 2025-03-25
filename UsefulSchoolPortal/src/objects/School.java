@@ -19,6 +19,7 @@ public class School {
 	private ArrayList<Teacher> teachers;
 	private ArrayList<Student> students;
 	private ArrayList<SchoolClass> classes;
+	private int blocks;
 
 
 	public School(String name, int schoolID) {
@@ -32,6 +33,8 @@ public class School {
 
 		userList = new File("SchoolUsers_" + schoolID + ".csv");
 		classList = new File("SchoolClasses_" + schoolID + ".txt");
+		
+		blocks = 6;
 
 		try {
 			if (!userList.exists()) {
@@ -199,6 +202,16 @@ public class School {
 		}
 
 		return users;
+	}
+	
+	
+	public int getBlocks() {
+		return blocks;
+	}
+	
+	
+	public void setBlocks(int blocks) {
+		this.blocks = blocks;
 	}
 
 
