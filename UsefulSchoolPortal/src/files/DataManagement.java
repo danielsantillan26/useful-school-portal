@@ -122,6 +122,19 @@ public class DataManagement {
 			return false;
 		}
 	}
+	
+	
+	public static boolean addNewClass(String className, int block) {
+		try {
+			if (block > 0 && block <= getBlocks()) {
+				SchoolClass cl = new SchoolClass(className, block, Constants.GRADE_POINTS, currentSchool.getSchoolID());
+				classes.add(cl);
+			}
+			return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 
 	public static boolean addSchool(School s) {

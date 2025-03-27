@@ -2,6 +2,8 @@ package graphics;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -9,6 +11,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
+
+import files.DataManagement;
 
 public class AdminManageSchedulePanel extends JPanel {
 
@@ -42,9 +46,19 @@ public class AdminManageSchedulePanel extends JPanel {
 		enterPeriods.setFont(GraphicsConstants.FONT_ROBOTO_B50);
 		JComboBox<Integer> selectPeriods = new JComboBox<Integer>();
 		selectPeriods.setFont(GraphicsConstants.FONT_ROBOTO_B30);
+		for (int i = 6; i < 9; i++) {
+			selectPeriods.addItem(i);		}
 		
 		JButton confirm = new JButton("Confirm");
 		GraphicsHelpers.modifyButton(confirm, 250, 45);
+		confirm.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DataManagement.setBlocks(Integer.parseInt(selectPeriods.getSelectedItem().toString()));
+			}
+			
+		});
 		
 		centerPanel.add(enterPeriods);
 		centerPanel.add(selectPeriods);

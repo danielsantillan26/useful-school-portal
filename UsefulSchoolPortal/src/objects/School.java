@@ -32,7 +32,7 @@ public class School {
 		classes = new ArrayList<SchoolClass>();
 
 		userList = new File("SchoolUsers_" + schoolID + ".csv");
-		classList = new File("SchoolClasses_" + schoolID + ".txt");
+		classList = new File("SchoolClasses_" + schoolID + ".csv");
 		
 		blocks = 6;
 
@@ -49,8 +49,11 @@ public class School {
 
 			if (!classList.exists()) {
 				classList.createNewFile();
+				BufferedWriter bWriter = new BufferedWriter(new FileWriter(classList, false));
+				bWriter.write("Class Name,Class ID,Block,Grading Method");
+				bWriter.close();
 			} else {
-
+				addExistingClasses();
 			}
 		} catch (Exception e) {
 
@@ -89,6 +92,17 @@ public class School {
 			return false;
 		}
 	}
+	
+	
+	public boolean AddClass(SchoolClass cl) {
+		try {
+			classes.add(cl);
+			writeInClass(cl);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 
 	private void writeInUser(User u, String role) {
@@ -106,6 +120,24 @@ public class School {
 			bWriter.close();
 		} catch (Exception e) {
 
+		}
+	}
+	
+	
+	private void writeInClass(SchoolClass cl) {
+		try {
+			ArrayList<String> contents = FileWorker.readFile(classList);
+			BufferedWriter bWriter = new BufferedWriter(new FileWriter(classList, false));
+			
+			for (int i = 0; i < contents.size(); i++) {
+				bWriter.write(contents.get(i) + "\n");
+			}
+			
+			bWriter.write(cl.getName() + "," + cl.getClassID() + "," + cl.getBlock()
+			+ "," + cl.getGradingMethod());
+			bWriter.close();
+		} catch (Exception e) {
+			
 		}
 	}
 
@@ -142,6 +174,25 @@ public class School {
 				students.add(s);
 				DataManagement.addStudentToList(s);
 			}
+		}
+	}
+	
+	
+	private void addExistingClasses() {
+		ArrayList<String> contents = FileWorker.readFile(classList);
+		for (int i = 1; i < contents.size(); i++) {
+			String x = contents.get(i);
+			String className = x.substring(0, x.indexOf(","));
+			x = x.substring(x.indexOf(",") + 1);
+			int classID = Integer.parseInt(x.substring(0, x.indexOf(",")));
+			x = x.substring(x.indexOf(",") + 1);
+			int block = Integer.parseInt(x.substring(0, x.indexOf(",")));
+			x = x.substring(x.indexOf(",") + 1);
+			int gradingMethod = Integer.parseInt(x);
+			
+			SchoolClass sc = new SchoolClass(className, block, gradingMethod, schoolID, classID);
+			classes.add(sc);
+			
 		}
 	}
 
