@@ -94,7 +94,7 @@ public class School {
 	}
 	
 	
-	public boolean AddClass(SchoolClass cl) {
+	public boolean addClass(SchoolClass cl) {
 		try {
 			classes.add(cl);
 			writeInClass(cl);
@@ -192,6 +192,7 @@ public class School {
 			
 			SchoolClass sc = new SchoolClass(className, block, gradingMethod, schoolID, classID);
 			classes.add(sc);
+			DataManagement.addClassToList(sc);
 			
 		}
 	}
@@ -225,6 +226,21 @@ public class School {
 		}
 
 	}
+	
+	
+	public void deleteClass(SchoolClass sc) {
+		try {
+			for (int i = 0; i < classes.size(); i++) {
+				if (classes.get(i).getClassID() == sc.getClassID()) {
+					classes.get(i).deleteFiles();
+					classes.remove(i);
+				}
+			}
+			FileWorker.removeLine(classList, sc.getClassID());
+		} catch (Exception e) {
+			
+		}
+	}
 
 
 	public String getName() {
@@ -253,6 +269,11 @@ public class School {
 		}
 
 		return users;
+	}
+	
+	
+	public ArrayList<SchoolClass> getClasses() {
+		return classes;
 	}
 	
 	

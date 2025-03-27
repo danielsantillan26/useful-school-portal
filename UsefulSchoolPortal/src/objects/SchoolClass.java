@@ -95,6 +95,11 @@ public class SchoolClass {
 	public boolean addTeacher(Teacher t) {
 		return addUser(t, "Teacher");
 	}
+	
+	public void deleteFiles() {
+		classRoster.delete();
+		classAssignments.delete();
+	}
 
 
 	

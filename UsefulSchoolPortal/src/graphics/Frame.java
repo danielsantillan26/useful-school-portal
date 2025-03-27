@@ -125,6 +125,12 @@ public class Frame extends JFrame {
 		JButton buttonPanelAdminDeleteUsersReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelAdminDeleteUsersReturn, 220, 45);
 		
+		JButton buttonPanelAdminDeleteClassesReturn = new JButton("Return");
+		GraphicsHelpers.modifyButton(buttonPanelAdminDeleteClassesReturn, 220, 45);
+		
+		JButton buttonPanelAdminManageTeachersReturn = new JButton("Return");
+		GraphicsHelpers.modifyButton(buttonPanelAdminManageTeachersReturn, 220, 45);
+		
 
 
 
@@ -140,6 +146,8 @@ public class Frame extends JFrame {
 		panelAdminAddUsers.addChangePageButtons(buttonPanelAdminAddUsersReturn);
 		panelAdminAddClasses.addChangePageButtons(buttonPanelAdminAddClassesReturn);
 		panelAdminDeleteUsers.addChangePageButtons(buttonPanelAdminDeleteUsersReturn);
+		panelAdminDeleteClasses.addChangePageButtons(buttonPanelAdminDeleteClassesReturn);
+		panelAdminManageTeachers.addChangePageButtons(buttonPanelAdminManageTeachersReturn);
 
 		ActionListener al = new ActionListener() {
 
@@ -295,6 +303,7 @@ public class Frame extends JFrame {
 					for (int i = 0; i < 5; i++) {
 						cl.next(container);
 					}
+					panelAdminDeleteClasses.refreshComboBox();
 				} else if (e.getSource() == buttonPanelAdminHomepageManageTeachers) {
 					for (int i = 0; i < 6; i++) {
 						cl.next(container);
@@ -327,6 +336,14 @@ public class Frame extends JFrame {
 					for (int i = 0; i < 4; i++) {
 						cl.previous(container);
 					}
+				} else if (e.getSource() == buttonPanelAdminDeleteClassesReturn) {
+					for (int i = 0; i < 5; i++) {
+						cl.previous(container);
+					}
+				} else if (e.getSource() == buttonPanelAdminManageTeachersReturn) {
+					for (int i = 0; i < 6; i++) {
+						cl.previous(container);
+					}
 				}
 				
 				
@@ -353,8 +370,10 @@ public class Frame extends JFrame {
 		buttonPanelAdminHomepageLogOut.addActionListener(al);
 		buttonPanelAdminManageScheduleReturn.addActionListener(al);
 		buttonPanelAdminAddUsersReturn.addActionListener(al);
-		buttonPanelAdminDeleteUsersReturn.addActionListener(al);
 		buttonPanelAdminAddClassesReturn.addActionListener(al);
+		buttonPanelAdminDeleteUsersReturn.addActionListener(al);
+		buttonPanelAdminDeleteClassesReturn.addActionListener(al);
+		buttonPanelAdminManageTeachersReturn.addActionListener(al);
 
 		container.add(panelIntro);
 		container.add(panelToC);

@@ -122,13 +122,15 @@ public class DataManagement {
 			return false;
 		}
 	}
-	
-	
+
+
 	public static boolean addNewClass(String className, int block) {
 		try {
 			if (block > 0 && block <= getBlocks()) {
 				SchoolClass cl = new SchoolClass(className, block, Constants.GRADE_POINTS, currentSchool.getSchoolID());
 				classes.add(cl);
+				currentSchool.addClass(cl);
+				return true;
 			}
 			return false;
 		} catch (Exception e) {
@@ -176,20 +178,41 @@ public class DataManagement {
 			return false;
 		}
 	}
+	
+	
+	public static boolean addClassToList(SchoolClass sc) {
+		try {
+			classes.add(sc);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 
 	public static boolean deleteUser(int id) {
 		try {
 			for (int i = 0; i < users.size(); i++) {
 				if (users.get(i).getId() == id) {
-					for (School sc: schools) {
-						if (sc.getSchoolID() == currentSchool.getSchoolID()) {
-							sc.deleteUser(users.get(i));
-							return true;
-						}
-					}
+					currentSchool.deleteUser(users.get(i));
+					return true;
 				}
 			} 
+			return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+
+	public static boolean deleteClass(int id) {
+		try {
+			for (int i = 0; i < classes.size(); i++) {
+				if (classes.get(i).getClassID() == id) {
+					currentSchool.deleteClass(classes.get(i));
+					return true;
+				}
+			}
 			return false;
 		} catch (Exception e) {
 			return false;
@@ -246,6 +269,11 @@ public class DataManagement {
 
 	public static ArrayList<User> getCurrentSchoolUsers() {
 		return currentSchool.getUsers();
+	}
+
+
+	public static ArrayList<SchoolClass> getCurrentSchoolClasses() {
+		return currentSchool.getClasses();
 	}
 
 
