@@ -2,6 +2,7 @@ package graphics;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 
@@ -52,6 +53,21 @@ public class GraphicsHelpers {
 		button.setForeground(Color.WHITE);
 		button.setPreferredSize(new Dimension(width, height));
 		button.setFont(GraphicsConstants.FONT_BUTTON);
+	}
+	
+	
+	public static boolean hasComma(ArrayList<String> inputs) {
+		boolean hasComma = false;
+
+		for (String s : inputs) {
+			for (int i = 0; i < s.length(); i++) {
+				if (s.substring(i, i+1).equals(",")) {
+					hasComma = true;
+				}
+			}
+		}
+		
+		return hasComma;
 	}
 	
 }

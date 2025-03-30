@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -131,6 +132,9 @@ public class Frame extends JFrame {
 		JButton buttonPanelAdminManageTeachersReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelAdminManageTeachersReturn, 220, 45);
 		
+		JButton buttonPanelAdminManageStudentsReturn = new JButton("Return");
+		GraphicsHelpers.modifyButton(buttonPanelAdminManageStudentsReturn, 220, 45);
+		
 
 
 
@@ -148,6 +152,8 @@ public class Frame extends JFrame {
 		panelAdminDeleteUsers.addChangePageButtons(buttonPanelAdminDeleteUsersReturn);
 		panelAdminDeleteClasses.addChangePageButtons(buttonPanelAdminDeleteClassesReturn);
 		panelAdminManageTeachers.addChangePageButtons(buttonPanelAdminManageTeachersReturn);
+		panelAdminManageStudents.addChangePageButtons(buttonPanelAdminManageStudentsReturn);
+		
 
 		ActionListener al = new ActionListener() {
 
@@ -185,43 +191,15 @@ public class Frame extends JFrame {
 								"out all values.", "Error", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
+					
+					ArrayList<String> inputs = new ArrayList<String>();
+					inputs.add(givenSchoolName);
+					inputs.add(givenUsername);
+					inputs.add(givenFirstName);
+					inputs.add(givenLastName);
+					inputs.add(givenPassword);
 
-					boolean hasComma = false;
-					for (int i = 0; i < givenSchoolName.length(); i++) {
-						if (givenSchoolName.substring(i, i+1).equals(",")) {
-							hasComma = true;
-						}
-					}
-
-					for (int i = 0; i < givenUsername.length(); i++) {
-						if (givenUsername.substring(i, i+1).equals(",")) {
-							hasComma = true;
-						}
-					}
-
-
-					for (int i = 0; i < givenFirstName.length(); i++) {
-						if (givenFirstName.substring(i, i+1).equals(",")) {
-							hasComma = true;
-						}
-					}
-
-
-					for (int i = 0; i < givenLastName.length(); i++) {
-						if (givenLastName.substring(i, i+1).equals(",")) {
-							hasComma = true;
-						}
-					}
-
-					for (int i = 0; i < givenPassword.length(); i++) {
-						if (givenPassword.substring(i, i+1).equals(",")) {
-							hasComma = true;
-						}
-					}
-
-
-
-					if (hasComma) {
+					if (GraphicsHelpers.hasComma(inputs)) {
 						JOptionPane.showMessageDialog(panelRegister, "You cannot"
 								+ " have commas in any of your fields to ensure proper"
 								+ " data storage.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -308,10 +286,12 @@ public class Frame extends JFrame {
 					for (int i = 0; i < 6; i++) {
 						cl.next(container);
 					}
+					panelAdminManageTeachers.refreshComboBox();
 				} else if (e.getSource() == buttonPanelAdminHomepageManageStudents) {
 					for (int i = 0; i < 7; i++) {
 						cl.next(container);
 					}
+					panelAdminManageStudents.refreshComboBox();
 				} else if (e.getSource() == buttonPanelAdminHomepageManageClasses) {
 					for (int i = 0; i < 8; i++) {
 						cl.next(container);
@@ -344,6 +324,10 @@ public class Frame extends JFrame {
 					for (int i = 0; i < 6; i++) {
 						cl.previous(container);
 					}
+				} else if (e.getSource() == buttonPanelAdminManageStudentsReturn) {
+					for (int i = 0; i < 7; i++) {
+						cl.previous(container);
+					}
 				}
 				
 				
@@ -365,6 +349,7 @@ public class Frame extends JFrame {
 		buttonPanelAdminHomepageDeleteUsers.addActionListener(al);
 		buttonPanelAdminHomepageDeleteClasses.addActionListener(al);
 		buttonPanelAdminHomepageManageTeachers.addActionListener(al);
+		buttonPanelAdminHomepageManageStudents.addActionListener(al);
 		buttonPanelAdminHomepageManageClasses.addActionListener(al);
 		buttonPanelAdminHomepageEditProfile.addActionListener(al);
 		buttonPanelAdminHomepageLogOut.addActionListener(al);
@@ -374,6 +359,7 @@ public class Frame extends JFrame {
 		buttonPanelAdminDeleteUsersReturn.addActionListener(al);
 		buttonPanelAdminDeleteClassesReturn.addActionListener(al);
 		buttonPanelAdminManageTeachersReturn.addActionListener(al);
+		buttonPanelAdminManageStudentsReturn.addActionListener(al);
 
 		container.add(panelIntro);
 		container.add(panelToC);

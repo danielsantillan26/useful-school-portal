@@ -33,7 +33,7 @@ public class School {
 
 		userList = new File("SchoolUsers_" + schoolID + ".csv");
 		classList = new File("SchoolClasses_" + schoolID + ".csv");
-		
+
 		blocks = 6;
 
 		try {
@@ -92,8 +92,8 @@ public class School {
 			return false;
 		}
 	}
-	
-	
+
+
 	public boolean addClass(SchoolClass cl) {
 		try {
 			classes.add(cl);
@@ -122,22 +122,22 @@ public class School {
 
 		}
 	}
-	
-	
+
+
 	private void writeInClass(SchoolClass cl) {
 		try {
 			ArrayList<String> contents = FileWorker.readFile(classList);
 			BufferedWriter bWriter = new BufferedWriter(new FileWriter(classList, false));
-			
+
 			for (int i = 0; i < contents.size(); i++) {
 				bWriter.write(contents.get(i) + "\n");
 			}
-			
+
 			bWriter.write(cl.getName() + "," + cl.getClassID() + "," + cl.getBlock()
 			+ "," + cl.getGradingMethod());
 			bWriter.close();
 		} catch (Exception e) {
-			
+
 		}
 	}
 
@@ -176,8 +176,8 @@ public class School {
 			}
 		}
 	}
-	
-	
+
+
 	private void addExistingClasses() {
 		ArrayList<String> contents = FileWorker.readFile(classList);
 		for (int i = 1; i < contents.size(); i++) {
@@ -189,11 +189,11 @@ public class School {
 			int block = Integer.parseInt(x.substring(0, x.indexOf(",")));
 			x = x.substring(x.indexOf(",") + 1);
 			int gradingMethod = Integer.parseInt(x);
-			
+
 			SchoolClass sc = new SchoolClass(className, block, gradingMethod, schoolID, classID);
 			classes.add(sc);
 			DataManagement.addClassToList(sc);
-			
+
 		}
 	}
 
@@ -226,8 +226,8 @@ public class School {
 		}
 
 	}
-	
-	
+
+
 	public void deleteClass(SchoolClass sc) {
 		try {
 			for (int i = 0; i < classes.size(); i++) {
@@ -238,7 +238,7 @@ public class School {
 			}
 			FileWorker.removeLine(classList, sc.getClassID());
 		} catch (Exception e) {
-			
+
 		}
 	}
 
@@ -270,20 +270,97 @@ public class School {
 
 		return users;
 	}
-	
-	
+
+
 	public ArrayList<SchoolClass> getClasses() {
 		return classes;
 	}
-	
-	
+
+
 	public int getBlocks() {
 		return blocks;
 	}
-	
-	
+
+
 	public void setBlocks(int blocks) {
 		this.blocks = blocks;
+	}
+
+
+	public void refactorUser(String username, String firstName, String lastName, String password, int id) {
+		for (Administrator a : admins) {
+			if (a.getId() == id) {
+				editUser(a, username, firstName, lastName, password);
+				return;
+			}
+		}
+		
+		for (Teacher t : teachers) {
+			if (t.getId() == id) {
+				editUser(t, username, firstName, lastName, password);
+				return;
+			}
+		}
+		
+		for (Student s : students) {
+			if (s.getId() == id) {
+				editUser(s, username, firstName, lastName, password);
+				return;
+			}
+		}
+	}
+	
+	
+	private void editUser(User u, String username, String firstName, String lastName, String password) {
+		if (username.strip() != "") {
+			u.setUsername(username);
+		}
+
+		if (firstName.strip() != "") {
+			u.setFirstName(firstName);
+		}
+
+		if (lastName.strip() != "") {
+			u.setLastName(lastName);
+		}
+
+		if (password.strip() != "") {
+			u.setPassword(password);
+		}
+		
+		ArrayList<String> contents = FileWorker.readFile(userList);
+		
+		int refactorIndex = -1;
+		for (int i = 0; i < contents.size(); i++) {
+			if (contents.get(i).contains(Integer.toString(u.getId()))) {
+				refactorIndex = i;
+			}
+		}	
+		
+		String role = "";
+		if (u.isAdministrator()) {
+			role = "Administrator";
+		} else if (u.isTeacher()) {
+			role = "Teacher";
+		} else if (u.isStudent()) {
+			role = "Student";
+		}
+
+		try {
+			FileWriter writer = new FileWriter(userList, false);
+			BufferedWriter bWriter = new BufferedWriter(writer);
+
+			for (int i = 0; i < contents.size(); i++) {
+				if (i != refactorIndex) {
+					bWriter.write(contents.get(i) + "\n");
+				} else {
+					bWriter.write(u.getUsername() + "," + u.getFirstName() + "," + u.getLastName() +
+							"," + role + "," + u.getId() + "," + u.getPassword() + "\n");
+				}
+			}
+
+			bWriter.close();
+		} catch (Exception e) { }
 	}
 
 
@@ -293,8 +370,8 @@ public class School {
 				+ ", admins=" + admins + ", teachers=" + teachers + ", students=" + students + ", classes=" + classes
 				+ "]";
 	}
-	
-	
-	
+
+
+
 
 }

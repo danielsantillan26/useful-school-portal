@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -126,35 +127,13 @@ public class AdminAddUsersPanel extends JPanel {
 						return;
 					}
 					
+					ArrayList<String> inputs = new ArrayList<String>();
+					inputs.add(username);
+					inputs.add(firstName);
+					inputs.add(lastName);
+					inputs.add(password);
 					
-					boolean hasComma = false;
-					for (int i = 0; i < username.length(); i++) {
-						if (username.substring(i, i+1).equals(",")) {
-							hasComma = true;
-						}
-					}
-
-
-					for (int i = 0; i < firstName.length(); i++) {
-						if (firstName.substring(i, i+1).equals(",")) {
-							hasComma = true;
-						}
-					}
-
-
-					for (int i = 0; i < lastName.length(); i++) {
-						if (lastName.substring(i, i+1).equals(",")) {
-							hasComma = true;
-						}
-					}
-
-					for (int i = 0; i < password.length(); i++) {
-						if (password.substring(i, i+1).equals(",")) {
-							hasComma = true;
-						}
-					}
-
-					if (hasComma) {
+					if (GraphicsHelpers.hasComma(inputs)) {
 						JOptionPane.showMessageDialog(centerPanel, "You cannot"
 								+ " have commas in any of your fields to ensure proper"
 								+ " data storage.", "Error", JOptionPane.ERROR_MESSAGE);

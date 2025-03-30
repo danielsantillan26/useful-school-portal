@@ -275,6 +275,59 @@ public class DataManagement {
 	public static ArrayList<SchoolClass> getCurrentSchoolClasses() {
 		return currentSchool.getClasses();
 	}
+	
+	
+	public static ArrayList<Teacher> getCurrentSchoolTeachers() {
+		ArrayList<Teacher> teacherList = new ArrayList<Teacher>();
+		for (User u : users) {
+			if (u.isTeacher() && u.getSchoolID() == currentSchool.getSchoolID()) {
+				teacherList.add((Teacher)u);
+			}
+		}
+		return teacherList;
+	}
+	
+	
+	public static ArrayList<Student> getCurrentSchoolStudents() {
+		ArrayList<Student> studentList = new ArrayList<Student>();
+		for (User u : users) {
+			if (u.isStudent() && u.getSchoolID() == currentSchool.getSchoolID()) {
+				studentList.add((Student)u);
+			}
+		}
+		return studentList;
+	}
+	
+	
+	public static boolean refactorUser(String username, String firstName, String lastName, String password, int id) {
+		try {
+			for (User u : users) {
+				if (u.getId() == id && u.getSchoolID() == currentSchool.getSchoolID()) {
+					if (username.strip() != "") {
+						u.setUsername(username);
+					}
+					
+					if (firstName.strip() != "") {
+						u.setFirstName(firstName);
+					}
+					
+					if (lastName.strip() != "") {
+						u.setLastName(lastName);
+					}
+					
+					if (password.strip() != "") {
+						u.setPassword(password);
+					}
+					
+					currentSchool.refactorUser(username, firstName, lastName, password, id);
+					return true;
+				}
+			}
+			return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 
 	public static void setBlocks(int blocks) {
