@@ -193,7 +193,7 @@ public class DataManagement {
 	public static boolean deleteUser(int id) {
 		try {
 			for (int i = 0; i < users.size(); i++) {
-				if (users.get(i).getId() == id) {
+				if (users.get(i).getID() == id) {
 					currentSchool.deleteUser(users.get(i));
 					return true;
 				}
@@ -302,7 +302,7 @@ public class DataManagement {
 	public static boolean refactorUser(String username, String firstName, String lastName, String password, int id) {
 		try {
 			for (User u : users) {
-				if (u.getId() == id && u.getSchoolID() == currentSchool.getSchoolID()) {
+				if (u.getID() == id && u.getSchoolID() == currentSchool.getSchoolID()) {
 					if (username.strip() != "") {
 						u.setUsername(username);
 					}

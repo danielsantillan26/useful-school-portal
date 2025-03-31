@@ -61,47 +61,35 @@ public class School {
 	}
 
 
-	public boolean addAdministrator(Administrator a) {
+	public void addAdministrator(Administrator a) {
 		try {
 			admins.add(a);
 			writeInUser(a, "Administrator");
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+		} catch (Exception e) { }
 	}
 
 
-	public boolean addTeacher(Teacher t) {
+	public void addTeacher(Teacher t) {
 		try {
 			teachers.add(t);
 			writeInUser(t, "Teacher");
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+		} catch (Exception e) { }
 	}
 
 
-	public boolean addStudent(Student s) {
+	public void addStudent(Student s) {
 		try {
 			students.add(s);
 			writeInUser(s, "Student");
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+		} catch (Exception e) { }
 	}
 
 
-	public boolean addClass(SchoolClass cl) {
+	public void addClass(SchoolClass cl) {
 		try {
 			classes.add(cl);
 			writeInClass(cl);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+		} catch (Exception e) { }
 	}
 
 
@@ -116,11 +104,9 @@ public class School {
 			}
 
 			bWriter.write(u.getUsername() + "," + u.getFirstName() + "," + u.getLastName()
-			+ "," + role + "," + u.getId() + "," + u.getPassword());
+			+ "," + role + "," + u.getID() + "," + u.getPassword());
 			bWriter.close();
-		} catch (Exception e) {
-
-		}
+		} catch (Exception e) { }
 	}
 
 
@@ -136,9 +122,7 @@ public class School {
 			bWriter.write(cl.getName() + "," + cl.getClassID() + "," + cl.getBlock()
 			+ "," + cl.getGradingMethod());
 			bWriter.close();
-		} catch (Exception e) {
-
-		}
+		} catch (Exception e) { }
 	}
 
 
@@ -201,45 +185,40 @@ public class School {
 	public void deleteUser(User u) {
 		if (u.isAdministrator()) {
 			for (int i = 0; i < admins.size(); i++) {
-				if (admins.get(i).getId() == u.getId()) {
+				if (admins.get(i).getID() == u.getID()) {
 					admins.remove(i);
 				}
 			}
 		} else if (u.isTeacher()) {
 			for (int i = 0; i < teachers.size(); i++) {
-				if (teachers.get(i).getId() == u.getId()) {
+				if (teachers.get(i).getID() == u.getID()) {
 					teachers.remove(i);
 				}
 			}
 		} else if (u.isStudent()) {
 			for (int i = 0; i < students.size(); i++) {
-				if (students.get(i).getId() == u.getId()) {
+				if (students.get(i).getID() == u.getID()) {
 					students.remove(i);
 				}
 			}
 		}
 
 		try {
-			FileWorker.removeLine(userList, u.getId());
-		} catch (Exception e) {
-
-		}
-
+			FileWorker.removeLine(userList, u.getID());
+		} catch (Exception e) { }
 	}
 
 
-	public void deleteClass(SchoolClass sc) {
+	public void deleteClass(SchoolClass cl) {
 		try {
 			for (int i = 0; i < classes.size(); i++) {
-				if (classes.get(i).getClassID() == sc.getClassID()) {
+				if (classes.get(i).getClassID() == cl.getClassID()) {
 					classes.get(i).deleteFiles();
 					classes.remove(i);
 				}
 			}
-			FileWorker.removeLine(classList, sc.getClassID());
-		} catch (Exception e) {
-
-		}
+			FileWorker.removeLine(classList, cl.getClassID());
+		} catch (Exception e) { }
 	}
 
 
@@ -289,21 +268,21 @@ public class School {
 
 	public void refactorUser(String username, String firstName, String lastName, String password, int id) {
 		for (Administrator a : admins) {
-			if (a.getId() == id) {
+			if (a.getID() == id) {
 				editUser(a, username, firstName, lastName, password);
 				return;
 			}
 		}
 		
 		for (Teacher t : teachers) {
-			if (t.getId() == id) {
+			if (t.getID() == id) {
 				editUser(t, username, firstName, lastName, password);
 				return;
 			}
 		}
 		
 		for (Student s : students) {
-			if (s.getId() == id) {
+			if (s.getID() == id) {
 				editUser(s, username, firstName, lastName, password);
 				return;
 			}
@@ -332,7 +311,7 @@ public class School {
 		
 		int refactorIndex = -1;
 		for (int i = 0; i < contents.size(); i++) {
-			if (contents.get(i).contains(Integer.toString(u.getId()))) {
+			if (contents.get(i).contains(Integer.toString(u.getID()))) {
 				refactorIndex = i;
 			}
 		}	
@@ -355,7 +334,7 @@ public class School {
 					bWriter.write(contents.get(i) + "\n");
 				} else {
 					bWriter.write(u.getUsername() + "," + u.getFirstName() + "," + u.getLastName() +
-							"," + role + "," + u.getId() + "," + u.getPassword() + "\n");
+							"," + role + "," + u.getID() + "," + u.getPassword() + "\n");
 				}
 			}
 

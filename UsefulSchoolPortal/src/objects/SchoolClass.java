@@ -71,7 +71,7 @@ public class SchoolClass {
 			}
 			
 			bWriter.write(u.getUsername() + "," + u.getFirstName() + "," +
-			u.getLastName() + "," + role + "," + u.getId());
+			u.getLastName() + "," + role + "," + u.getID());
 			bWriter.close();
 			
 			if (role.equals("Teacher")) {

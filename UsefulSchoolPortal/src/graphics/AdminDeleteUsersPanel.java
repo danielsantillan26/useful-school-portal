@@ -61,7 +61,7 @@ public class AdminDeleteUsersPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int index = userList.getSelectedIndex();
-				DataManagement.deleteUser(users.get(index).getId());
+				DataManagement.deleteUser(users.get(index).getID());
 				refreshComboBox();
 			}
 
@@ -97,7 +97,7 @@ public class AdminDeleteUsersPanel extends JPanel {
 
 		if (users != null) {
 			for (User u : users) {
-				if (u.getId() != DataManagement.getLoggedInUser().getId()) {
+				if (u.getID() != DataManagement.getLoggedInUser().getID()) {
 					if (u.isAdministrator()) {
 						userList.addItem(u.getFirstName() + " " + u.getLastName() + ", Administrator");
 					} else if (u.isTeacher()) {

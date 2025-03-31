@@ -134,7 +134,7 @@ public class AdminManageTeachersPanel extends JPanel {
 					return;
 				}
 				
-				DataManagement.refactorUser(username, firstName, lastName, password, t.getId());
+				DataManagement.refactorUser(username, firstName, lastName, password, t.getID());
 				refreshComboBox();
 			}
 			

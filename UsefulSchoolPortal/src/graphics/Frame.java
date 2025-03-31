@@ -135,6 +135,9 @@ public class Frame extends JFrame {
 		JButton buttonPanelAdminManageStudentsReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelAdminManageStudentsReturn, 220, 45);
 		
+		JButton buttonPanelAdminManageClassesReturn = new JButton("Return");
+		GraphicsHelpers.modifyButton(buttonPanelAdminManageClassesReturn, 220, 45);
+		
 
 
 
