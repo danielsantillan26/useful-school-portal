@@ -141,6 +141,30 @@ public class Frame extends JFrame {
 		JButton buttonPanelAdminEditProfileReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelAdminEditProfileReturn, 220, 45);
 		
+		JButton buttonPanelTeacherHomepageClassHomepage = new JButton("Class Homepage");
+		GraphicsHelpers.modifyButton(buttonPanelTeacherHomepageClassHomepage, 550, 45);
+		
+		JButton buttonPanelTeacherHomepageEditClassHomepage = new JButton("Edit Class Homepage");
+		GraphicsHelpers.modifyButton(buttonPanelTeacherHomepageEditClassHomepage, 600, 45);
+		
+		JButton buttonPanelTeacherHomepageViewRosters = new JButton("View Rosters");
+		GraphicsHelpers.modifyButton(buttonPanelTeacherHomepageViewRosters, 400, 45);
+		
+		JButton buttonPanelTeacherHomepageManageAssignments = new JButton("Manage Assignments");
+		GraphicsHelpers.modifyButton(buttonPanelTeacherHomepageManageAssignments, 550, 45);
+		
+		JButton buttonPanelTeacherHomepageGradeAssignments = new JButton("Grade Assignments");
+		GraphicsHelpers.modifyButton(buttonPanelTeacherHomepageGradeAssignments, 550, 45);
+		
+		JButton buttonPanelTeacherHomepageManageStudents = new JButton("Manage Students");
+		GraphicsHelpers.modifyButton(buttonPanelTeacherHomepageManageStudents, 350, 45);
+		
+		JButton buttonPanelTeacherHomepageEditProfile = new JButton("Edit Profile");
+		GraphicsHelpers.modifyButton(buttonPanelTeacherHomepageEditProfile, 300, 45);
+		
+		JButton buttonPanelTeacherHomepageLogOut = new JButton("Log Out");
+		GraphicsHelpers.modifyButton(buttonPanelTeacherHomepageLogOut, 250, 45);
+		
 
 
 
