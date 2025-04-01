@@ -178,8 +178,8 @@ public class DataManagement {
 			return false;
 		}
 	}
-	
-	
+
+
 	public static boolean addClassToList(SchoolClass sc) {
 		try {
 			classes.add(sc);
@@ -275,8 +275,8 @@ public class DataManagement {
 	public static ArrayList<SchoolClass> getCurrentSchoolClasses() {
 		return currentSchool.getClasses();
 	}
-	
-	
+
+
 	public static ArrayList<Teacher> getCurrentSchoolTeachers() {
 		ArrayList<Teacher> teacherList = new ArrayList<Teacher>();
 		for (User u : users) {
@@ -286,8 +286,8 @@ public class DataManagement {
 		}
 		return teacherList;
 	}
-	
-	
+
+
 	public static ArrayList<Student> getCurrentSchoolStudents() {
 		ArrayList<Student> studentList = new ArrayList<Student>();
 		for (User u : users) {
@@ -297,8 +297,8 @@ public class DataManagement {
 		}
 		return studentList;
 	}
-	
-	
+
+
 	public static boolean refactorUser(String username, String firstName, String lastName, String password, int id) {
 		try {
 			for (User u : users) {
@@ -306,19 +306,19 @@ public class DataManagement {
 					if (username.strip() != "") {
 						u.setUsername(username);
 					}
-					
+
 					if (firstName.strip() != "") {
 						u.setFirstName(firstName);
 					}
-					
+
 					if (lastName.strip() != "") {
 						u.setLastName(lastName);
 					}
-					
+
 					if (password.strip() != "") {
 						u.setPassword(password);
 					}
-					
+
 					currentSchool.refactorUser(username, firstName, lastName, password, id);
 					return true;
 				}
@@ -341,4 +341,124 @@ public class DataManagement {
 		}
 		return -1;
 	}
+
+
+	public static ArrayList<Teacher> getClassTeachers(int classID) {
+		for (SchoolClass cl : classes) {
+			if (cl.getClassID() == classID && cl.getSchoolID() == currentSchool.getSchoolID()) {
+				return cl.getTeachers();
+			}
+		}
+		return null;
+	}
+
+
+	public static ArrayList<Teacher> getNonClassTeachers(int classID) {
+		for (SchoolClass cl : classes) {
+			if (cl.getClassID() == classID && cl.getSchoolID() == currentSchool.getSchoolID()) {
+				ArrayList<Teacher> classTeachers = cl.getTeachers();
+				ArrayList<Teacher> allTeachers = getCurrentSchoolTeachers();
+				ArrayList<Teacher> nonClassTeachers = new ArrayList<Teacher>();
+
+				for (Teacher t : allTeachers) {
+					boolean isInClass = false;
+					for (Teacher u : classTeachers) {
+						if (t.getID() == u.getID()) {
+							isInClass = true;
+						}
+					}
+
+					if (!isInClass) {
+						nonClassTeachers.add(t);
+					}
+				}
+				return nonClassTeachers;
+			}
+		}
+		return null;
+	}
+
+
+	public static ArrayList<Student> getClassStudents(int classID) {
+		for (SchoolClass cl : classes) {
+			if (cl.getClassID() == classID && cl.getSchoolID() == currentSchool.getSchoolID()) {
+				return cl.getStudents();
+			}
+		}
+		return null;
+	}
+
+	public static ArrayList<Student> getNonClassStudents(int classID) {
+		for (SchoolClass cl : classes) {
+			if (cl.getClassID() == classID && cl.getSchoolID() == currentSchool.getSchoolID()) {
+				ArrayList<Student> classStudents = cl.getStudents();
+				ArrayList<Student> allStudents = getCurrentSchoolStudents();
+				ArrayList<Student> nonClassStudents = new ArrayList<Student>();
+
+				for (Student s : allStudents) {
+					boolean isInClass = false;
+					for (Student t : classStudents) {
+						if (s.getID() == t.getID()) {
+							isInClass = true;
+						}
+					}
+
+					if (!isInClass) {
+						nonClassStudents.add(s);
+					}
+				}
+				return nonClassStudents;
+			}
+		}
+		return null;
+	}
+
+
+	public static void manageStudentInClass(int classID, int studentID, boolean alreadyAdded) {
+		SchoolClass c = null;
+		Student s = null;
+
+		for (SchoolClass sc : classes) {
+			if (sc.getClassID() == classID) {
+				c = sc;
+			}
+		}
+
+		for (User st : users) {
+			if (st.getID() == studentID) {
+				s = (Student)st;
+			}
+		}
+
+		if (!alreadyAdded) {
+			c.addStudent(s);
+		} else {
+			c.deleteStudent(s);
+		}
+	}
+
+
+	public static void manageTeacherInClass(int classID, int teacherID, boolean alreadyAdded) {
+		SchoolClass c = null;
+		Teacher t = null;
+
+		for (SchoolClass sc : classes) {
+			if (sc.getClassID() == classID) {
+				c = sc;
+			}
+		}
+
+		for (User te : users) {
+			if (te.getID() == teacherID) {
+				t = (Teacher)te;
+			}
+		}
+
+		if (!alreadyAdded) {
+			c.addTeacher(t);
+		} else {
+			c.deleteTeacher(t);
+		}
+	}
+
 }

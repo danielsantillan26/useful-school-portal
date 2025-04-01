@@ -62,7 +62,7 @@ public class SchoolClass {
 	}
 
 
-	public boolean addUser(User u, String role) {
+	private boolean addUser(User u, String role) {
 		ArrayList<String> contents = FileWorker.readFile(classRoster);
 		try {
 			BufferedWriter bWriter = new BufferedWriter(new FileWriter(classRoster, false));
@@ -87,6 +87,23 @@ public class SchoolClass {
 	}
 	
 	
+	public boolean hasID(int id) {
+		ArrayList<String> contents = FileWorker.readFile(classRoster);
+		boolean hasID = false;
+		for (String str : contents) {
+			if (str.contains(Integer.toString(id))) {
+				hasID = true;
+			}
+		}
+		return hasID;
+	}
+	
+	
+	public boolean deleteUser(User u) {
+		return FileWorker.removeLine(classRoster, u.getID());
+	}
+	
+	
 	public boolean addStudent(Student s) {
 		return addUser(s, "Student");
 	}
@@ -96,6 +113,35 @@ public class SchoolClass {
 		return addUser(t, "Teacher");
 	}
 	
+	
+	public void addExistingStudent(Student s) {
+		students.add(s);
+	}
+	
+	
+	public void addExistingTeacher(Teacher t) {
+		teachers.add(t);
+	}
+	
+	 
+	public boolean deleteStudent(Student s) {
+		for (int i = 0; i < students.size(); i++) {
+			if (students.get(i).getID() == s.getID()) {
+				students.remove(i);
+			}
+		}
+		return deleteUser(s);
+	}
+	 
+	public boolean deleteTeacher(Teacher t) {
+		for (int i = 0; i < teachers.size(); i++) {
+			if (teachers.get(i).getID() == t.getID()) {
+				teachers.remove(i);
+				System.out.println("e");			}
+		}
+		return deleteUser(t);
+	}
+	 
 	public void deleteFiles() {
 		classRoster.delete();
 		classAssignments.delete();
@@ -127,6 +173,16 @@ public class SchoolClass {
 	
 	public int getGradingMethod() {
 		return gradingMethod;
+	}
+	
+	
+	public ArrayList<Teacher> getTeachers() {
+		return teachers;
+	}
+	
+	
+	public ArrayList<Student> getStudents() {
+		return students;
 	}
 
 

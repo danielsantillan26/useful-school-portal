@@ -156,6 +156,7 @@ public class Frame extends JFrame {
 		panelAdminDeleteClasses.addChangePageButtons(buttonPanelAdminDeleteClassesReturn);
 		panelAdminManageTeachers.addChangePageButtons(buttonPanelAdminManageTeachersReturn);
 		panelAdminManageStudents.addChangePageButtons(buttonPanelAdminManageStudentsReturn);
+		panelAdminManageClasses.addChangePageButtons(buttonPanelAdminManageClassesReturn);
 		
 
 		ActionListener al = new ActionListener() {
@@ -299,6 +300,7 @@ public class Frame extends JFrame {
 					for (int i = 0; i < 8; i++) {
 						cl.next(container);
 					}
+					panelAdminManageClasses.refreshComboBox();
 				} else if (e.getSource() == buttonPanelAdminHomepageEditProfile) {
 					for (int i = 0; i < 9; i++) {
 						cl.next(container);
@@ -329,6 +331,10 @@ public class Frame extends JFrame {
 					}
 				} else if (e.getSource() == buttonPanelAdminManageStudentsReturn) {
 					for (int i = 0; i < 7; i++) {
+						cl.previous(container);
+					}
+				} else if (e.getSource() == buttonPanelAdminManageClassesReturn) {
+					for (int i = 0; i < 8; i++) {
 						cl.previous(container);
 					}
 				}
@@ -363,6 +369,7 @@ public class Frame extends JFrame {
 		buttonPanelAdminDeleteClassesReturn.addActionListener(al);
 		buttonPanelAdminManageTeachersReturn.addActionListener(al);
 		buttonPanelAdminManageStudentsReturn.addActionListener(al);
+		buttonPanelAdminManageClassesReturn.addActionListener(al);
 
 		container.add(panelIntro);
 		container.add(panelToC);

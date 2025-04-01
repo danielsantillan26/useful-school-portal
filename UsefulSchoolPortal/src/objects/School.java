@@ -177,6 +177,18 @@ public class School {
 			SchoolClass sc = new SchoolClass(className, block, gradingMethod, schoolID, classID);
 			classes.add(sc);
 			DataManagement.addClassToList(sc);
+		
+			for (Teacher t : teachers) {
+				if (sc.hasID(t.getID())) {
+					sc.addExistingTeacher(t);
+				}
+			}
+			
+			for (Student s : students) {
+				if (sc.hasID(s.getID())) {
+					sc.addExistingStudent(s);
+				}
+			}
 
 		}
 	}
