@@ -328,6 +328,11 @@ public class DataManagement {
 			return false;
 		}
 	}
+	
+	
+	public static boolean refactorYourself(String username, String firstName, String lastName, String password) {
+		return refactorUser(username, firstName, lastName, password, loggedInUser.getID());
+	}
 
 
 	public static void setBlocks(int blocks) {

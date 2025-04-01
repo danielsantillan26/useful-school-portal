@@ -138,6 +138,9 @@ public class Frame extends JFrame {
 		JButton buttonPanelAdminManageClassesReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelAdminManageClassesReturn, 220, 45);
 		
+		JButton buttonPanelAdminEditProfileReturn = new JButton("Return");
+		GraphicsHelpers.modifyButton(buttonPanelAdminEditProfileReturn, 220, 45);
+		
 
 
 
@@ -157,6 +160,7 @@ public class Frame extends JFrame {
 		panelAdminManageTeachers.addChangePageButtons(buttonPanelAdminManageTeachersReturn);
 		panelAdminManageStudents.addChangePageButtons(buttonPanelAdminManageStudentsReturn);
 		panelAdminManageClasses.addChangePageButtons(buttonPanelAdminManageClassesReturn);
+		panelAdminEditProfile.addChangePageButtons(buttonPanelAdminEditProfileReturn);
 		
 
 		ActionListener al = new ActionListener() {
@@ -337,6 +341,11 @@ public class Frame extends JFrame {
 					for (int i = 0; i < 8; i++) {
 						cl.previous(container);
 					}
+				} else if (e.getSource() == buttonPanelAdminEditProfileReturn) {
+					for (int i = 0; i < 9; i++) {
+						cl.previous(container);
+					}
+					panelAdminHomepage.updateUsername();
 				}
 				
 				
@@ -370,6 +379,7 @@ public class Frame extends JFrame {
 		buttonPanelAdminManageTeachersReturn.addActionListener(al);
 		buttonPanelAdminManageStudentsReturn.addActionListener(al);
 		buttonPanelAdminManageClassesReturn.addActionListener(al);
+		buttonPanelAdminEditProfileReturn.addActionListener(al);
 
 		container.add(panelIntro);
 		container.add(panelToC);
