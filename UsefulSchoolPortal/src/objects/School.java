@@ -168,11 +168,15 @@ public class School {
 					DataManagement.addStudentToList(s);
 				}
 			} catch (InvalidFileInputException e) {
+				JOptionPane.showMessageDialog(null, "Some errors with data! Check the data log.",
+						"System Error", JOptionPane.ERROR_MESSAGE);
 				System.out.println("Corrupt Line");
 				System.out.println("File: " + userList.getName());
 				System.out.println("Line: " + (i + 1));
 				System.out.println("Reason: " + e.getMessage());
 			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(null, "Some errors with data! Check the data log.",
+						"System Error", JOptionPane.ERROR_MESSAGE);
 				System.out.println("Corrupt Line");
 				System.out.println("File: " + userList.getName());
 				System.out.println("Line: " + (i + 1));
@@ -218,11 +222,15 @@ public class School {
 				}
 
 			} catch (InvalidFileInputException e) {
+				JOptionPane.showMessageDialog(null, "Some errors with data! Check the data log.",
+						"System Error", JOptionPane.ERROR_MESSAGE);
 				System.out.println("Corrupt Line");
 				System.out.println("File: " + classList.getName());
 				System.out.println("Line: " + (i + 1));
 				System.out.println("Reason: " + e.getMessage());
 			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(null, "Some errors with data! Check the data log.",
+						"System Error", JOptionPane.ERROR_MESSAGE);
 				System.out.println("Corrupt Line");
 				System.out.println("File: " + classList.getName());
 				System.out.println("Line: " + (i + 1));
