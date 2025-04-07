@@ -94,17 +94,20 @@ public class AdminDeleteUsersPanel extends JPanel {
 		userList.removeAllItems();
 		users = DataManagement.getCurrentSchoolUsers();
 
+		for (int i = 0; i < users.size(); i++) {
+			if (users.get(i).getID() == DataManagement.getLoggedInUser().getID()) {
+				users.remove(i);
+			}
+		}
 
 		if (users != null) {
 			for (User u : users) {
-				if (u.getID() != DataManagement.getLoggedInUser().getID()) {
-					if (u.isAdministrator()) {
-						userList.addItem(u.getFirstName() + " " + u.getLastName() + ", Administrator");
-					} else if (u.isTeacher()) {
-						userList.addItem(u.getFirstName() + " " + u.getLastName() + ", Teacher");
-					} else if (u.isStudent()) {
-						userList.addItem(u.getFirstName() + " " + u.getLastName() + ", Student");
-					}
+				if (u.isAdministrator()) {
+					userList.addItem(u.getFirstName() + " " + u.getLastName() + ", Administrator");
+				} else if (u.isTeacher()) {
+					userList.addItem(u.getFirstName() + " " + u.getLastName() + ", Teacher");
+				} else if (u.isStudent()) {
+					userList.addItem(u.getFirstName() + " " + u.getLastName() + ", Student");
 				}
 			}
 		}

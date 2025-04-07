@@ -89,6 +89,13 @@ public class FileWorker {
 			}
 		}	
 
+		return removeLineByIndex(f, forgetIndex);
+	}
+	
+	
+	public static boolean removeLineByIndex(File f, int forgetIndex) {
+		ArrayList<String> contents = readFile(f);
+		
 		try {
 			FileWriter writer = new FileWriter(f, false);
 			BufferedWriter bWriter = new BufferedWriter(writer);

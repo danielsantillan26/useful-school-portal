@@ -5,9 +5,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import files.Constants;
 import files.DataManagement;
 import files.FileWorker;
+import files.InvalidFileInputException;
 
 public class School {
 
@@ -129,34 +132,46 @@ public class School {
 	private void addExistingUsers() {
 		ArrayList<String> contents = FileWorker.readFile(userList);
 		for (int i = 1; i < contents.size(); i++) {
-			String x = contents.get(i);
-			String username = x.substring(0, x.indexOf(","));
-			x = x.substring(x.indexOf(",") + 1);
-			String firstName = x.substring(0, x.indexOf(","));
-			x = x.substring(x.indexOf(",") + 1);
-			String lastName = x.substring(0, x.indexOf(","));
-			x = x.substring(x.indexOf(",") + 1);
-			String role = x.substring(0, x.indexOf(","));
-			x = x.substring(x.indexOf(",") + 1);
-			int id = Integer.parseInt(x.substring(0, x.indexOf(",")));
-			x = x.substring(x.indexOf(",") + 1);
-			String password = x;
 
-			if (role.equals("Administrator")) {
-				Administrator a = new Administrator(username, firstName, lastName,
-						password, id, this.schoolID);
-				admins.add(a);
-				DataManagement.addAdministratorToList(a);
-			} else if (role.equals("Teacher")) {
-				Teacher t = new Teacher(username, firstName, lastName,
-						password, id, this.schoolID);
-				teachers.add(t);
-				DataManagement.addTeacherToList(t);
-			} else {
-				Student s = new Student(username, firstName, lastName,
-						password, id, this.schoolID);
-				students.add(s);
-				DataManagement.addStudentToList(s);
+			String x = contents.get(i);
+			try {
+				if (x.split(",").length != 6) {
+					throw new InvalidFileInputException();
+				}
+
+				String username = x.substring(0, x.indexOf(","));
+				x = x.substring(x.indexOf(",") + 1);
+				String firstName = x.substring(0, x.indexOf(","));
+				x = x.substring(x.indexOf(",") + 1);
+				String lastName = x.substring(0, x.indexOf(","));
+				x = x.substring(x.indexOf(",") + 1);
+				String role = x.substring(0, x.indexOf(","));
+				x = x.substring(x.indexOf(",") + 1);
+				int id = Integer.parseInt(x.substring(0, x.indexOf(",")));
+				x = x.substring(x.indexOf(",") + 1);
+				String password = x;
+
+				if (role.equals("Administrator")) {
+					Administrator a = new Administrator(username, firstName, lastName,
+							password, id, this.schoolID);
+					admins.add(a);
+					DataManagement.addAdministratorToList(a);
+				} else if (role.equals("Teacher")) {
+					Teacher t = new Teacher(username, firstName, lastName,
+							password, id, this.schoolID);
+					teachers.add(t);
+					DataManagement.addTeacherToList(t);
+				} else {
+					Student s = new Student(username, firstName, lastName,
+							password, id, this.schoolID);
+					students.add(s);
+					DataManagement.addStudentToList(s);
+				}
+			} catch (InvalidFileInputException e) {
+				System.out.println("Corrupt Line");
+				System.out.println("File: " + userList.getName());
+				System.out.println("Line: " + (i + 1));
+				System.out.println("Reason: " + e.getMessage());
 			}
 		}
 	}
@@ -166,28 +181,42 @@ public class School {
 		ArrayList<String> contents = FileWorker.readFile(classList);
 		for (int i = 1; i < contents.size(); i++) {
 			String x = contents.get(i);
-			String className = x.substring(0, x.indexOf(","));
-			x = x.substring(x.indexOf(",") + 1);
-			int classID = Integer.parseInt(x.substring(0, x.indexOf(",")));
-			x = x.substring(x.indexOf(",") + 1);
-			int block = Integer.parseInt(x.substring(0, x.indexOf(",")));
-			x = x.substring(x.indexOf(",") + 1);
-			int gradingMethod = Integer.parseInt(x);
 
-			SchoolClass sc = new SchoolClass(className, block, gradingMethod, schoolID, classID);
-			classes.add(sc);
-			DataManagement.addClassToList(sc);
-		
-			for (Teacher t : teachers) {
-				if (sc.hasID(t.getID())) {
-					sc.addExistingTeacher(t);
+			try {
+
+				if (x.split(",").length != 4) {
+					throw new InvalidFileInputException();
 				}
-			}
-			
-			for (Student s : students) {
-				if (sc.hasID(s.getID())) {
-					sc.addExistingStudent(s);
+
+				String className = x.substring(0, x.indexOf(","));
+				x = x.substring(x.indexOf(",") + 1);
+				int classID = Integer.parseInt(x.substring(0, x.indexOf(",")));
+				x = x.substring(x.indexOf(",") + 1);
+				int block = Integer.parseInt(x.substring(0, x.indexOf(",")));
+				x = x.substring(x.indexOf(",") + 1);
+				int gradingMethod = Integer.parseInt(x);
+
+				SchoolClass sc = new SchoolClass(className, block, gradingMethod, schoolID, classID);
+				classes.add(sc);
+				DataManagement.addClassToList(sc);
+
+				for (Teacher t : teachers) {
+					if (sc.hasID(t.getID())) {
+						sc.addExistingTeacher(t);
+					}
 				}
+
+				for (Student s : students) {
+					if (sc.hasID(s.getID())) {
+						sc.addExistingStudent(s);
+					}
+				}
+
+			} catch (InvalidFileInputException e) {
+				System.out.println("Corrupt Line");
+				System.out.println("File: " + userList.getName());
+				System.out.println("Line: " + (i + 1));
+				System.out.println("Reason: " + e.getMessage());
 			}
 
 		}
@@ -285,14 +314,14 @@ public class School {
 				return;
 			}
 		}
-		
+
 		for (Teacher t : teachers) {
 			if (t.getID() == id) {
 				editUser(t, username, firstName, lastName, password);
 				return;
 			}
 		}
-		
+
 		for (Student s : students) {
 			if (s.getID() == id) {
 				editUser(s, username, firstName, lastName, password);
@@ -300,8 +329,8 @@ public class School {
 			}
 		}
 	}
-	
-	
+
+
 	private void editUser(User u, String username, String firstName, String lastName, String password) {
 		if (username.strip() != "") {
 			u.setUsername(username);
@@ -318,16 +347,16 @@ public class School {
 		if (password.strip() != "") {
 			u.setPassword(password);
 		}
-		
+
 		ArrayList<String> contents = FileWorker.readFile(userList);
-		
+
 		int refactorIndex = -1;
 		for (int i = 0; i < contents.size(); i++) {
 			if (contents.get(i).contains(Integer.toString(u.getID()))) {
 				refactorIndex = i;
 			}
 		}	
-		
+
 		String role = "";
 		if (u.isAdministrator()) {
 			role = "Administrator";
