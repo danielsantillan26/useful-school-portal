@@ -172,6 +172,11 @@ public class School {
 				System.out.println("File: " + userList.getName());
 				System.out.println("Line: " + (i + 1));
 				System.out.println("Reason: " + e.getMessage());
+			} catch (NumberFormatException e) {
+				System.out.println("Corrupt Line");
+				System.out.println("File: " + userList.getName());
+				System.out.println("Line: " + (i + 1));
+				System.out.println("Reason: " + e.getMessage());
 			}
 		}
 	}
@@ -214,7 +219,12 @@ public class School {
 
 			} catch (InvalidFileInputException e) {
 				System.out.println("Corrupt Line");
-				System.out.println("File: " + userList.getName());
+				System.out.println("File: " + classList.getName());
+				System.out.println("Line: " + (i + 1));
+				System.out.println("Reason: " + e.getMessage());
+			} catch (NumberFormatException e) {
+				System.out.println("Corrupt Line");
+				System.out.println("File: " + classList.getName());
 				System.out.println("Line: " + (i + 1));
 				System.out.println("Reason: " + e.getMessage());
 			}
