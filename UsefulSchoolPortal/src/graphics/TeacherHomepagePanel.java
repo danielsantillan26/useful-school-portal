@@ -1,7 +1,6 @@
 package graphics;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
@@ -10,11 +9,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
+import files.DataManagement;
+import objects.User;
+
 public class TeacherHomepagePanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	private SpringLayout sl;
 	private JPanel centerPanel;
+	private JLabel welcome;
 	
 	public TeacherHomepagePanel() {
 		setLayout(new BorderLayout());
@@ -39,6 +42,15 @@ public class TeacherHomepagePanel extends JPanel {
 		sl = new SpringLayout();
 		centerPanel = new JPanel(sl);
 		centerPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
+		
+		welcome = new JLabel();
+		welcome.setFont(GraphicsConstants.FONT_ROBOTO_B50);
+		
+		centerPanel.add(welcome);
+		sl.putConstraint(SpringLayout.WEST, welcome, 350, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, welcome, 50, SpringLayout.NORTH, centerPanel);
+		
+		add(centerPanel, BorderLayout.CENTER);
 	}
 	
 
@@ -53,10 +65,33 @@ public class TeacherHomepagePanel extends JPanel {
 		centerPanel.add(manageStudents);
 		centerPanel.add(editProfile);
 		
+		sl.putConstraint(SpringLayout.WEST, classHomepage, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, classHomepage, 200, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, editClassHomepage, 700, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, editClassHomepage, 200, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, viewRosters, 1300, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, viewRosters, 200, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, manageAssignments, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, manageAssignments, 300, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, gradeAssignments, 700, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, gradeAssignments, 300, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, manageStudents, 1300, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, manageStudents, 300, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, editProfile, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, editProfile, 400, SpringLayout.NORTH, centerPanel);
+		
 		JPanel southPanel = new JPanel();
 		southPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
 		southPanel.add(logOut);
 		add(southPanel, BorderLayout.SOUTH);
+	}
+	
+	
+	public void updateUsername() {
+		User u = DataManagement.getLoggedInUser();
+		String welcomeText = "Welcome, " + u.getFirstName() + " " + u.getLastName() + "!";
+		welcome.setText(welcomeText);
+		repaint();
 	}
 
 }

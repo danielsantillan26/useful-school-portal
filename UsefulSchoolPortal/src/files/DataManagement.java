@@ -465,5 +465,19 @@ public class DataManagement {
 			c.deleteTeacher(t);
 		}
 	}
+	
+	
+	public static ArrayList<SchoolClass> getCurrentUserClasses() {
+		ArrayList<SchoolClass> list = getCurrentSchoolClasses();
+		ArrayList<SchoolClass> personalizedList = new ArrayList<SchoolClass>();
+		
+		for (SchoolClass sc : list) {
+			if (sc.hasID(loggedInUser.getID())) {
+				personalizedList.add(sc);
+			}
+		}
+		
+		return personalizedList;
+	}
 
 }
