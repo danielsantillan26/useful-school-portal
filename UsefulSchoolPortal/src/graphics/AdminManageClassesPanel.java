@@ -71,7 +71,7 @@ public class AdminManageClassesPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (viewClasses.getSelectedIndex() != 0) {
-					int selectedClassID = schoolClasses.get(viewClasses.getSelectedIndex() + 1).getClassID();
+					int selectedClassID = schoolClasses.get(viewClasses.getSelectedIndex() - 1).getClassID();
 					classID = selectedClassID;
 					
 					refreshOtherBoxes();

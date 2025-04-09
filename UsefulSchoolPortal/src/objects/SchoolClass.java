@@ -16,9 +16,11 @@ public class SchoolClass {
 	private int schoolID;
 	private ArrayList<Teacher> teachers;
 	private ArrayList<Student> students;
+	private String announcement;
 	private int gradingMethod;
 	private File classRoster;
 	private File classAssignments;
+	private File classAnnouncements;
 	private ArrayList<Assignment> assignments;
 	/**
 	private ArrayList<String> weightCategories;
@@ -38,9 +40,12 @@ public class SchoolClass {
 		
 		teachers = new ArrayList<Teacher>();
 		students = new ArrayList<Student>();
+		
+		announcement = "";
 
 		classRoster = new File("SchoolClass_" + schoolID + "_" + classID + "_Roster.csv");
 		classAssignments = new File("SchoolClass_" + schoolID + "_" + classID + "_Assignments.csv");
+		classAnnouncements = new File("SchoolClass_" + schoolID + "_" + classID + "_Announcements.csv");
 		
 		try {
 			if (!classRoster.exists()) {
@@ -55,6 +60,15 @@ public class SchoolClass {
 				BufferedWriter bWriter = new BufferedWriter(new FileWriter(classAssignments, false));
 				bWriter.write("Assignment Name,Assignment ID,Points or Weight");
 				bWriter.close();
+			}
+			
+			if (!classAnnouncements.exists()) {
+				classAnnouncements.createNewFile();
+			} else {
+				ArrayList<String> contents = FileWorker.readFile(classAnnouncements);
+				for (String s : contents) {
+					announcement += s;
+				}
 			}
 		} catch (Exception e) {
 			
@@ -176,6 +190,11 @@ public class SchoolClass {
 	}
 	
 	
+	public String getAnnouncement() {
+		return announcement;
+	}
+	
+	
 	public ArrayList<Teacher> getTeachers() {
 		return teachers;
 	}
@@ -208,6 +227,19 @@ public class SchoolClass {
 	
 	public void setGradingMethod(int gradingMethod) {
 		this.gradingMethod = gradingMethod;
+	}
+	
+	
+	public void setAnnouncement(String announcement) {
+		this.announcement = announcement;
+		try {
+			BufferedWriter bWriter = new BufferedWriter(new FileWriter(classAnnouncements, false));
+			bWriter.write(announcement);
+			bWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

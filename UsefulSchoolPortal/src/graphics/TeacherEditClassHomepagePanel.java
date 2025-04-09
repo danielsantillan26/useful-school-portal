@@ -2,6 +2,8 @@ package graphics;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -9,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 
 import files.DataManagement;
@@ -52,14 +55,43 @@ public class TeacherEditClassHomepagePanel extends JPanel {
 		classList = new JComboBox<String>();
 		classList.setFont(GraphicsConstants.FONT_ROBOTO_B30);
 		classList.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
+		
+		JLabel editHomepage = new JLabel("Edit Homepage");
+		editHomepage.setFont(GraphicsConstants.FONT_ROBOTO_B50);
+		
+		JTextArea homepageText = new JTextArea();
+		homepageText.setPreferredSize(new Dimension(800, 500));
+		homepageText.setFont(GraphicsConstants.FONT_ROBOTO_B30);
+		homepageText.setLineWrap(true);
+		
+		JButton confirm = new JButton("Confirm");
+		GraphicsHelpers.modifyButton(confirm, 220, 45);
+		confirm.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 
 		centerPanel.add(enterClass);
 		centerPanel.add(classList);
+		centerPanel.add(editHomepage);
+		centerPanel.add(homepageText);
+		centerPanel.add(confirm);
 
 		sl.putConstraint(SpringLayout.WEST, enterClass, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, enterClass, 50, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, classList, 100, SpringLayout.EAST, enterClass);
 		sl.putConstraint(SpringLayout.NORTH, classList, 50, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, editHomepage, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, editHomepage, 150, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, homepageText, 100, SpringLayout.EAST, editHomepage);
+		sl.putConstraint(SpringLayout.NORTH, homepageText, 150, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, confirm, 0, SpringLayout.WEST, homepageText);
+		sl.putConstraint(SpringLayout.NORTH, confirm, 50, SpringLayout.SOUTH, homepageText);
 
 		add(centerPanel, BorderLayout.CENTER);
 	}

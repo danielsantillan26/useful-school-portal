@@ -209,7 +209,7 @@ public class AdminAddUsersPanel extends JPanel {
 		sl.putConstraint(SpringLayout.WEST, givenPassword, 150, SpringLayout.EAST, enterPassword);
 		sl.putConstraint(SpringLayout.NORTH, givenPassword, 550, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, visiblePassword, 0, SpringLayout.WEST, givenPassword);
-		sl.putConstraint(SpringLayout.NORTH, visiblePassword, 675, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, visiblePassword, 725, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, showHidePassword, 610, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, showHidePassword, 675, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, createAccount, 610, SpringLayout.WEST, centerPanel);

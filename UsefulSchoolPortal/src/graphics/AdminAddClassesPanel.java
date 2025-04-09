@@ -87,6 +87,7 @@ public class AdminAddClassesPanel extends JPanel {
 				}
 				
 				DataManagement.addNewClass(className, block);
+				givenClassName.setText("");
 			}
 			
 		});
