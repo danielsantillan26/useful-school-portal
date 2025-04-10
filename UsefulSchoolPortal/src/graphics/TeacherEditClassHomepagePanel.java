@@ -65,6 +65,7 @@ public class TeacherEditClassHomepagePanel extends JPanel {
 		homepageText.setPreferredSize(new Dimension(800, 500));
 		homepageText.setFont(GraphicsConstants.FONT_ROBOTO_B30);
 		homepageText.setLineWrap(true);
+		homepageText.setWrapStyleWord(true);
 
 		JButton loadData = new JButton("Load Data");
 		GraphicsHelpers.modifyButton(loadData, 250, 45);

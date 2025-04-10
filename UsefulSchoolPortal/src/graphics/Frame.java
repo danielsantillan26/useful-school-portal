@@ -59,6 +59,7 @@ public class Frame extends JFrame {
 		TeacherHomepagePanel panelTeacherHomepage = new TeacherHomepagePanel();
 		TeacherClassHomepagePanel panelTeacherClassHomepage = new TeacherClassHomepagePanel();
 		TeacherEditClassHomepagePanel panelTeacherEditClassHomepage = new TeacherEditClassHomepagePanel();
+		TeacherViewRostersPanel panelTeacherViewRosters = new TeacherViewRostersPanel();
 		StudentHomepagePanel panelStudentHomepage = new StudentHomepagePanel();
 		
 
@@ -173,6 +174,9 @@ public class Frame extends JFrame {
 		JButton buttonPanelTeacherEditClassHomepageReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherEditClassHomepageReturn, 220, 45);
 		
+		JButton buttonPanelTeacherViewRostersReturn = new JButton("Return");
+		GraphicsHelpers.modifyButton(buttonPanelTeacherViewRostersReturn, 220, 45);
+		
 
 
 
@@ -198,6 +202,7 @@ public class Frame extends JFrame {
 				buttonPanelTeacherHomepageManageStudents, buttonPanelTeacherHomepageEditProfile, buttonPanelTeacherHomepageLogOut);
 		panelTeacherClassHomepage.addChangePageButtons(buttonPanelTeacherClassHomepageReturn);
 		panelTeacherEditClassHomepage.addChangePageButtons(buttonPanelTeacherEditClassHomepageReturn);
+		panelTeacherViewRosters.addChangePageButtons(buttonPanelTeacherViewRostersReturn);
 		
 
 		ActionListener al = new ActionListener() {
@@ -386,6 +391,7 @@ public class Frame extends JFrame {
 					panelAdminHomepage.updateUsername();
 				} else if (e.getSource() == buttonPanelTeacherHomepageClassHomepage) {
 					cl.next(container);
+					panelTeacherClassHomepage.refreshComboBox();
 				} else if (e.getSource() == buttonPanelTeacherHomepageEditClassHomepage) {
 					cl.next(container);
 					cl.next(container);
@@ -394,6 +400,7 @@ public class Frame extends JFrame {
 					cl.next(container);
 					cl.next(container);
 					cl.next(container);
+					panelTeacherViewRosters.refreshComboBox();
 				} else if (e.getSource() == buttonPanelTeacherHomepageManageAssignments) {
 					for (int i = 0; i < 4; i++) {
 						cl.next(container);
@@ -416,6 +423,10 @@ public class Frame extends JFrame {
 				} else if (e.getSource() == buttonPanelTeacherClassHomepageReturn) {
 					cl.previous(container);
 				} else if (e.getSource() == buttonPanelTeacherEditClassHomepageReturn) {
+					cl.previous(container);
+					cl.previous(container);
+				} else if (e.getSource() == buttonPanelTeacherViewRostersReturn) {
+					cl.previous(container);
 					cl.previous(container);
 					cl.previous(container);
 				}
@@ -460,6 +471,8 @@ public class Frame extends JFrame {
 		buttonPanelTeacherHomepageLogOut.addActionListener(al);
 		buttonPanelTeacherClassHomepageReturn.addActionListener(al);
 		buttonPanelTeacherEditClassHomepageReturn.addActionListener(al);
+		buttonPanelTeacherViewRostersReturn
+		.addActionListener(al);
 
 		container.add(panelIntro);
 		container.add(panelToC);
@@ -478,6 +491,7 @@ public class Frame extends JFrame {
 		container.add(panelTeacherHomepage);
 		container.add(panelTeacherClassHomepage);
 		container.add(panelTeacherEditClassHomepage);
+		container.add(panelTeacherViewRosters);
 		container.add(panelStudentHomepage);
 	}
 

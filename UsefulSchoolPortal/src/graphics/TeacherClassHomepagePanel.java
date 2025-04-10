@@ -2,6 +2,8 @@ package graphics;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -9,8 +11,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 
+import files.DataManagement;
 import objects.SchoolClass;
 
 public class TeacherClassHomepagePanel extends JPanel {
@@ -21,13 +25,14 @@ public class TeacherClassHomepagePanel extends JPanel {
 	private ArrayList<SchoolClass> classes;
 	private int classID;
 	private String announcement;
+	private JTextArea announcementLabel;
 	
 	public TeacherClassHomepagePanel() {
 		setLayout(new BorderLayout());
 		prepareNorthPanel();
 		prepareCenterPanel();
 		classID = 0;
-		announcement = "我爱美国。我爱国，不是共产主义者。愿上帝保佑美国!";
+		announcement = "";
 	}
 	
 	
@@ -55,10 +60,45 @@ public class TeacherClassHomepagePanel extends JPanel {
 		classList.setFont(GraphicsConstants.FONT_ROBOTO_B30);
 		classList.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
 		
+		JButton loadData = new JButton("Load Data");
+		GraphicsHelpers.modifyButton(loadData, 250, 45);
+		loadData.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int index = classList.getSelectedIndex();
+				if (index != 0) {
+					announcement = DataManagement.getAnnouncement(classes.get(index - 1).getClassID());
+				} else {
+					announcement = "";
+				}
+				announcementLabel.setText(announcement);
+				repaint();
+			}
+			
+		});
+		
+		announcementLabel = new JTextArea();
+		announcementLabel.setFont(GraphicsConstants.FONT_ROBOTO_B30);
+		announcementLabel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
+		announcementLabel.setPreferredSize(new Dimension(1600, 600));
+		announcementLabel.setEditable(false);
+		announcementLabel.setLineWrap(true);
+		announcementLabel.setWrapStyleWord(true);
+		
 		centerPanel.add(enterClass);
+		centerPanel.add(classList);
+		centerPanel.add(loadData);
+		centerPanel.add(announcementLabel);
 		
 		sl.putConstraint(SpringLayout.WEST, enterClass, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, enterClass, 50, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, classList, 100, SpringLayout.EAST, enterClass);
+		sl.putConstraint(SpringLayout.NORTH, classList, 50, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, loadData, 0, SpringLayout.WEST, classList);
+		sl.putConstraint(SpringLayout.NORTH, loadData, 25, SpringLayout.SOUTH, classList);
+		sl.putConstraint(SpringLayout.WEST, announcementLabel, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, announcementLabel, 200, SpringLayout.NORTH, centerPanel);
 		
 		add(centerPanel, BorderLayout.CENTER);
 	}
@@ -69,6 +109,19 @@ public class TeacherClassHomepagePanel extends JPanel {
 		southPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
 		southPanel.add(goHome);
 		add(southPanel, BorderLayout.SOUTH);
+	}
+	
+	
+	public void refreshComboBox() {
+		classList.removeAllItems();
+		classes = DataManagement.getCurrentUserClasses();
+
+		classList.addItem("-- Select Class --");
+		if (classes != null) {
+			for (SchoolClass sc : classes) {
+				classList.addItem(sc.getName() + " - Block " + sc.getBlock());
+			}
+		}
 	}
 
 }
