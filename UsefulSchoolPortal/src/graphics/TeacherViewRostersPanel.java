@@ -17,27 +17,28 @@ import javax.swing.SpringLayout;
 
 import files.DataManagement;
 import objects.SchoolClass;
+import objects.User;
 
 public class TeacherViewRostersPanel extends JPanel {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private JComboBox<String> classList;
 	private ArrayList<SchoolClass> classes;
 	private int classID;
 	private JTable table;
 	private JScrollPane spTable;
-	
-	
+
+
 	public TeacherViewRostersPanel() {
 		setLayout(new BorderLayout());
 		prepareNorthPanel();
 		prepareCenterPanel();
-		
+
 		classID = -1;
 	}
-	
-	
+
+
 	private void prepareNorthPanel() {
 		JPanel northPanel = new JPanel();
 		northPanel.setBackground(GraphicsConstants.COLOR_BG_HEADER);
@@ -48,20 +49,20 @@ public class TeacherViewRostersPanel extends JPanel {
 
 		add(northPanel, BorderLayout.NORTH);
 	}
-	
-	
+
+
 	private void prepareCenterPanel() {
 		SpringLayout sl = new SpringLayout();
 		JPanel centerPanel = new JPanel(sl);
 		centerPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
-		
+
 		JLabel enterClass = new JLabel("Select Class");
 		enterClass.setFont(GraphicsConstants.FONT_ROBOTO_B50);
 
 		classList = new JComboBox<String>();
 		classList.setFont(GraphicsConstants.FONT_ROBOTO_B30);
 		classList.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
-		
+
 		String[] columnNames = {"Name", "Role"};
 		Object[][] data = {{"", ""}, {"", ""}, {"", ""}, {"", ""}, {"", ""},
 				{"", ""}, {"", ""}, {"", ""}, {"", ""}, {"", ""}, {"", ""},
@@ -82,20 +83,20 @@ public class TeacherViewRostersPanel extends JPanel {
 				{"", ""}, {"", ""}, {"", ""}, {"", ""}, {"", ""}, {"", ""},
 				{"", ""}, {"", ""}, {"", ""}, {"", ""}, {"", ""}, {"", ""}};
 		table = new JTable(data, columnNames) {
-			
+
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
-			
+
 		};
 		table.setFillsViewportHeight(true);
-		
+
 		spTable = new JScrollPane(table);
 		spTable.setPreferredSize(new Dimension(1400, 600));
-		
+
 		JButton loadData = new JButton("Load Data");
 		GraphicsHelpers.modifyButton(loadData, 250, 45);
 		loadData.addActionListener(new ActionListener() {
@@ -104,17 +105,18 @@ public class TeacherViewRostersPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int index = classList.getSelectedIndex();
 				if (index != 0) {
-					
+					classID = classes.get(index - 1).getClassID();
+					refreshTable();
 				}
 			}
 
 		});
-		
+
 		centerPanel.add(enterClass);
 		centerPanel.add(classList);
 		centerPanel.add(loadData);
 		centerPanel.add(spTable);
-		
+
 		sl.putConstraint(SpringLayout.WEST, enterClass, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, enterClass, 50, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, classList, 100, SpringLayout.EAST, enterClass);
@@ -123,19 +125,19 @@ public class TeacherViewRostersPanel extends JPanel {
 		sl.putConstraint(SpringLayout.NORTH, loadData, 25, SpringLayout.SOUTH, classList);
 		sl.putConstraint(SpringLayout.WEST, spTable, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, spTable, 250, SpringLayout.NORTH, centerPanel);
-		
+
 		add(centerPanel, BorderLayout.CENTER);
 	}
-	
-	
+
+
 	public void addChangePageButtons(JButton goHome) {
 		JPanel southPanel = new JPanel();
 		southPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
 		southPanel.add(goHome);
 		add(southPanel, BorderLayout.SOUTH);
 	}
-	
-	
+
+
 	public void refreshComboBox() {
 		classList.removeAllItems();
 		classes = DataManagement.getCurrentUserClasses();
@@ -146,13 +148,36 @@ public class TeacherViewRostersPanel extends JPanel {
 				classList.addItem(sc.getName() + " - Block " + sc.getBlock());
 			}
 		}
-		
+		classID = -1;
 		refreshTable();
 	}
-	
-	
+
+
 	private void refreshTable() {
-		
+		for (int i = 0; i < table.getRowCount(); i++) {
+			for (int j = 0; j < table.getColumnCount(); j++) {
+				table.getModel().setValueAt("", i, j);
+			}
+		}
+
+		if (classID != -1) {
+			ArrayList<User> classUsers = DataManagement.getClassUsers(classID);
+
+			for (int i = 0; i < classUsers.size(); i++) {
+				for (int j = 0; j < table.getColumnCount(); j++) {
+					if (j == 0) {
+						table.getModel().setValueAt(classUsers.get(i).getFirstName()
+								+ " " + classUsers.get(i).getLastName(), i, j);
+					} else {
+						if (classUsers.get(i).isTeacher()) {
+							table.getModel().setValueAt("Teacher", i, j);
+						} else {
+							table.getModel().setValueAt("Student", i, j);
+						}
+					}
+				}
+			}
+		}
 	}
 
 }

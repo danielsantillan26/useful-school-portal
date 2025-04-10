@@ -60,6 +60,7 @@ public class Frame extends JFrame {
 		TeacherClassHomepagePanel panelTeacherClassHomepage = new TeacherClassHomepagePanel();
 		TeacherEditClassHomepagePanel panelTeacherEditClassHomepage = new TeacherEditClassHomepagePanel();
 		TeacherViewRostersPanel panelTeacherViewRosters = new TeacherViewRostersPanel();
+		TeacherManageAssignmentsPanel panelTeacherManageAssignments = new TeacherManageAssignmentsPanel();
 		StudentHomepagePanel panelStudentHomepage = new StudentHomepagePanel();
 		
 
@@ -177,6 +178,9 @@ public class Frame extends JFrame {
 		JButton buttonPanelTeacherViewRostersReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherViewRostersReturn, 220, 45);
 		
+		JButton buttonPanelTeacherManageAssignmentsReturn = new JButton("Return");
+		GraphicsHelpers.modifyButton(buttonPanelTeacherManageAssignmentsReturn, 220, 45);
+		
 
 
 
@@ -203,6 +207,7 @@ public class Frame extends JFrame {
 		panelTeacherClassHomepage.addChangePageButtons(buttonPanelTeacherClassHomepageReturn);
 		panelTeacherEditClassHomepage.addChangePageButtons(buttonPanelTeacherEditClassHomepageReturn);
 		panelTeacherViewRosters.addChangePageButtons(buttonPanelTeacherViewRostersReturn);
+		panelTeacherManageAssignments.addChangePageButtons(buttonPanelTeacherManageAssignmentsReturn);
 		
 
 		ActionListener al = new ActionListener() {
@@ -429,6 +434,10 @@ public class Frame extends JFrame {
 					cl.previous(container);
 					cl.previous(container);
 					cl.previous(container);
+				} else if (e.getSource() == buttonPanelTeacherManageAssignmentsReturn) {
+					for (int i = 0; i < 4; i++) {
+						cl.previous(container);
+					}
 				}
 			} 
 
@@ -471,8 +480,8 @@ public class Frame extends JFrame {
 		buttonPanelTeacherHomepageLogOut.addActionListener(al);
 		buttonPanelTeacherClassHomepageReturn.addActionListener(al);
 		buttonPanelTeacherEditClassHomepageReturn.addActionListener(al);
-		buttonPanelTeacherViewRostersReturn
-		.addActionListener(al);
+		buttonPanelTeacherViewRostersReturn.addActionListener(al);
+		buttonPanelTeacherManageAssignmentsReturn.addActionListener(al);
 
 		container.add(panelIntro);
 		container.add(panelToC);
@@ -492,6 +501,7 @@ public class Frame extends JFrame {
 		container.add(panelTeacherClassHomepage);
 		container.add(panelTeacherEditClassHomepage);
 		container.add(panelTeacherViewRosters);
+		container.add(panelTeacherManageAssignments);
 		container.add(panelStudentHomepage);
 	}
 

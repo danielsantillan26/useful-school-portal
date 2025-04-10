@@ -417,6 +417,26 @@ public class DataManagement {
 		}
 		return null;
 	}
+	
+	
+	public static ArrayList<User> getClassUsers(int classID) {
+		ArrayList<User> classUsers = new ArrayList<User>();
+		for (SchoolClass cl : classes) {
+			if (cl.getClassID() == classID && cl.getSchoolID() == currentSchool.getSchoolID()) {
+				ArrayList<Student> classStudents = getClassStudents(classID);
+				ArrayList<Teacher> classTeachers = getClassTeachers(classID);
+				
+				for (Teacher t : classTeachers) {
+					classUsers.add((User)t);
+				}
+				
+				for (Student s : classStudents) {
+					classUsers.add((User)s);
+				}
+			}
+		}
+		return classUsers;
+	}
 
 
 	public static void manageStudentInClass(int classID, int studentID, boolean alreadyAdded) {
