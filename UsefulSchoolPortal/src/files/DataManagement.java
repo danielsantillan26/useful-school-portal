@@ -479,5 +479,24 @@ public class DataManagement {
 		
 		return personalizedList;
 	}
+	
+	
+	public static void setAnnouncement(String s, int classID) {
+		for (SchoolClass c : classes) {
+			if (c.getClassID() == classID) {
+				c.setAnnouncement(s);
+			}
+		}
+	}
+	
+	
+	public static String getAnnouncement(int classID) {
+		for (SchoolClass c : classes) {
+			if (c.getClassID() == classID) {
+				return c.getAnnouncement();
+			}
+		}
+		return "";
+	}
 
 }

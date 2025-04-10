@@ -2,21 +2,32 @@ package graphics;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
+
+import objects.SchoolClass;
 
 public class TeacherClassHomepagePanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	
+	private JComboBox<String> classList;
+	private ArrayList<SchoolClass> classes;
+	private int classID;
+	private String announcement;
+	
 	public TeacherClassHomepagePanel() {
 		setLayout(new BorderLayout());
 		prepareNorthPanel();
 		prepareCenterPanel();
+		classID = 0;
+		announcement = "我爱美国。我爱国，不是共产主义者。愿上帝保佑美国!";
 	}
 	
 	
@@ -39,6 +50,10 @@ public class TeacherClassHomepagePanel extends JPanel {
 		
 		JLabel enterClass = new JLabel("Select Class");
 		enterClass.setFont(GraphicsConstants.FONT_ROBOTO_B50);
+
+		classList = new JComboBox<String>();
+		classList.setFont(GraphicsConstants.FONT_ROBOTO_B30);
+		classList.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
 		
 		centerPanel.add(enterClass);
 		
