@@ -61,7 +61,15 @@ public class Frame extends JFrame {
 		TeacherEditClassHomepagePanel panelTeacherEditClassHomepage = new TeacherEditClassHomepagePanel();
 		TeacherViewRostersPanel panelTeacherViewRosters = new TeacherViewRostersPanel();
 		TeacherManageAssignmentsPanel panelTeacherManageAssignments = new TeacherManageAssignmentsPanel();
+		TeacherGradeAssignmentsPanel panelTeacherGradeAssignments = new TeacherGradeAssignmentsPanel();
+		TeacherManageStudentsPanel panelTeacherManageStudents = new TeacherManageStudentsPanel();
+		TeacherEditProfilePanel panelTeacherEditProfile = new TeacherEditProfilePanel();
 		StudentHomepagePanel panelStudentHomepage = new StudentHomepagePanel();
+		StudentClassHomepagePanel panelStudentClassHomepage = new StudentClassHomepagePanel();
+		StudentViewRostersPanel panelStudentViewRosters = new StudentViewRostersPanel();
+		StudentViewGradesPanel panelStudentViewGrades = new StudentViewGradesPanel();
+		StudentGradingSimulatorPanel panelStudentGradingSimulator = new StudentGradingSimulatorPanel();
+		StudentEditProfilePanel panelStudentEditProfile = new StudentEditProfilePanel();
 		
 
 		JButton buttonPanelIntroRegister = new JButton("Register");
@@ -181,6 +189,36 @@ public class Frame extends JFrame {
 		JButton buttonPanelTeacherManageAssignmentsReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherManageAssignmentsReturn, 220, 45);
 		
+		JButton buttonPanelTeacherEditProfileReturn = new JButton("Return");
+		GraphicsHelpers.modifyButton(buttonPanelTeacherEditProfileReturn, 220, 45);
+		
+		JButton buttonPanelStudentHomepageClassHomepage = new JButton("Class Homepage");
+		GraphicsHelpers.modifyButton(buttonPanelStudentHomepageClassHomepage, 450, 45);
+		
+		JButton buttonPanelStudentHomepageViewRosters = new JButton("View Rosters");
+		GraphicsHelpers.modifyButton(buttonPanelStudentHomepageViewRosters, 300, 45);
+		
+		JButton buttonPanelStudentHomepageViewGrades = new JButton("View Grades");
+		GraphicsHelpers.modifyButton(buttonPanelStudentHomepageViewGrades, 300, 45);
+		
+		JButton buttonPanelStudentHomepageGradingSimulator = new JButton("Grading Simulator");
+		GraphicsHelpers.modifyButton(buttonPanelStudentHomepageGradingSimulator, 500, 45);
+		
+		JButton buttonPanelStudentHomepageEditProfile = new JButton("Edit Profile");
+		GraphicsHelpers.modifyButton(buttonPanelStudentHomepageEditProfile, 300, 45);
+		
+		JButton buttonPanelStudentHomepageLogOut = new JButton("Log Out");
+		GraphicsHelpers.modifyButton(buttonPanelStudentHomepageLogOut, 250, 45);
+		
+		JButton buttonPanelStudentClassHomepageReturn = new JButton("Return");
+		GraphicsHelpers.modifyButton(buttonPanelStudentClassHomepageReturn, 220, 45);
+		
+		JButton buttonPanelStudentViewRostersReturn = new JButton("Return");
+		GraphicsHelpers.modifyButton(buttonPanelStudentViewRostersReturn, 220, 45);
+		
+		JButton buttonPanelStudentEditProfileReturn = new JButton("Return");
+		GraphicsHelpers.modifyButton(buttonPanelStudentEditProfileReturn, 220, 45);
+		
 
 
 
@@ -208,6 +246,15 @@ public class Frame extends JFrame {
 		panelTeacherEditClassHomepage.addChangePageButtons(buttonPanelTeacherEditClassHomepageReturn);
 		panelTeacherViewRosters.addChangePageButtons(buttonPanelTeacherViewRostersReturn);
 		panelTeacherManageAssignments.addChangePageButtons(buttonPanelTeacherManageAssignmentsReturn);
+		panelTeacherEditProfile.addChangePageButtons(buttonPanelTeacherEditProfileReturn);
+		panelStudentHomepage.addChangePageButtons(buttonPanelStudentHomepageClassHomepage,
+				buttonPanelStudentHomepageViewRosters, buttonPanelStudentHomepageViewGrades,
+				buttonPanelStudentHomepageGradingSimulator, buttonPanelStudentHomepageEditProfile,
+				buttonPanelStudentHomepageLogOut);
+		panelStudentClassHomepage.addChangePageButtons(buttonPanelStudentClassHomepageReturn);
+		panelStudentViewRosters.addChangePageButtons(buttonPanelStudentViewRostersReturn);
+		panelStudentEditProfile.addChangePageButtons(buttonPanelStudentEditProfileReturn);
+		
 		
 
 		ActionListener al = new ActionListener() {
@@ -226,10 +273,7 @@ public class Frame extends JFrame {
 				} else if (e.getSource() == buttonPanelToCReturn) {
 					cl.previous(container);
 
-				}
-
-				// TODO: Fix spacing when you are done
-				else if (e.getSource() == buttonPanelRegisterCreate) {
+				} else if (e.getSource() == buttonPanelRegisterCreate) {
 					String givenSchoolName = panelRegister.getSchoolName();
 					String givenUsername = panelRegister.getUsername();
 					String givenFirstName = panelRegister.getFirstName();
@@ -278,10 +322,7 @@ public class Frame extends JFrame {
 					cl.next(container);
 					cl.next(container);
 
-				} 
-
-
-				else if (e.getSource() == buttonPanelRegisterReturn) {
+				} else if (e.getSource() == buttonPanelRegisterReturn) {
 					cl.previous(container);
 					cl.previous(container);
 				} else if (e.getSource() == buttonPanelLoginLogin) { 
@@ -295,7 +336,6 @@ public class Frame extends JFrame {
 							cl.next(container);
 							panelAdminHomepage.updateUsername();
 							break;
-							//TODO: Fix the values once more pages are added.
 						case Constants.TEACHER_VALUE:
 							for (int i = 0 ; i < 11; i++) {
 								cl.next(container);
@@ -303,9 +343,10 @@ public class Frame extends JFrame {
 							panelTeacherHomepage.updateUsername();
 							break;
 						case Constants.STUDENT_VALUE:
-							for (int i = 0 ; i < 12; i++) {
+							for (int i = 0 ; i < 19; i++) {
 								cl.next(container);
 							}
+							panelStudentHomepage.updateUsername();
 							break;
 						}
 					} else {
@@ -410,6 +451,7 @@ public class Frame extends JFrame {
 					for (int i = 0; i < 4; i++) {
 						cl.next(container);
 					}
+					panelTeacherManageAssignments.refreshComboBox();
 				} else if (e.getSource() == buttonPanelTeacherHomepageGradeAssignments) {
 					for (int i = 0; i < 5; i++) {
 						cl.next(container);
@@ -436,6 +478,41 @@ public class Frame extends JFrame {
 					cl.previous(container);
 				} else if (e.getSource() == buttonPanelTeacherManageAssignmentsReturn) {
 					for (int i = 0; i < 4; i++) {
+						cl.previous(container);
+					}
+				} else if (e.getSource() == buttonPanelTeacherEditProfileReturn) {
+					for (int i = 0; i < 7; i++) {
+						cl.previous(container);
+					}
+				} else if (e.getSource() == buttonPanelStudentHomepageClassHomepage) {
+					cl.next(container);
+					panelStudentClassHomepage.refreshComboBox();
+				} else if (e.getSource() == buttonPanelStudentHomepageViewRosters) {
+					cl.next(container);
+					cl.next(container);
+					panelStudentViewRosters.refreshComboBox();
+				} else if (e.getSource() == buttonPanelStudentHomepageViewGrades) {
+					cl.next(container);
+					cl.next(container);
+					cl.next(container);
+				} else if (e.getSource() == buttonPanelStudentHomepageGradingSimulator) {
+					for (int i = 0; i < 4; i++) {
+						cl.next(container);
+					}
+				} else if (e.getSource() == buttonPanelStudentHomepageEditProfile) {
+					for (int i = 0; i < 5; i++) {
+						cl.next(container);
+					}
+				} else if (e.getSource() == buttonPanelStudentHomepageLogOut) {
+					cl.first(container);
+					DataManagement.logOutUser(); 
+				} else if (e.getSource() == buttonPanelStudentClassHomepageReturn){
+					cl.previous(container);
+				} else if (e.getSource() == buttonPanelStudentViewRostersReturn) {
+					cl.previous(container);
+					cl.previous(container);
+				} else if (e.getSource() == buttonPanelStudentEditProfileReturn) {
+					for (int i = 0; i < 5; i++) {
 						cl.previous(container);
 					}
 				}
@@ -482,6 +559,16 @@ public class Frame extends JFrame {
 		buttonPanelTeacherEditClassHomepageReturn.addActionListener(al);
 		buttonPanelTeacherViewRostersReturn.addActionListener(al);
 		buttonPanelTeacherManageAssignmentsReturn.addActionListener(al);
+		buttonPanelTeacherEditProfileReturn.addActionListener(al);
+		buttonPanelStudentHomepageClassHomepage.addActionListener(al);
+		buttonPanelStudentHomepageViewRosters.addActionListener(al);
+		buttonPanelStudentHomepageViewGrades.addActionListener(al);
+		buttonPanelStudentHomepageGradingSimulator.addActionListener(al);
+		buttonPanelStudentHomepageEditProfile.addActionListener(al);
+		buttonPanelStudentHomepageLogOut.addActionListener(al);
+		buttonPanelStudentClassHomepageReturn.addActionListener(al);
+		buttonPanelStudentViewRostersReturn.addActionListener(al);
+		buttonPanelStudentEditProfileReturn.addActionListener(al);
 
 		container.add(panelIntro);
 		container.add(panelToC);
@@ -502,7 +589,15 @@ public class Frame extends JFrame {
 		container.add(panelTeacherEditClassHomepage);
 		container.add(panelTeacherViewRosters);
 		container.add(panelTeacherManageAssignments);
+		container.add(panelTeacherGradeAssignments);
+		container.add(panelTeacherManageStudents);
+		container.add(panelTeacherEditProfile);
 		container.add(panelStudentHomepage);
+		container.add(panelStudentClassHomepage);
+		container.add(panelStudentViewRosters);
+		container.add(panelStudentViewGrades);
+		container.add(panelStudentGradingSimulator);
+		container.add(panelStudentEditProfile);
 	}
 
 }

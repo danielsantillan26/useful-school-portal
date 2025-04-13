@@ -1,5 +1,9 @@
 package graphics;
 
-public class StudentGradingSimulatorPanel {
+import javax.swing.JPanel;
 
+public class StudentGradingSimulatorPanel extends JPanel {
+
+	private static final long serialVersionUID = 1L;
+	
 }

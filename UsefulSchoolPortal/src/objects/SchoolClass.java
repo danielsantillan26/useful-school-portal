@@ -45,7 +45,7 @@ public class SchoolClass {
 
 		classRoster = new File("SchoolClass_" + schoolID + "_" + classID + "_Roster.csv");
 		classAssignments = new File("SchoolClass_" + schoolID + "_" + classID + "_Assignments.csv");
-		classAnnouncements = new File("SchoolClass_" + schoolID + "_" + classID + "_Announcements.csv");
+		classAnnouncements = new File("SchoolClass_" + schoolID + "_" + classID + "_Announcements.txt");
 		
 		try {
 			if (!classRoster.exists()) {
@@ -162,6 +162,10 @@ public class SchoolClass {
 	}
 
 
+	public void addAssignment(Assignment a) {
+		assignments.add(a);
+		
+	}
 	
 	
 	

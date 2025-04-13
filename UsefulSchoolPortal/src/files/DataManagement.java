@@ -333,6 +333,12 @@ public class DataManagement {
 	public static boolean refactorYourself(String username, String firstName, String lastName, String password) {
 		return refactorUser(username, firstName, lastName, password, loggedInUser.getID());
 	}
+	
+	
+	public static boolean changePassword(String password) {
+		return refactorUser(loggedInUser.getUsername(), loggedInUser.getFirstName(), 
+				loggedInUser.getLastName(), password, loggedInUser.getID());
+	}
 
 
 	public static void setBlocks(int blocks) {

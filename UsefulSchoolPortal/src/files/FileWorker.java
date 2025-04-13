@@ -67,7 +67,7 @@ public class FileWorker {
 			}
 			reader.close();
 		} catch (Exception e) {
-
+			return contents;
 		}
 
 		return contents;

@@ -8,19 +8,40 @@ public class Assignment {
 	private int points;
 	private String weightCategory;
 	private ArrayList<Double> grades;
+	private int assignmentID;
+	private int classID;
+	private int schoolID;
 	
-	public Assignment(String name, int points) {
+	public Assignment(String name, int points, int classID, int schoolID) {
+		this(name, points, (int)(Math.random()*1000000000), classID, schoolID);
+	}
+	
+	
+	public Assignment(String name, String weightCategory, int classID, int schoolID) {
+		this(name, weightCategory, (int)(Math.random()*1000000000), classID, schoolID);
+	}
+	
+	
+	public Assignment(String name, int points, int id, int classID, int schoolID) {
 		this.name = name;
 		this.points = points;
+		this.assignmentID = id;
+		this.classID = classID;
+		this.schoolID = schoolID;
 		grades = new ArrayList<Double>();
 	}
 	
 	
-	public Assignment(String name, String weightCategory) {
+	public Assignment(String name, String weightCategory, int id, int classID, int schoolID) {
 		this.name = name;
 		this.weightCategory = weightCategory;
+		this.assignmentID = id;
+		this.classID = classID;
+		this.schoolID = schoolID;
 		grades = new ArrayList<Double>();
 	}
+	
+	
 	
 	
 	public boolean setGrade(int index, double grade) {
@@ -49,6 +70,36 @@ public class Assignment {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+
+	public int getAssignmentID() {
+		return assignmentID;
+	}
+
+
+	public int getClassID() {
+		return classID;
+	}
+
+
+	public int getSchoolID() {
+		return schoolID;
+	}
+
+
+	public void setAssignmentID(int assignmentID) {
+		this.assignmentID = assignmentID;
+	}
+
+
+	public void setClassID(int classID) {
+		this.classID = classID;
+	}
+
+
+	public void setSchoolID(int schoolID) {
+		this.schoolID = schoolID;
 	}
 
 

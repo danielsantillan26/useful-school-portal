@@ -23,7 +23,6 @@ public class TeacherClassHomepagePanel extends JPanel {
 	
 	private JComboBox<String> classList;
 	private ArrayList<SchoolClass> classes;
-	private int classID;
 	private String announcement;
 	private JTextArea announcementLabel;
 	
@@ -31,7 +30,6 @@ public class TeacherClassHomepagePanel extends JPanel {
 		setLayout(new BorderLayout());
 		prepareNorthPanel();
 		prepareCenterPanel();
-		classID = 0;
 		announcement = "";
 	}
 	
