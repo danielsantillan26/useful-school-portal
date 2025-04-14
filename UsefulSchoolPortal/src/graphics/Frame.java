@@ -52,8 +52,8 @@ public class Frame extends JFrame {
 		AdminAddClassesPanel panelAdminAddClasses = new AdminAddClassesPanel();
 		AdminDeleteUsersPanel panelAdminDeleteUsers = new AdminDeleteUsersPanel();
 		AdminDeleteClassesPanel panelAdminDeleteClasses = new AdminDeleteClassesPanel();
-		AdminManageTeachersPanel panelAdminManageTeachers = new AdminManageTeachersPanel();
-		AdminManageStudentsPanel panelAdminManageStudents = new AdminManageStudentsPanel();
+		AdminManageUsersPanel panelAdminManageUsers = new AdminManageUsersPanel();
+		AdminStudentInfractionsPanel panelAdminStudentInfractions = new AdminStudentInfractionsPanel();
 		AdminManageClassesPanel panelAdminManageClasses = new AdminManageClassesPanel();
 		AdminEditProfilePanel panelAdminEditProfile = new AdminEditProfilePanel();
 		TeacherHomepagePanel panelTeacherHomepage = new TeacherHomepagePanel();
@@ -111,11 +111,11 @@ public class Frame extends JFrame {
 		JButton buttonPanelAdminHomepageDeleteClasses = new JButton("Delete Classes");
 		GraphicsHelpers.modifyButton(buttonPanelAdminHomepageDeleteClasses, 325, 45);
 
-		JButton buttonPanelAdminHomepageManageTeachers = new JButton("Manage Teachers");
-		GraphicsHelpers.modifyButton(buttonPanelAdminHomepageManageTeachers, 350, 45);
+		JButton buttonPanelAdminHomepageManageTeachers = new JButton("Manage Users");
+		GraphicsHelpers.modifyButton(buttonPanelAdminHomepageManageTeachers, 300, 45);
 
-		JButton buttonPanelAdminHomepageManageStudents = new JButton("Manage Students");
-		GraphicsHelpers.modifyButton(buttonPanelAdminHomepageManageStudents, 350, 45);
+		JButton buttonPanelAdminHomepageStudentInfractions = new JButton("Student Infractions");
+		GraphicsHelpers.modifyButton(buttonPanelAdminHomepageStudentInfractions, 350, 45);
 
 		JButton buttonPanelAdminHomepageManageClasses = new JButton("Manage Classes");
 		GraphicsHelpers.modifyButton(buttonPanelAdminHomepageManageClasses, 350, 45);
@@ -141,11 +141,11 @@ public class Frame extends JFrame {
 		JButton buttonPanelAdminDeleteClassesReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelAdminDeleteClassesReturn, 220, 45);
 		
-		JButton buttonPanelAdminManageTeachersReturn = new JButton("Return");
-		GraphicsHelpers.modifyButton(buttonPanelAdminManageTeachersReturn, 220, 45);
+		JButton buttonPanelAdminManageUsersReturn = new JButton("Return");
+		GraphicsHelpers.modifyButton(buttonPanelAdminManageUsersReturn, 220, 45);
 		
-		JButton buttonPanelAdminManageStudentsReturn = new JButton("Return");
-		GraphicsHelpers.modifyButton(buttonPanelAdminManageStudentsReturn, 220, 45);
+		JButton buttonPanelAdminStudentInfractionsReturn = new JButton("Return");
+		GraphicsHelpers.modifyButton(buttonPanelAdminStudentInfractionsReturn, 220, 45);
 		
 		JButton buttonPanelAdminManageClassesReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelAdminManageClassesReturn, 220, 45);
@@ -228,15 +228,15 @@ public class Frame extends JFrame {
 		panelLogin.addChangePageButtons(buttonPanelLoginLogin, buttonPanelLoginReturn);
 		panelAdminHomepage.addChangePageButtons(buttonPanelAdminHomepageManageSchedule, buttonPanelAdminHomepageAddUsers, 
 				buttonPanelAdminHomepageAddClasses, buttonPanelAdminHomepageDeleteUsers, buttonPanelAdminHomepageDeleteClasses, 
-				buttonPanelAdminHomepageManageTeachers, buttonPanelAdminHomepageManageStudents, buttonPanelAdminHomepageManageClasses, 
+				buttonPanelAdminHomepageManageTeachers, buttonPanelAdminHomepageStudentInfractions, buttonPanelAdminHomepageManageClasses, 
 				buttonPanelAdminHomepageEditProfile, buttonPanelAdminHomepageLogOut);
 		panelAdminManageSchedule.addChangePageButtons(buttonPanelAdminManageScheduleReturn);
 		panelAdminAddUsers.addChangePageButtons(buttonPanelAdminAddUsersReturn);
 		panelAdminAddClasses.addChangePageButtons(buttonPanelAdminAddClassesReturn);
 		panelAdminDeleteUsers.addChangePageButtons(buttonPanelAdminDeleteUsersReturn);
 		panelAdminDeleteClasses.addChangePageButtons(buttonPanelAdminDeleteClassesReturn);
-		panelAdminManageTeachers.addChangePageButtons(buttonPanelAdminManageTeachersReturn);
-		panelAdminManageStudents.addChangePageButtons(buttonPanelAdminManageStudentsReturn);
+		panelAdminManageUsers.addChangePageButtons(buttonPanelAdminManageUsersReturn);
+		panelAdminStudentInfractions.addChangePageButtons(buttonPanelAdminStudentInfractionsReturn);
 		panelAdminManageClasses.addChangePageButtons(buttonPanelAdminManageClassesReturn);
 		panelAdminEditProfile.addChangePageButtons(buttonPanelAdminEditProfileReturn);
 		panelTeacherHomepage.addChangePageButtons(buttonPanelTeacherHomepageClassHomepage, buttonPanelTeacherHomepageEditClassHomepage,
@@ -383,12 +383,12 @@ public class Frame extends JFrame {
 					for (int i = 0; i < 6; i++) {
 						cl.next(container);
 					}
-					panelAdminManageTeachers.refreshComboBox();
-				} else if (e.getSource() == buttonPanelAdminHomepageManageStudents) {
+					panelAdminManageUsers.refreshComboBox();
+				} else if (e.getSource() == buttonPanelAdminHomepageStudentInfractions) {
 					for (int i = 0; i < 7; i++) {
 						cl.next(container);
 					}
-					panelAdminManageStudents.refreshComboBox();
+					panelAdminStudentInfractions.refreshComboBox();
 				} else if (e.getSource() == buttonPanelAdminHomepageManageClasses) {
 					for (int i = 0; i < 8; i++) {
 						cl.next(container);
@@ -418,11 +418,11 @@ public class Frame extends JFrame {
 					for (int i = 0; i < 5; i++) {
 						cl.previous(container);
 					}
-				} else if (e.getSource() == buttonPanelAdminManageTeachersReturn) {
+				} else if (e.getSource() == buttonPanelAdminManageUsersReturn) {
 					for (int i = 0; i < 6; i++) {
 						cl.previous(container);
 					}
-				} else if (e.getSource() == buttonPanelAdminManageStudentsReturn) {
+				} else if (e.getSource() == buttonPanelAdminStudentInfractionsReturn) {
 					for (int i = 0; i < 7; i++) {
 						cl.previous(container);
 					}
@@ -534,7 +534,7 @@ public class Frame extends JFrame {
 		buttonPanelAdminHomepageDeleteUsers.addActionListener(al);
 		buttonPanelAdminHomepageDeleteClasses.addActionListener(al);
 		buttonPanelAdminHomepageManageTeachers.addActionListener(al);
-		buttonPanelAdminHomepageManageStudents.addActionListener(al);
+		buttonPanelAdminHomepageStudentInfractions.addActionListener(al);
 		buttonPanelAdminHomepageManageClasses.addActionListener(al);
 		buttonPanelAdminHomepageEditProfile.addActionListener(al);
 		buttonPanelAdminHomepageLogOut.addActionListener(al);
@@ -543,8 +543,8 @@ public class Frame extends JFrame {
 		buttonPanelAdminAddClassesReturn.addActionListener(al);
 		buttonPanelAdminDeleteUsersReturn.addActionListener(al);
 		buttonPanelAdminDeleteClassesReturn.addActionListener(al);
-		buttonPanelAdminManageTeachersReturn.addActionListener(al);
-		buttonPanelAdminManageStudentsReturn.addActionListener(al);
+		buttonPanelAdminManageUsersReturn.addActionListener(al);
+		buttonPanelAdminStudentInfractionsReturn.addActionListener(al);
 		buttonPanelAdminManageClassesReturn.addActionListener(al);
 		buttonPanelAdminEditProfileReturn.addActionListener(al);
 		buttonPanelTeacherHomepageClassHomepage.addActionListener(al);
@@ -580,8 +580,8 @@ public class Frame extends JFrame {
 		container.add(panelAdminAddClasses);
 		container.add(panelAdminDeleteUsers);
 		container.add(panelAdminDeleteClasses);
-		container.add(panelAdminManageTeachers);
-		container.add(panelAdminManageStudents);
+		container.add(panelAdminManageUsers);
+		container.add(panelAdminStudentInfractions);
 		container.add(panelAdminManageClasses);
 		container.add(panelAdminEditProfile);
 		container.add(panelTeacherHomepage);

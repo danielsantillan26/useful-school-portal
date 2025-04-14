@@ -17,16 +17,17 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import files.DataManagement;
-import objects.Student;
+import objects.Teacher;
+import objects.User;
 
-public class AdminManageStudentsPanel extends JPanel {
+public class AdminManageUsersPanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
-	private JComboBox<String> studentList;
-	private ArrayList<Student> students;
+	private JComboBox<String> userList;
+	private ArrayList<User> users;
 	private boolean isPasswordShown;
 	
-	public AdminManageStudentsPanel() {
+	public AdminManageUsersPanel() {
 		setLayout(new BorderLayout());
 		prepareNorthPanel();
 		prepareCenterPanel();
@@ -38,7 +39,8 @@ public class AdminManageStudentsPanel extends JPanel {
 		northPanel.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		northPanel.setPreferredSize(new Dimension(getWidth(), 75));
 
-		JLabel header = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("HEADER_MANAGE_STUDENTS.png")));
+		//TODO: I need to change this to manage users.
+		JLabel header = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("HEADER_MANAGE_TEACHERS.png")));
 		northPanel.add(header);
 
 		add(northPanel, BorderLayout.NORTH);
@@ -51,11 +53,11 @@ public class AdminManageStudentsPanel extends JPanel {
 		
 		centerPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
 		
-		JLabel selectStudent = new JLabel("Select Student");
-		selectStudent.setFont(GraphicsConstants.FONT_ROBOTO_B50);
+		JLabel selectTeacher = new JLabel("Select User");
+		selectTeacher.setFont(GraphicsConstants.FONT_ROBOTO_B50);
 		
-		studentList = new JComboBox<String>();
-		studentList.setFont(GraphicsConstants.FONT_ROBOTO_B30);
+		userList = new JComboBox<String>();
+		userList.setFont(GraphicsConstants.FONT_ROBOTO_B30);
 		
 		JLabel editUsername = new JLabel("Edit Username");
 		editUsername.setFont(GraphicsConstants.FONT_ROBOTO_B50);
@@ -115,7 +117,7 @@ public class AdminManageStudentsPanel extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Student s = students.get(studentList.getSelectedIndex());
+				User u = users.get(userList.getSelectedIndex());
 				String username = givenUsername.getText();
 				String firstName = givenFirstName.getText();
 				String lastName = givenLastName.getText();
@@ -134,14 +136,14 @@ public class AdminManageStudentsPanel extends JPanel {
 					return;
 				}
 				
-				DataManagement.refactorUser(username, firstName, lastName, password, s.getID());
+				DataManagement.refactorUser(username, firstName, lastName, password, u.getID());
 				refreshComboBox();
 			}
 			
 		});
 		
-		centerPanel.add(selectStudent);
-		centerPanel.add(studentList);
+		centerPanel.add(selectTeacher);
+		centerPanel.add(userList);
 		centerPanel.add(editUsername);
 		centerPanel.add(givenUsername);
 		centerPanel.add(editFirstName);
@@ -154,10 +156,10 @@ public class AdminManageStudentsPanel extends JPanel {
 		centerPanel.add(visiblePassword);
 		centerPanel.add(enterEdits);
 		
-		sl.putConstraint(SpringLayout.WEST, selectStudent, 100, SpringLayout.WEST, centerPanel);
-		sl.putConstraint(SpringLayout.NORTH, selectStudent, 100, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, studentList, 100, SpringLayout.EAST, selectStudent);
-		sl.putConstraint(SpringLayout.NORTH, studentList, 100, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, selectTeacher, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, selectTeacher, 100, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, userList, 100, SpringLayout.EAST, selectTeacher);
+		sl.putConstraint(SpringLayout.NORTH, userList, 100, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, editUsername, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, editUsername, 200, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, givenUsername, 100, SpringLayout.EAST, editUsername);
@@ -194,12 +196,24 @@ public class AdminManageStudentsPanel extends JPanel {
 	
 	
 	public void refreshComboBox() {
-		studentList.removeAllItems();
-		students = DataManagement.getCurrentSchoolStudents();
+		userList.removeAllItems();
+		users = DataManagement.getCurrentSchoolUsers();
 
-		if (students != null) {
-			for (Student s : students) {
-				studentList.addItem(s.getFirstName() + " " + s.getLastName());
+		for (int i = 0; i < users.size(); i++) {
+			if (users.get(i).getID() == DataManagement.getLoggedInUser().getID()) {
+				users.remove(i);
+			}
+		}
+
+		if (users != null) {
+			for (User u : users) {
+				if (u.isAdministrator()) {
+					userList.addItem(u.getFirstName() + " " + u.getLastName() + ", Administrator");
+				} else if (u.isTeacher()) {
+					userList.addItem(u.getFirstName() + " " + u.getLastName() + ", Teacher");
+				} else if (u.isStudent()) {
+					userList.addItem(u.getFirstName() + " " + u.getLastName() + ", Student");
+				}
 			}
 		}
 	}
