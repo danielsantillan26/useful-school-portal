@@ -399,6 +399,7 @@ public class DataManagement {
 		return null;
 	}
 
+	
 	public static ArrayList<Student> getNonClassStudents(int classID) {
 		for (SchoolClass cl : classes) {
 			if (cl.getClassID() == classID && cl.getSchoolID() == currentSchool.getSchoolID()) {
@@ -442,6 +443,16 @@ public class DataManagement {
 			}
 		}
 		return classUsers;
+	}
+	
+	
+	public static ArrayList<Assignment> getClassAssignments(int classID) {
+		for (SchoolClass cl : classes) {
+			if (cl.getClassID() == classID && cl.getSchoolID() == currentSchool.getSchoolID()) {
+				return cl.getAssignments();
+			}
+		}
+		return null;
 	}
 
 

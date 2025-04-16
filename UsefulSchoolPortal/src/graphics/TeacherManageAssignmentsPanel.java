@@ -33,6 +33,8 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 		setLayout(new BorderLayout());
 		prepareNorthPanel();
 		prepareCenterPanel();
+		classID = -1;
+		assignmentID = -1;
 	}
 
 
@@ -69,6 +71,7 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 				int index = classList.getSelectedIndex();
 				if (index != 0) {
 					classID = classes.get(index - 1).getClassID();
+					refreshAssignmentList();
 				}
 			}
 
@@ -89,7 +92,7 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int index = assignmentList.getSelectedIndex();
 				if (index != 0) {
-					// assignmentID = assignments.get(index - 1)
+					
 				}
 			}
 			
@@ -135,6 +138,25 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 				classList.addItem(sc.getName() + " - Block " + sc.getBlock());
 			}
 		}
+
+		assignmentList.removeAllItems();
+		assignmentList.addItem("-- Select Assignment --");
+		classID = -1;
+		assignmentID = -1;
+	}
+	
+	
+	private void refreshAssignmentList() {
+		assignmentList.removeAllItems();
+		assignments = DataManagement.getClassAssignments(classID);
+		
+		assignmentList.addItem("-- New Assignment --");
+		if (classID != -1) {
+			for (Assignment a : assignments) {
+				assignmentList.addItem(a.getName());
+			}
+		}
+		
 	}
 
 }

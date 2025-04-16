@@ -207,6 +207,11 @@ public class SchoolClass {
 	public ArrayList<Student> getStudents() {
 		return students;
 	}
+	
+	
+	public ArrayList<Assignment> getAssignments() {
+		return assignments;
+	}
 
 
 	public void setName(String name) {

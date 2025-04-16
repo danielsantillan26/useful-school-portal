@@ -1,27 +1,36 @@
 package objects;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import files.DataManagement;
+import files.FileWorker;
+
 public class Assignment {
-	
+
 	private String name;
 	private int points;
 	private String weightCategory;
+	private ArrayList<Student> students;
 	private ArrayList<Double> grades;
 	private int assignmentID;
 	private int classID;
 	private int schoolID;
-	
+	private File gradesList;
+
 	public Assignment(String name, int points, int classID, int schoolID) {
 		this(name, points, (int)(Math.random()*1000000000), classID, schoolID);
 	}
-	
-	
+
+
 	public Assignment(String name, String weightCategory, int classID, int schoolID) {
 		this(name, weightCategory, (int)(Math.random()*1000000000), classID, schoolID);
 	}
-	
-	
+
+
 	public Assignment(String name, int points, int id, int classID, int schoolID) {
 		this.name = name;
 		this.points = points;
@@ -29,9 +38,12 @@ public class Assignment {
 		this.classID = classID;
 		this.schoolID = schoolID;
 		grades = new ArrayList<Double>();
+		students = new ArrayList<Student>();
+		gradesList = new File("Assignment_" + schoolID + "_" + classID + "_" + assignmentID + "_Grades.csv");
+		createFile();
 	}
-	
-	
+
+
 	public Assignment(String name, String weightCategory, int id, int classID, int schoolID) {
 		this.name = name;
 		this.weightCategory = weightCategory;
@@ -39,11 +51,42 @@ public class Assignment {
 		this.classID = classID;
 		this.schoolID = schoolID;
 		grades = new ArrayList<Double>();
+		students = new ArrayList<Student>();
+		gradesList = new File("Assignment_" + schoolID + "_" + classID + "_" + assignmentID + "_Grades.csv");
+		createFile();
 	}
 	
 	
 	
+	private void createFile() {
+		if (gradesList.exists()) {
+			ArrayList<String> contents = FileWorker.readFile(gradesList);
+			if (contents.size() > 1) {
+				
+			}
+		} else {
+			try {
+				gradesList.createNewFile();
+				BufferedWriter bw = new BufferedWriter(new FileWriter(gradesList, false));
+				bw.write("Total Points/Weight,Grade,Grade,Grade,Grade,Grade,Grade,\n");
+				
+				students = DataManagement.getClassStudents(classID);
+				for (int i = 0; i < students.size(); i++) {
+					bw.write("NA,");
+				}
+				
+				bw.close();
+			} catch (IOException e) {
+
+			}
+		}
+	}
 	
+	
+	
+
+
+
 	public boolean setGrade(int index, double grade) {
 		try {
 			grades.set(index, grade);
@@ -52,8 +95,8 @@ public class Assignment {
 			return false;
 		}
 	}
-	
-	
+
+
 	public boolean addStudentDisplacement(int index) {
 		try {
 			grades.add(index, null);
@@ -62,8 +105,8 @@ public class Assignment {
 			return false;
 		}
 	}
-	
-	
+
+
 	public boolean removeStudentDisplacement(int index) {
 		try {
 			return true;
@@ -72,6 +115,11 @@ public class Assignment {
 		}
 	}
 	
+	
+	public String getName() {
+		return name;
+	}
+
 
 	public int getAssignmentID() {
 		return assignmentID;
@@ -108,7 +156,7 @@ public class Assignment {
 		return "Assignment [name=" + name + ", points=" + points + ", weightCategory=" + weightCategory + ", grades="
 				+ grades + "]";
 	}
-	
-	
+
+
 
 }

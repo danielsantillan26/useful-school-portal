@@ -106,7 +106,7 @@ public class LoginPanel extends JPanel {
 		sl.putConstraint(SpringLayout.NORTH, givenPassword, 300, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, visiblePassword, 0, SpringLayout.WEST, givenPassword);
 		sl.putConstraint(SpringLayout.NORTH, visiblePassword, 400, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, showHidePassword, 610, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, showHidePassword, 650, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, showHidePassword, 500, SpringLayout.NORTH, centerPanel);
 		
 		add(centerPanel, BorderLayout.CENTER);

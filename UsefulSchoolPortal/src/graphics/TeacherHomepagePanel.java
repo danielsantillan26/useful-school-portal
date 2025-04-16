@@ -55,10 +55,12 @@ public class TeacherHomepagePanel extends JPanel {
 	
 
 	public void addChangePageButtons(JButton classHomepage, JButton editClassHomepage, 
-			JButton viewRosters, JButton manageAssignments, JButton gradeAssignments,
-			JButton manageStudents, JButton editProfile, JButton logOut) {
+			JButton manageClasses, JButton viewRosters, JButton manageAssignments, 
+			JButton gradeAssignments, JButton manageStudents, JButton editProfile, 
+			JButton logOut) {
 		centerPanel.add(classHomepage);
 		centerPanel.add(editClassHomepage);
+		centerPanel.add(manageClasses);
 		centerPanel.add(viewRosters);
 		centerPanel.add(manageAssignments);
 		centerPanel.add(gradeAssignments);
@@ -69,15 +71,17 @@ public class TeacherHomepagePanel extends JPanel {
 		sl.putConstraint(SpringLayout.NORTH, classHomepage, 200, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, editClassHomepage, 700, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, editClassHomepage, 200, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, viewRosters, 1300, SpringLayout.WEST, centerPanel);
-		sl.putConstraint(SpringLayout.NORTH, viewRosters, 200, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, manageAssignments, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, manageClasses, 1300, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, manageClasses, 200, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, viewRosters, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, viewRosters, 300, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, manageAssignments, 700, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, manageAssignments, 300, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, gradeAssignments, 700, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, gradeAssignments, 1300, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, gradeAssignments, 300, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, manageStudents, 1300, SpringLayout.WEST, centerPanel);
-		sl.putConstraint(SpringLayout.NORTH, manageStudents, 300, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, editProfile, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, manageStudents, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, manageStudents, 400, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, editProfile, 700, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, editProfile, 400, SpringLayout.NORTH, centerPanel);
 		
 		JPanel southPanel = new JPanel();

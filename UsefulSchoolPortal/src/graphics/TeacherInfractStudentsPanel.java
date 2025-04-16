@@ -8,11 +8,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
-public class TeacherManageStudentsPanel extends JPanel {
+public class TeacherInfractStudentsPanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public TeacherManageStudentsPanel() {
+	public TeacherInfractStudentsPanel() {
 		setLayout(new BorderLayout());
 		prepareNorthPanel();
 		prepareCenterPanel();
