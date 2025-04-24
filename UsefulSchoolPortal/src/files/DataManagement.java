@@ -27,14 +27,17 @@ public class DataManagement {
 
 		ArrayList<String> schoolNames = new ArrayList<String>();
 		ArrayList<Integer> schoolIDs = new ArrayList<Integer>();
+		ArrayList<Integer> blocks = new ArrayList<Integer>();
 
 		for (int i = 1; i < contents.size(); i++) {
 			schoolNames.add(contents.get(i).substring(0, contents.get(i).indexOf(',')));
-			schoolIDs.add(Integer.parseInt(contents.get(i).substring(contents.get(i).indexOf(',') + 1)));
+			String modifiedString = contents.get(i).substring(contents.get(i).indexOf(',') + 1);
+			schoolIDs.add(Integer.parseInt(modifiedString.substring(0, modifiedString.indexOf(','))));
+			blocks.add(Integer.parseInt(modifiedString.substring(modifiedString.indexOf(',') + 1)));
 		}
 
 		for (int j = 0; j < schoolNames.size(); j++) {
-			schools.add(new School(schoolNames.get(j), schoolIDs.get(j)));
+			schools.add(new School(schoolNames.get(j), schoolIDs.get(j), blocks.get(j)));
 		}
 
 	}
@@ -82,7 +85,7 @@ public class DataManagement {
 			String adminLastName, String adminPassword) {
 		try {
 			int schoolID = (int)(Math.random()*100000);
-			School s = new School(schoolName, schoolID);
+			School s = new School(schoolName, schoolID, 6);
 			currentSchool = s;
 			if (addSchool(s) &&
 					addNewSchoolAdministrator(new Administrator(adminUsername,
@@ -343,6 +346,11 @@ public class DataManagement {
 
 	public static void setBlocks(int blocks) {
 		currentSchool.setBlocks(blocks);
+		for (SchoolClass cl : classes) {
+			if (cl.getSchoolID() == currentSchool.getSchoolID() && cl.getBlock() > blocks) {
+				currentSchool.deleteClass(cl);
+			}
+		}
 	}
 
 

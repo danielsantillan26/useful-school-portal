@@ -369,6 +369,7 @@ public class Frame extends JFrame {
 					cl.previous(container);
 					cl.previous(container);
 				} else if (e.getSource() == buttonPanelAdminHomepageManageSchedule) {
+					panelAdminManageSchedule.refreshComboBox();
 					cl.next(container);
 				} else if (e.getSource() == buttonPanelAdminHomepageAddUsers) {
 					cl.next(container);

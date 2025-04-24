@@ -29,24 +29,24 @@ public class SchoolClass {
 	public SchoolClass(String name, int block, int gradingMethod, int schoolID) {
 		this(name, block, gradingMethod, schoolID, (int)(Math.random()*10000000));
 	}
-	
-	
+
+
 	public SchoolClass(String name, int block, int gradingMethod, int schoolID, int classID) {
 		this.name = name;
 		this.block = block;
 		this.gradingMethod = gradingMethod;
 		this.schoolID = schoolID;
 		this.classID = classID;
-		
+
 		teachers = new ArrayList<Teacher>();
 		students = new ArrayList<Student>();
-		
+
 		announcement = "";
 
 		classRoster = new File("SchoolClass_" + schoolID + "_" + classID + "_Roster.csv");
 		classAssignments = new File("SchoolClass_" + schoolID + "_" + classID + "_Assignments.csv");
 		classAnnouncements = new File("SchoolClass_" + schoolID + "_" + classID + "_Announcements.txt");
-		
+
 		try {
 			if (!classRoster.exists()) {
 				classRoster.createNewFile();
@@ -54,14 +54,14 @@ public class SchoolClass {
 				bWriter.write("Username,First Name,Last Name,Role,User ID");
 				bWriter.close();
 			}
-			
+
 			if (!classAssignments.exists()) {
 				classAssignments.createNewFile();
 				BufferedWriter bWriter = new BufferedWriter(new FileWriter(classAssignments, false));
 				bWriter.write("Assignment Name,Assignment ID,Points or Weight");
 				bWriter.close();
 			}
-			
+
 			if (!classAnnouncements.exists()) {
 				classAnnouncements.createNewFile();
 			} else {
@@ -71,7 +71,7 @@ public class SchoolClass {
 				}
 			}
 		} catch (Exception e) {
-			
+
 		}
 	}
 
@@ -83,24 +83,24 @@ public class SchoolClass {
 			for (int i = 0; i < contents.size(); i++) {
 				bWriter.write(contents.get(i) + "\n");
 			}
-			
+
 			bWriter.write(u.getUsername() + "," + u.getFirstName() + "," +
-			u.getLastName() + "," + role + "," + u.getID());
+					u.getLastName() + "," + role + "," + u.getID());
 			bWriter.close();
-			
+
 			if (role.equals("Teacher")) {
 				teachers.add((Teacher) u);
 			} else {
 				students.add((Student) u);
 			}
-			
+
 			return true;
 		} catch (IOException e) {
 			return false;
 		}
 	}
-	
-	
+
+
 	public boolean hasID(int id) {
 		ArrayList<String> contents = FileWorker.readFile(classRoster);
 		boolean hasID = false;
@@ -111,33 +111,33 @@ public class SchoolClass {
 		}
 		return hasID;
 	}
-	
-	
+
+
 	public boolean deleteUser(User u) {
 		return FileWorker.removeLine(classRoster, u.getID());
 	}
-	
-	
+
+
 	public boolean addStudent(Student s) {
 		return addUser(s, "Student");
 	}
-	
-	
+
+
 	public boolean addTeacher(Teacher t) {
 		return addUser(t, "Teacher");
 	}
-	
-	
+
+
 	public void addExistingStudent(Student s) {
 		students.add(s);
 	}
-	
-	
+
+
 	public void addExistingTeacher(Teacher t) {
 		teachers.add(t);
 	}
-	
-	 
+
+
 	public boolean deleteStudent(Student s) {
 		for (int i = 0; i < students.size(); i++) {
 			if (students.get(i).getID() == s.getID()) {
@@ -146,34 +146,36 @@ public class SchoolClass {
 		}
 		return deleteUser(s);
 	}
-	 
+
 	public boolean deleteTeacher(Teacher t) {
 		for (int i = 0; i < teachers.size(); i++) {
 			if (teachers.get(i).getID() == t.getID()) {
 				teachers.remove(i);
-				System.out.println("e");			}
+				System.out.println("e");			
+			}
 		}
 		return deleteUser(t);
 	}
-	 
+
 	public void deleteFiles() {
 		classRoster.delete();
 		classAssignments.delete();
+		classAnnouncements.delete();
 	}
 
 
 	public void addAssignment(Assignment a) {
 		assignments.add(a);
-		
+
 	}
-	
-	
-	
+
+
+
 	public String getName() {
 		return name;
 	}
-	
-	
+
+
 	public int getBlock() {
 		return block;
 	}
@@ -187,28 +189,28 @@ public class SchoolClass {
 	public int getSchoolID() {
 		return schoolID;
 	}
-	
-	
+
+
 	public int getGradingMethod() {
 		return gradingMethod;
 	}
-	
-	
+
+
 	public String getAnnouncement() {
 		return announcement;
 	}
-	
-	
+
+
 	public ArrayList<Teacher> getTeachers() {
 		return teachers;
 	}
-	
-	
+
+
 	public ArrayList<Student> getStudents() {
 		return students;
 	}
-	
-	
+
+
 	public ArrayList<Assignment> getAssignments() {
 		return assignments;
 	}
@@ -217,8 +219,8 @@ public class SchoolClass {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
+
+
 	public void setBlock(int block) {
 		this.block = block;
 	}
@@ -232,13 +234,13 @@ public class SchoolClass {
 	public void setSchoolID(int schoolID) {
 		this.schoolID = schoolID;
 	}
-	
-	
+
+
 	public void setGradingMethod(int gradingMethod) {
 		this.gradingMethod = gradingMethod;
 	}
-	
-	
+
+
 	public void setAnnouncement(String announcement) {
 		this.announcement = announcement;
 		try {
@@ -248,7 +250,7 @@ public class SchoolClass {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }

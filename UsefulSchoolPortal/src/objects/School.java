@@ -25,9 +25,10 @@ public class School {
 	private int blocks;
 
 
-	public School(String name, int schoolID) {
+	public School(String name, int schoolID, int blocks) {
 		this.name = name;
 		this.schoolID = schoolID;
+		this.blocks = blocks;
 
 		admins = new ArrayList<Administrator>();
 		teachers = new ArrayList<Teacher>();
@@ -36,8 +37,6 @@ public class School {
 
 		userList = new File("SchoolUsers_" + schoolID + ".csv");
 		classList = new File("SchoolClasses_" + schoolID + ".csv");
-
-		blocks = 6;
 
 		try {
 			if (!userList.exists()) {

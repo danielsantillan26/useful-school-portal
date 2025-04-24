@@ -23,7 +23,7 @@ public class FileWorker {
 				schoolList.createNewFile();
 				FileWriter writer = new FileWriter(schoolList, false);
 				BufferedWriter bWriter = new BufferedWriter(writer);
-				bWriter.write("School Name,School ID");
+				bWriter.write("School Name,School ID,Blocks");
 				bWriter.close();
 			}
 
@@ -45,7 +45,7 @@ public class FileWorker {
 				bWriter.write(contents.get(i) + "\n");
 			}
 
-			bWriter.write(s.getName() + "," + s.getSchoolID());
+			bWriter.write(s.getName() + "," + s.getSchoolID() + ",6");
 			bWriter.close();
 
 			return true;
