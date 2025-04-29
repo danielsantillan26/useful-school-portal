@@ -54,7 +54,7 @@ public class AdminAddClassesPanel extends JPanel {
 		givenClassName.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
 		givenClassName.setFont(GraphicsConstants.FONT_ROBOTO_B30);
 
-		JLabel enterPeriod = new JLabel("Enter Block");
+		JLabel enterPeriod = new JLabel("Enter Block:");
 		enterPeriod.setFont(GraphicsConstants.FONT_ROBOTO_B50);
 
 		selectPeriod = new JComboBox<Integer>();

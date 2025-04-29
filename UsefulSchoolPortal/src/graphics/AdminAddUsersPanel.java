@@ -190,29 +190,29 @@ public class AdminAddUsersPanel extends JPanel {
 
 		sl.putConstraint(SpringLayout.WEST, enterRole, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, enterRole, 50, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, givenRole, 150, SpringLayout.EAST, enterRole);
+		sl.putConstraint(SpringLayout.WEST, givenRole, 625, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, givenRole, 50, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, enterUsername, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, enterUsername, 175, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, givenUsername, 150, SpringLayout.EAST, enterUsername);
+		sl.putConstraint(SpringLayout.WEST, givenUsername, 625, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, givenUsername, 175, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, enterFirstName, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, enterFirstName, 300, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, givenFirstName, 150, SpringLayout.EAST, enterFirstName);
+		sl.putConstraint(SpringLayout.WEST, givenFirstName, 625, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, givenFirstName, 300, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, enterLastName, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, enterLastName, 425, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, givenLastName, 150, SpringLayout.EAST, enterLastName);
+		sl.putConstraint(SpringLayout.WEST, givenLastName, 625, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, givenLastName, 425, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, enterPassword, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, enterPassword, 550, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, givenPassword, 150, SpringLayout.EAST, enterPassword);
+		sl.putConstraint(SpringLayout.WEST, givenPassword, 625, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, givenPassword, 550, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, visiblePassword, 0, SpringLayout.WEST, givenPassword);
 		sl.putConstraint(SpringLayout.NORTH, visiblePassword, 725, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, showHidePassword, 610, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, showHidePassword, 625, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, showHidePassword, 675, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, createAccount, 610, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, createAccount, 625, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, createAccount, 775, SpringLayout.NORTH, centerPanel);
 
 		add(centerPanel, BorderLayout.CENTER);

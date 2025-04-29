@@ -145,27 +145,27 @@ public class AdminManageClassesPanel extends JPanel {
 		
 		sl.putConstraint(SpringLayout.WEST, selectClass, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, selectClass, 100, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, viewClasses, 100, SpringLayout.EAST, selectClass);
+		sl.putConstraint(SpringLayout.WEST, viewClasses, 625, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, viewClasses, 100, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, update, 0, SpringLayout.WEST, viewClasses);
 		sl.putConstraint(SpringLayout.NORTH, update, 200, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, addTeacher, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, addTeacher, 300, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, viewNonClassTeachers, 100, SpringLayout.EAST, addTeacher);
+		sl.putConstraint(SpringLayout.WEST, viewNonClassTeachers, 625, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, viewNonClassTeachers, 300, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, removeTeacher, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, removeTeacher, 400, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, viewClassTeachers, 100, SpringLayout.EAST, removeTeacher);
+		sl.putConstraint(SpringLayout.WEST, viewClassTeachers, 625, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, viewClassTeachers, 400, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, addStudent, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, addStudent, 500, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, viewNonClassStudents, 100, SpringLayout.EAST, addStudent);
+		sl.putConstraint(SpringLayout.WEST, viewNonClassStudents, 625, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, viewNonClassStudents, 500, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, removeStudent, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, removeStudent, 600, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, viewClassStudents, 100, SpringLayout.EAST, removeStudent);
+		sl.putConstraint(SpringLayout.WEST, viewClassStudents, 625, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, viewClassStudents, 600, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, confirm, 700, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, confirm, 625, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, confirm, 700, SpringLayout.NORTH, centerPanel);
 		
 		add(centerPanel, BorderLayout.CENTER);

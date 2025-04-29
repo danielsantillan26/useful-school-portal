@@ -2,6 +2,8 @@ package files;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import objects.*;
 
 public class DataManagement {
@@ -331,13 +333,13 @@ public class DataManagement {
 			return false;
 		}
 	}
-	
-	
+
+
 	public static boolean refactorYourself(String username, String firstName, String lastName, String password) {
 		return refactorUser(username, firstName, lastName, password, loggedInUser.getID());
 	}
-	
-	
+
+
 	public static boolean changePassword(String password) {
 		return refactorUser(loggedInUser.getUsername(), loggedInUser.getFirstName(), 
 				loggedInUser.getLastName(), password, loggedInUser.getID());
@@ -407,7 +409,7 @@ public class DataManagement {
 		return null;
 	}
 
-	
+
 	public static ArrayList<Student> getNonClassStudents(int classID) {
 		for (SchoolClass cl : classes) {
 			if (cl.getClassID() == classID && cl.getSchoolID() == currentSchool.getSchoolID()) {
@@ -432,19 +434,19 @@ public class DataManagement {
 		}
 		return null;
 	}
-	
-	
+
+
 	public static ArrayList<User> getClassUsers(int classID) {
 		ArrayList<User> classUsers = new ArrayList<User>();
 		for (SchoolClass cl : classes) {
 			if (cl.getClassID() == classID && cl.getSchoolID() == currentSchool.getSchoolID()) {
 				ArrayList<Student> classStudents = getClassStudents(classID);
 				ArrayList<Teacher> classTeachers = getClassTeachers(classID);
-				
+
 				for (Teacher t : classTeachers) {
 					classUsers.add((User)t);
 				}
-				
+
 				for (Student s : classStudents) {
 					classUsers.add((User)s);
 				}
@@ -452,8 +454,8 @@ public class DataManagement {
 		}
 		return classUsers;
 	}
-	
-	
+
+
 	public static ArrayList<Assignment> getClassAssignments(int classID) {
 		for (SchoolClass cl : classes) {
 			if (cl.getClassID() == classID && cl.getSchoolID() == currentSchool.getSchoolID()) {
@@ -481,7 +483,23 @@ public class DataManagement {
 		}
 
 		if (!alreadyAdded) {
-			c.addStudent(s);
+			boolean alreadyBusy = false;
+			for (SchoolClass sc : classes) {
+				if (sc.getSchoolID() == currentSchool.getSchoolID()) {
+					if (sc.hasID(studentID)) {
+						alreadyBusy = true;
+						c = sc;
+					}
+				}
+			}
+			if (alreadyBusy) {
+				JOptionPane.showMessageDialog(null, "The student already has"
+						+ " a class in this block. Remove the student from " +
+						c.getName() + " before adding the student to this class.",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			} else {
+				c.addStudent(s);
+			}
 		} else {
 			c.deleteStudent(s);
 		}
@@ -505,27 +523,43 @@ public class DataManagement {
 		}
 
 		if (!alreadyAdded) {
-			c.addTeacher(t);
+			boolean alreadyBusy = false;
+			for (SchoolClass sc : classes) {
+				if (sc.getSchoolID() == currentSchool.getSchoolID()) {
+					if (sc.hasID(teacherID)) {
+						alreadyBusy = true;
+						c = sc;
+					}
+				}
+			}
+			if (alreadyBusy) {
+				JOptionPane.showMessageDialog(null, "The teacher already has"
+						+ " a class in this block. Remove the teacher from " +
+						c.getName() + " before adding the teacher to this class.",
+						"Error", JOptionPane.ERROR_MESSAGE);
+			} else {
+				c.addTeacher(t);
+			}
 		} else {
 			c.deleteTeacher(t);
 		}
 	}
-	
-	
+
+
 	public static ArrayList<SchoolClass> getCurrentUserClasses() {
 		ArrayList<SchoolClass> list = getCurrentSchoolClasses();
 		ArrayList<SchoolClass> personalizedList = new ArrayList<SchoolClass>();
-		
+
 		for (SchoolClass sc : list) {
 			if (sc.hasID(loggedInUser.getID())) {
 				personalizedList.add(sc);
 			}
 		}
-		
+
 		return personalizedList;
 	}
-	
-	
+
+
 	public static void setAnnouncement(String s, int classID) {
 		for (SchoolClass c : classes) {
 			if (c.getClassID() == classID) {
@@ -533,8 +567,8 @@ public class DataManagement {
 			}
 		}
 	}
-	
-	
+
+
 	public static String getAnnouncement(int classID) {
 		for (SchoolClass c : classes) {
 			if (c.getClassID() == classID) {
