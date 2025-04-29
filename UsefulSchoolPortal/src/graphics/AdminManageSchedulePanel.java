@@ -80,8 +80,8 @@ public class AdminManageSchedulePanel extends JPanel {
 		sl.putConstraint(SpringLayout.NORTH, enterPeriods, 100, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, selectPeriods, 100, SpringLayout.EAST, enterPeriods);
 		sl.putConstraint(SpringLayout.NORTH, selectPeriods, 100, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, confirm, 0, SpringLayout.WEST, selectPeriods);
-		sl.putConstraint(SpringLayout.NORTH, confirm, 100, SpringLayout.SOUTH, selectPeriods);
+		sl.putConstraint(SpringLayout.WEST, confirm, 100, SpringLayout.EAST, selectPeriods);
+		sl.putConstraint(SpringLayout.NORTH, confirm, 100, SpringLayout.NORTH, centerPanel);
 
 		add(centerPanel, BorderLayout.CENTER);
 	}
