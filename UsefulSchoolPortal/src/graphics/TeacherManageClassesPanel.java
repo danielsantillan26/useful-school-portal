@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
+import files.Constants;
 import files.DataManagement;
 import objects.SchoolClass;
 
@@ -56,6 +57,14 @@ public class TeacherManageClassesPanel extends JPanel {
 		classList = new JComboBox<String>();
 		classList.setFont(GraphicsConstants.FONT_ROBOTO_B30);
 		classList.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
+		
+		JComboBox<String> gradingSystemList = new JComboBox<String>();
+		gradingSystemList.setFont(GraphicsConstants.FONT_ROBOTO_B30);
+		gradingSystemList.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
+		gradingSystemList.addItem("Weighted Percents");
+		gradingSystemList.addItem("Unweighted Percents");
+		gradingSystemList.addItem("Points");
+		gradingSystemList.setSelectedIndex(2);
 
 		JButton loadData = new JButton("Load Data");
 		GraphicsHelpers.modifyButton(loadData, 250, 45);
@@ -66,6 +75,12 @@ public class TeacherManageClassesPanel extends JPanel {
 				int index = classList.getSelectedIndex();
 				if (index != 0) {
 					classID = classes.get(index - 1).getClassID();
+					int currentGradingMethod = DataManagement.getGradingMethod(classID);
+					if (currentGradingMethod == Constants.GRADE_WEIGHTS) {
+						gradingSystemList.setSelectedIndex(0);
+					} else if (currentGradingMethod == Constants.GRADE_PERCENTS) {
+						gradingSystemList.setSelectedIndex(1);
+					}
 				} else {
 
 				}
@@ -75,14 +90,6 @@ public class TeacherManageClassesPanel extends JPanel {
 
 		JLabel enterGradingSystem = new JLabel("Enter Grading System:");
 		enterGradingSystem.setFont(GraphicsConstants.FONT_ROBOTO_B50);
-
-		JComboBox<String> gradingSystemList = new JComboBox<String>();
-		gradingSystemList.setFont(GraphicsConstants.FONT_ROBOTO_B30);
-		gradingSystemList.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
-		gradingSystemList.addItem("Weighted Percents");
-		gradingSystemList.addItem("Unweighted Percents");
-		gradingSystemList.addItem("Points");
-		gradingSystemList.setSelectedIndex(2);
 
 		JLabel defaultGradingSystemMessage = new JLabel("Note: The default grading system is points.");
 		defaultGradingSystemMessage.setFont(GraphicsConstants.FONT_ROBOTO_B30);
@@ -98,7 +105,13 @@ public class TeacherManageClassesPanel extends JPanel {
 							+ " to proceed? This will delete all existing assignments.",
 							"Warning", JOptionPane.OK_CANCEL_OPTION);
 					if (result == JOptionPane.OK_OPTION) {
-						
+						if (gradingSystemList.getSelectedIndex() == 0) {
+							DataManagement.setGradingMethod(classID, Constants.GRADE_WEIGHTS);
+						} else if (gradingSystemList.getSelectedIndex() == 1) {
+							DataManagement.setGradingMethod(classID, Constants.GRADE_PERCENTS);
+						} else if (gradingSystemList.getSelectedIndex() == 2) {
+							DataManagement.setGradingMethod(classID, Constants.GRADE_POINTS);
+						}
 					} else {
 						refreshComboBox();
 					}

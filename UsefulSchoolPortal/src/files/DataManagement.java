@@ -223,6 +223,42 @@ public class DataManagement {
 			return false;
 		}
 	}
+	
+	
+	public static int getGradingMethod(int classID) {
+		for (int i = 0; i < classes.size(); i++) {
+			if (classes.get(i).getClassID() == classID) {
+				return classes.get(i).getGradingMethod();
+			}
+		}
+		return -1;
+	}
+	
+	
+	public static boolean setGradingMethod(int classID, int gradingMethod) {
+		for (int i = 0; i < classes.size(); i++) {
+			if (classes.get(i).getClassID() == classID) {
+				classes.get(i).setGradingMethod(gradingMethod);
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+	public static boolean deleteAllAsssignments(int classID) {
+		try {
+			for (int i = 0; i < classes.size(); i++) {
+				if (classes.get(i).getClassID() == classID) {
+					classes.get(i).deleteAllAssignments();
+					return true;
+				}
+			}
+			return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 
 	public static boolean login(String username, String password) {

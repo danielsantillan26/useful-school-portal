@@ -223,6 +223,9 @@ public class Frame extends JFrame {
 		JButton buttonPanelStudentViewRostersReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelStudentViewRostersReturn, 220, 45);
 		
+		JButton buttonPanelStudentGradingSimulatorReturn = new JButton("Return");
+		GraphicsHelpers.modifyButton(buttonPanelStudentGradingSimulatorReturn, 220, 45);
+		
 		JButton buttonPanelStudentEditProfileReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelStudentEditProfileReturn, 220, 45);
 		
@@ -262,6 +265,7 @@ public class Frame extends JFrame {
 				buttonPanelStudentHomepageLogOut);
 		panelStudentClassHomepage.addChangePageButtons(buttonPanelStudentClassHomepageReturn);
 		panelStudentViewRosters.addChangePageButtons(buttonPanelStudentViewRostersReturn);
+		panelStudentGradingSimulator.addChangePageButtons(buttonPanelStudentGradingSimulatorReturn);
 		panelStudentEditProfile.addChangePageButtons(buttonPanelStudentEditProfileReturn);
 		
 		
@@ -530,13 +534,16 @@ public class Frame extends JFrame {
 				} else if (e.getSource() == buttonPanelStudentViewRostersReturn) {
 					cl.previous(container);
 					cl.previous(container);
+				} else if (e.getSource() == buttonPanelStudentGradingSimulatorReturn) {
+					for (int i = 0; i < 4; i++) {
+						cl.previous(container);
+					}
 				} else if (e.getSource() == buttonPanelStudentEditProfileReturn) {
 					for (int i = 0; i < 5; i++) {
 						cl.previous(container);
 					}
 				}
 			} 
-
 		};
 
 		buttonPanelIntroRegister.addActionListener(al);
@@ -589,6 +596,7 @@ public class Frame extends JFrame {
 		buttonPanelStudentHomepageLogOut.addActionListener(al);
 		buttonPanelStudentClassHomepageReturn.addActionListener(al);
 		buttonPanelStudentViewRostersReturn.addActionListener(al);
+		buttonPanelStudentGradingSimulatorReturn.addActionListener(al);
 		buttonPanelStudentEditProfileReturn.addActionListener(al);
 
 		container.add(panelIntro);
