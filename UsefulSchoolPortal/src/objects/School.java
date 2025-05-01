@@ -278,6 +278,42 @@ public class School {
 			FileWorker.removeLine(classList, cl.getClassID());
 		} catch (Exception e) { }
 	}
+	
+	
+	public void modifyClassInFile(SchoolClass cl, int gradingMethod) {
+		try {
+			for (int i = 0; i < classes.size(); i++) {
+				if (classes.get(i).getClassID() == cl.getClassID()) {
+					ArrayList<String> contents = FileWorker.readFile(classList);
+					
+					int refactorIndex = -1;
+					for (int j = 0; j < contents.size(); j++) {
+						if (contents.get(j).contains(Integer.toString(classes.get(i).getClassID()))) {
+							refactorIndex = j;
+						}
+					}
+					
+					String replace = contents.get(refactorIndex);
+					String replacePreID = replace;
+					for (int k = 0; k < 3; k++) {
+						// replacePreID = replace.substringi
+					}
+					
+					BufferedWriter bWriter = new BufferedWriter(new FileWriter(classList, false));
+					
+					for (int l = 0; l < contents.size(); l++) {
+						if (l != refactorIndex) {
+							bWriter.write(contents.get(l) + "\n");
+						} else {
+							bWriter.write("\n");
+						}
+					}
+					
+					bWriter.close();
+				}
+			}
+		} catch (Exception e) { }
+	}
 
 
 	public String getName() {

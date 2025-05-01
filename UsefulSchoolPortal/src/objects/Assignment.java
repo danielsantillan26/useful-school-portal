@@ -116,6 +116,11 @@ public class Assignment {
 	}
 	
 	
+	public void deleteFiles() {
+		gradesList.delete();
+	}
+	
+	
 	public String getName() {
 		return name;
 	}

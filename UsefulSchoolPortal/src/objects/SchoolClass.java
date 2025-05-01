@@ -168,15 +168,20 @@ public class SchoolClass {
 		assignments.add(a);
 
 	}
-	
-	
+
+
 	public void deleteAssignment(Assignment a) {
 		assignments.remove(a);
 	}
-	
-	
+
+
 	public void deleteAllAssignments() {
-		assignments.clear();
+		if (assignments != null) {
+			for (Assignment a : assignments) {
+				a.deleteFiles();
+			}
+			assignments.clear();
+		}
 	}
 
 

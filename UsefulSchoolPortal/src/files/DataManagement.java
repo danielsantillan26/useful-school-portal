@@ -239,25 +239,11 @@ public class DataManagement {
 		for (int i = 0; i < classes.size(); i++) {
 			if (classes.get(i).getClassID() == classID) {
 				classes.get(i).setGradingMethod(gradingMethod);
+				classes.get(i).deleteAllAssignments();
 				return true;
 			}
 		}
 		return false;
-	}
-
-
-	public static boolean deleteAllAsssignments(int classID) {
-		try {
-			for (int i = 0; i < classes.size(); i++) {
-				if (classes.get(i).getClassID() == classID) {
-					classes.get(i).deleteAllAssignments();
-					return true;
-				}
-			}
-			return false;
-		} catch (Exception e) {
-			return false;
-		}
 	}
 
 
