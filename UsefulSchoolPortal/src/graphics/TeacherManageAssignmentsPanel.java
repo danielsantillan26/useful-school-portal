@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import files.DataManagement;
@@ -76,14 +77,31 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 			}
 
 		});
-		
+
 		JLabel enterAssignment = new JLabel("Select Assignment");
 		enterAssignment.setFont(GraphicsConstants.FONT_ROBOTO_B50);
-		
+
 		assignmentList = new JComboBox<String>();
 		assignmentList.setFont(GraphicsConstants.FONT_ROBOTO_B30);
 		assignmentList.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
 		
+		JLabel enterName = new JLabel("Enter Name:");
+		enterName.setFont(GraphicsConstants.FONT_ROBOTO_B50);
+		
+		JTextField givenName = new JTextField();
+		givenName.setFont(GraphicsConstants.FONT_ROBOTO_B30);
+		givenName.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
+		
+		JLabel enterPoints = new JLabel("Enter Points Value:");
+		enterPoints.setFont(GraphicsConstants.FONT_ROBOTO_B50);
+		
+		JTextField givenPoints = new JTextField();
+		givenPoints.setFont(GraphicsConstants.FONT_ROBOTO_B30);
+		givenPoints.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
+		
+		JLabel enterWeights = new JLabel("Enter Weights");
+		enterWeights.setFont(GraphicsConstants.FONT_ROBOTO_B50);
+
 		JButton loadAssignmentData = new JButton("Load Data");
 		GraphicsHelpers.modifyButton(loadAssignmentData, 250, 45);
 		loadData.addActionListener(new ActionListener() {
@@ -95,16 +113,17 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 					
 				}
 			}
-			
+
 		});
-		
-		
+
+
 		centerPanel.add(enterClass);
 		centerPanel.add(classList);
 		centerPanel.add(loadData);
 		centerPanel.add(enterAssignment);
 		centerPanel.add(assignmentList);
-		
+		centerPanel.add(loadAssignmentData);
+
 		sl.putConstraint(SpringLayout.WEST, enterClass, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, enterClass, 50, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, classList, 100, SpringLayout.EAST, enterClass);
@@ -115,6 +134,8 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 		sl.putConstraint(SpringLayout.NORTH, enterAssignment, 225, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, assignmentList, 100, SpringLayout.EAST, enterAssignment);
 		sl.putConstraint(SpringLayout.NORTH, assignmentList, 225, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, loadAssignmentData, 0, SpringLayout.WEST, assignmentList);
+		sl.putConstraint(SpringLayout.NORTH, loadAssignmentData, 25, SpringLayout.SOUTH, assignmentList);
 
 		add(centerPanel, BorderLayout.CENTER);
 	}
@@ -144,19 +165,21 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 		classID = -1;
 		assignmentID = -1;
 	}
-	
-	
+
+
 	private void refreshAssignmentList() {
 		assignmentList.removeAllItems();
 		assignments = DataManagement.getClassAssignments(classID);
-		
+
 		assignmentList.addItem("-- New Assignment --");
 		if (classID != -1) {
-			for (Assignment a : assignments) {
-				assignmentList.addItem(a.getName());
+			if (assignments != null) {
+				for (Assignment a : assignments) {
+					assignmentList.addItem(a.getName());
+				}
 			}
 		}
-		
+
 	}
 
 }

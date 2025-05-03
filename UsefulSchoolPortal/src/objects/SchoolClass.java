@@ -21,10 +21,10 @@ public class SchoolClass {
 	private File classRoster;
 	private File classAssignments;
 	private File classAnnouncements;
+	private File classWeights;
 	private ArrayList<Assignment> assignments;
-	/**
 	private ArrayList<String> weightCategories;
-	 */
+	private ArrayList<Integer> weightPercents;
 
 	public SchoolClass(String name, int block, int gradingMethod, int schoolID) {
 		this(name, block, gradingMethod, schoolID, (int)(Math.random()*10000000));
@@ -40,12 +40,15 @@ public class SchoolClass {
 
 		teachers = new ArrayList<Teacher>();
 		students = new ArrayList<Student>();
+		weightCategories = new ArrayList<String>();
+		weightPercents = new ArrayList<Integer>();
 
 		announcement = "";
 
 		classRoster = new File("SchoolClass_" + schoolID + "_" + classID + "_Roster.csv");
 		classAssignments = new File("SchoolClass_" + schoolID + "_" + classID + "_Assignments.csv");
 		classAnnouncements = new File("SchoolClass_" + schoolID + "_" + classID + "_Announcements.txt");
+		classWeights = new File("SchoolClass_" + schoolID + "_" + classID + "_Weights.csv");
 
 		try {
 			if (!classRoster.exists()) {
@@ -70,6 +73,13 @@ public class SchoolClass {
 					announcement += s;
 				}
 			}
+
+			if (!classWeights.exists()) {
+				classWeights.createNewFile();
+			} else {
+				addWeights();
+			}
+
 		} catch (Exception e) {
 
 		}
@@ -181,6 +191,33 @@ public class SchoolClass {
 				a.deleteFiles();
 			}
 			assignments.clear();
+		}
+	}
+
+
+	public boolean setWeights(ArrayList<String> givenCategories, ArrayList<Integer> givenPercents) {
+		try {
+			BufferedWriter bWriter = new BufferedWriter(new FileWriter(classWeights, false));
+			bWriter.write("Category,Percent\n");
+			for (int i = 0; i < givenCategories.size(); i++) {
+				bWriter.write(givenCategories.get(i) + "," + String.valueOf(givenPercents.get(i)) + "\n");
+			}
+			bWriter.close();
+			addWeights();
+			return true;
+		} catch (IOException e) {
+			return false;
+		}
+	}
+	
+	
+	private void addWeights() {
+		ArrayList<String> contents = FileWorker.readFile(classWeights);
+		if (contents != null) {
+			for (int i = 1; i < contents.size(); i++) {
+				weightCategories.add(contents.get(i).substring(0, contents.indexOf(",")));
+				weightPercents.add(Integer.parseInt(contents.get(i).substring(contents.indexOf(",") + 1)));
+			}
 		}
 	}
 

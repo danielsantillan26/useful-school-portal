@@ -146,39 +146,46 @@ public class TeacherManageClassesPanel extends JPanel {
 				ArrayList<String> categories = new ArrayList<String>();
 				ArrayList<Integer> percents = new ArrayList<Integer>();
 
-				try {
-					for (int i = 0; i < 9 ; i++) {
-						if (table.getValueAt(i, 0) != null) {
-							categories.add(String.valueOf(table.getValueAt(i, 0)));
+				if (classID != 0 || DataManagement.getGradingMethod(classID) == Constants.GRADE_WEIGHTS) {
+					try {
+						for (int i = 0; i < 9 ; i++) {
+							if (table.getValueAt(i, 0) != null && String.valueOf(table.getValueAt(i, 0)).strip() != "") {
+								categories.add(String.valueOf(table.getValueAt(i, 0)));
+							}
 						}
+
+						for (int j = 0; j < 9; j++) {
+							if (table.getValueAt(j, 1) != null && String.valueOf(table.getValueAt(j, 1)).strip() != "") {
+								percents.add(Integer.parseInt(String.valueOf(table.getValueAt(j, 1))));
+							}
+						}
+						System.out.println("test3");
+
+						if (categories != null && percents != null) {
+							System.out.println(categories.size() + " " + percents.size());
+							
+							if (categories.size() != percents.size()) {
+								throw new Exception();
+							}
+
+							int sum = 0;
+							for (Integer k : percents) {
+								sum += k;
+							}
+							if (sum != 100) {
+								throw new Exception();
+							}
+
+							DataManagement.setWeights(categories, percents, classID);
+						}
+
+					} catch (Exception exc) {
+						JOptionPane.showMessageDialog(centerPanel, "Invalid Input:\n"
+								+ "- There must be the same number of categories and weights.\n"
+								+ "- Every entry in the right column must be an integer.\n"
+								+ "- All of the given percents must sum to 100", "Error",
+								JOptionPane.ERROR_MESSAGE);
 					}
-
-					for (int j = 0; j < 9; j++) {
-						if (table.getValueAt(j, 1) != null) {
-							percents.add(Integer.parseInt(String.valueOf(table.getValueAt(j, 1))));
-						}
-					}
-
-					if (categories != null && percents != null) {
-						if (categories.size() != percents.size()) {
-							throw new Exception();
-						}
-
-						int sum = 0;
-						for (Integer k : percents) {
-							sum += k;
-						}
-						if (sum != 0) {
-							throw new Exception();
-						}
-					}
-
-				} catch (Exception exc) {
-					JOptionPane.showMessageDialog(centerPanel, "Invalid Input:\n"
-							+ "- There must be the same number of categories and weights.\n"
-							+ "- Every entry in the right column must be an integer.\n"
-							+ "- All of the given percents must sum to 100", "Error",
-							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 

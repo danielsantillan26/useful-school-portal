@@ -240,6 +240,7 @@ public class DataManagement {
 			if (classes.get(i).getClassID() == classID) {
 				classes.get(i).setGradingMethod(gradingMethod);
 				classes.get(i).deleteAllAssignments();
+				currentSchool.modifyClassInFile(classes.get(i), gradingMethod);
 				return true;
 			}
 		}
@@ -598,6 +599,15 @@ public class DataManagement {
 			}
 		}
 		return "";
+	}
+	
+	
+	public static void setWeights(ArrayList<String> categories, ArrayList<Integer> percents, int classID) {
+		for (SchoolClass c : classes) {
+			if (c.getClassID() == classID) {
+				c.setWeights(categories, percents);
+			}
+		}
 	}
 
 }

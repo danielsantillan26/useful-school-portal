@@ -289,14 +289,15 @@ public class School {
 					int refactorIndex = -1;
 					for (int j = 0; j < contents.size(); j++) {
 						if (contents.get(j).contains(Integer.toString(classes.get(i).getClassID()))) {
-							refactorIndex = j;
+							refactorIndex = j;;
 						}
 					}
 					
 					String replace = contents.get(refactorIndex);
-					String replacePreID = replace;
+					String replacePreID = "";
 					for (int k = 0; k < 3; k++) {
-						// replacePreID = replace.substringi
+						replacePreID += replace.substring(0, replace.indexOf(',') + 1);
+						replace = replace.substring(replace.indexOf(',') + 1);
 					}
 					
 					BufferedWriter bWriter = new BufferedWriter(new FileWriter(classList, false));
@@ -305,14 +306,16 @@ public class School {
 						if (l != refactorIndex) {
 							bWriter.write(contents.get(l) + "\n");
 						} else {
-							bWriter.write("\n");
+							bWriter.write(replacePreID + gradingMethod + "\n");
 						}
 					}
 					
 					bWriter.close();
 				}
 			}
-		} catch (Exception e) { }
+		} catch (Exception e) { 
+			System.out.println(e.getMessage());
+		}
 	}
 
 
