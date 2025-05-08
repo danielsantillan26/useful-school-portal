@@ -139,6 +139,16 @@ public class Assignment {
 	public int getSchoolID() {
 		return schoolID;
 	}
+	
+	
+	public int getPoints() {
+		return points;
+	}
+	
+	
+	public String getWeightCategory() {
+		return weightCategory;
+	}
 
 
 	public void setAssignmentID(int assignmentID) {
@@ -153,6 +163,16 @@ public class Assignment {
 
 	public void setSchoolID(int schoolID) {
 		this.schoolID = schoolID;
+	}
+	
+	
+	public void setPoints(int points) {
+		this.points = points;
+	}
+	
+	
+	public void setWeightCategory(String weightCategory) {
+		this.weightCategory = weightCategory;
 	}
 
 

@@ -266,6 +266,15 @@ public class SchoolClass {
 	public ArrayList<Assignment> getAssignments() {
 		return assignments;
 	}
+	
+	
+	public ArrayList<String> getWeightCategories() {
+		return weightCategories;
+	}
+	
+	public ArrayList<Integer> getWeightPercents() {
+		return weightPercents;
+	}
 
 
 	public void setName(String name) {

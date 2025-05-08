@@ -24,6 +24,7 @@ public class TeacherEditClassHomepagePanel extends JPanel {
 	private JComboBox<String> classList;
 	private ArrayList<SchoolClass> classes;
 	private int classID;
+	private JTextArea homepageText;
 
 
 	public TeacherEditClassHomepagePanel() {
@@ -61,7 +62,7 @@ public class TeacherEditClassHomepagePanel extends JPanel {
 		JLabel editHomepage = new JLabel("Edit Homepage");
 		editHomepage.setFont(GraphicsConstants.FONT_ROBOTO_B50);
 
-		JTextArea homepageText = new JTextArea();
+		homepageText = new JTextArea();
 		homepageText.setPreferredSize(new Dimension(800, 500));
 		homepageText.setFont(GraphicsConstants.FONT_ROBOTO_B30);
 		homepageText.setLineWrap(true);
@@ -137,5 +138,7 @@ public class TeacherEditClassHomepagePanel extends JPanel {
 				classList.addItem(sc.getName() + " - Block " + sc.getBlock());
 			}
 		}
+		
+		homepageText.setText("");
 	}
 }

@@ -70,6 +70,20 @@ public class TeacherManageClassesPanel extends JPanel {
 		gradingSystemList.addItem("Points");
 		gradingSystemList.setSelectedIndex(2);
 
+		JLabel weightsMessage = new JLabel("Weights: Create weight categories and percents.");
+		weightsMessage.setFont(GraphicsConstants.FONT_ROBOTO_B40);
+		JLabel weightsDisclaimer = new JLabel("Percents must sum to 100.");
+		weightsDisclaimer.setFont(GraphicsConstants.FONT_ROBOTO_B40);
+
+		String[] columnNames = {"Category", "Weight"};
+		Object[][] data = {{"", ""}, {"", ""}, {"", ""}, {"", ""}, {"", ""},
+				{"", ""}, {"", ""}, {"", ""}, {"", ""}};
+		table = new JTable(data, columnNames);
+		table.setFillsViewportHeight(true);
+
+		spTable = new JScrollPane(table);
+		spTable.setPreferredSize(new Dimension(1000, 170));
+
 		JButton loadData = new JButton("Load Data");
 		GraphicsHelpers.modifyButton(loadData, 250, 45);
 		loadData.addActionListener(new ActionListener() {
@@ -85,9 +99,15 @@ public class TeacherManageClassesPanel extends JPanel {
 					} else if (currentGradingMethod == Constants.GRADE_PERCENTS) {
 						gradingSystemList.setSelectedIndex(1);
 					}
-				} else {
+					if (classes.get(index - 1).getWeightCategories() != null) {
+						ArrayList<String> weightCategories = classes.get(index - 1).getWeightCategories();
+						ArrayList<Integer> weightPercents = classes.get(index - 1).getWeightPercents();
 
-				}
+						for (int i = 0; i < weightCategories.size(); i++) {
+							table.setValueAt(weightCategories.get(i), i, 0);
+						}
+					}
+				} else { }
 			}
 
 		});
@@ -123,20 +143,6 @@ public class TeacherManageClassesPanel extends JPanel {
 			}
 		});
 
-		JLabel weightsMessage = new JLabel("Weights: Create weight categories and percents.");
-		weightsMessage.setFont(GraphicsConstants.FONT_ROBOTO_B40);
-		JLabel weightsDisclaimer = new JLabel("Percents must sum to 100.");
-		weightsDisclaimer.setFont(GraphicsConstants.FONT_ROBOTO_B40);
-
-		String[] columnNames = {"Category", "Weight"};
-		Object[][] data = {{"", ""}, {"", ""}, {"", ""}, {"", ""}, {"", ""},
-				{"", ""}, {"", ""}, {"", ""}, {"", ""}};
-		table = new JTable(data, columnNames);
-		table.setFillsViewportHeight(true);
-
-		spTable = new JScrollPane(table);
-		spTable.setPreferredSize(new Dimension(1000, 170));
-
 		JButton enterWeights = new JButton("Enter Weights");
 		GraphicsHelpers.modifyButton(enterWeights, 300, 45);
 		enterWeights.addActionListener(new ActionListener() {
@@ -148,38 +154,45 @@ public class TeacherManageClassesPanel extends JPanel {
 
 				if (classID != 0 || DataManagement.getGradingMethod(classID) == Constants.GRADE_WEIGHTS) {
 					try {
-						for (int i = 0; i < 9 ; i++) {
-							if (table.getValueAt(i, 0) != null && String.valueOf(table.getValueAt(i, 0)).strip() != "") {
-								categories.add(String.valueOf(table.getValueAt(i, 0)));
+						
+						int result = JOptionPane.showConfirmDialog(centerPanel, "Are you sure you want"
+								+ " to proceed? This will delete all existing assignments.",
+								"Warning", JOptionPane.OK_CANCEL_OPTION);
+						if (result == JOptionPane.OK_OPTION) {
+							for (int i = 0; i < 9 ; i++) {
+								if (table.getValueAt(i, 0) != null && String.valueOf(table.getValueAt(i, 0)).strip() != "") {
+									categories.add(String.valueOf(table.getValueAt(i, 0)));
+								}
 							}
-						}
 
-						for (int j = 0; j < 9; j++) {
-							if (table.getValueAt(j, 1) != null && String.valueOf(table.getValueAt(j, 1)).strip() != "") {
-								percents.add(Integer.parseInt(String.valueOf(table.getValueAt(j, 1))));
+							for (int j = 0; j < 9; j++) {
+								if (table.getValueAt(j, 1) != null && String.valueOf(table.getValueAt(j, 1)).strip() != "") {
+									percents.add(Integer.parseInt(String.valueOf(table.getValueAt(j, 1))));
+								}
 							}
-						}
-						System.out.println("test3");
 
-						if (categories != null && percents != null) {
-							System.out.println(categories.size() + " " + percents.size());
+							if (categories != null && percents != null) {
+								
+								if (categories.size() + 0 != percents.size() + 0) {
+									throw new Exception();
+								}
+
+								int sum = 0;
+								for (Integer k : percents) {
+									sum += k;
+								}
+								
+								if (sum + 0 != 100 + 0) {
+									throw new Exception();
+								}
+
+								DataManagement.setWeights(categories, percents, classID);
+							}
+						} else {
 							
-							if (categories.size() != percents.size()) {
-								throw new Exception();
-							}
-
-							int sum = 0;
-							for (Integer k : percents) {
-								sum += k;
-							}
-							if (sum != 100) {
-								throw new Exception();
-							}
-
-							DataManagement.setWeights(categories, percents, classID);
 						}
-
 					} catch (Exception exc) {
+						System.out.println(exc.toString());
 						JOptionPane.showMessageDialog(centerPanel, "Invalid Input:\n"
 								+ "- There must be the same number of categories and weights.\n"
 								+ "- Every entry in the right column must be an integer.\n"
@@ -245,6 +258,12 @@ public class TeacherManageClassesPanel extends JPanel {
 		classes = DataManagement.getCurrentUserClasses();
 		for (SchoolClass c : classes) {
 			classList.addItem(c.getName() + " - Block " + c.getBlock());
+		}
+
+		for (int i = 0; i < table.getRowCount(); i++) {
+			for (int j = 0; j < table.getColumnCount(); j++) {
+				table.setValueAt("", i, j);
+			}
 		}
 	}
 }

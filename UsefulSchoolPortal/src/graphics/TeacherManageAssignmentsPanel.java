@@ -101,6 +101,10 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 		
 		JLabel enterWeights = new JLabel("Enter Weights");
 		enterWeights.setFont(GraphicsConstants.FONT_ROBOTO_B50);
+		
+		JComboBox<String> givenWeights = new JComboBox<String>();
+		givenWeights.setFont(GraphicsConstants.FONT_ROBOTO_B30);
+		givenWeights.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
 
 		JButton loadAssignmentData = new JButton("Load Data");
 		GraphicsHelpers.modifyButton(loadAssignmentData, 250, 45);
@@ -110,7 +114,8 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int index = assignmentList.getSelectedIndex();
 				if (index != 0) {
-					
+					givenName.setText(assignments.get(index - 1).getName());
+					givenPoints.setText(String.valueOf(assignments.get(index - 1).getPoints()));
 				}
 			}
 
@@ -123,6 +128,12 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 		centerPanel.add(enterAssignment);
 		centerPanel.add(assignmentList);
 		centerPanel.add(loadAssignmentData);
+		centerPanel.add(enterName);
+		centerPanel.add(givenName);
+		centerPanel.add(enterPoints);
+		centerPanel.add(givenPoints);
+		centerPanel.add(enterWeights);
+		centerPanel.add(givenWeights);
 
 		sl.putConstraint(SpringLayout.WEST, enterClass, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, enterClass, 50, SpringLayout.NORTH, centerPanel);
@@ -136,6 +147,18 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 		sl.putConstraint(SpringLayout.NORTH, assignmentList, 225, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, loadAssignmentData, 0, SpringLayout.WEST, assignmentList);
 		sl.putConstraint(SpringLayout.NORTH, loadAssignmentData, 25, SpringLayout.SOUTH, assignmentList);
+		sl.putConstraint(SpringLayout.WEST, enterName, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, enterName, 400, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, givenName, 550, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, givenName, 400, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, enterPoints, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, enterPoints, 500, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, givenPoints, 550, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, givenPoints, 500, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, enterWeights, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, enterWeights, 600, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, givenWeights, 550, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, givenWeights, 600, SpringLayout.NORTH, centerPanel);
 
 		add(centerPanel, BorderLayout.CENTER);
 	}

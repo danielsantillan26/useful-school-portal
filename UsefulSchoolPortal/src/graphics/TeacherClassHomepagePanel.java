@@ -120,6 +120,8 @@ public class TeacherClassHomepagePanel extends JPanel {
 				classList.addItem(sc.getName() + " - Block " + sc.getBlock());
 			}
 		}
+		
+		announcementLabel.setText("");
 	}
 
 }
