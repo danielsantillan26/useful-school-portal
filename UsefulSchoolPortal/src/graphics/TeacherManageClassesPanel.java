@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.StackWalker.StackFrame;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -193,6 +194,7 @@ public class TeacherManageClassesPanel extends JPanel {
 						}
 					} catch (Exception exc) {
 						System.out.println(exc.toString());
+						
 						JOptionPane.showMessageDialog(centerPanel, "Invalid Input:\n"
 								+ "- There must be the same number of categories and weights.\n"
 								+ "- Every entry in the right column must be an integer.\n"
