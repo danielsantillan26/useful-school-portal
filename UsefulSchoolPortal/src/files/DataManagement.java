@@ -602,6 +602,26 @@ public class DataManagement {
 	}
 	
 	
+	public static ArrayList<String> getWeightCategories(int classID) {
+		for (SchoolClass c : classes) {
+			if (c.getClassID() == classID) {
+				return c.getWeightCategories();
+			}
+		}
+		return null;
+	}
+	
+	
+	public static ArrayList<Integer> getWeightPercents(int classID) {
+		for (SchoolClass c : classes) {
+			if (c.getClassID() == classID) {
+				return c.getWeightPercents();
+			}
+		}
+		return null;
+	}
+	
+	
 	public static void setWeights(ArrayList<String> categories, ArrayList<Integer> percents, int classID) {
 		for (SchoolClass c : classes) {
 			if (c.getClassID() == classID) {

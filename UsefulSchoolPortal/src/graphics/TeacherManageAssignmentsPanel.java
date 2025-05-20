@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+import files.Constants;
 import files.DataManagement;
 import objects.Assignment;
 import objects.SchoolClass;
@@ -74,6 +75,12 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 				if (index != 0) {
 					classID = classes.get(index - 1).getClassID();
 					refreshAssignmentList();
+					if (DataManagement.getGradingMethod(classID) == Constants.GRADE_WEIGHTS) {
+						ArrayList<String> weights = DataManagement.getWeightCategories(classID);
+						for (String s : weights) {
+							givenWeights.addItem(s);
+						}
+					}
 				}
 			}
 
@@ -107,8 +114,8 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 		givenWeights.setFont(GraphicsConstants.FONT_ROBOTO_B30);
 		givenWeights.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
 
-		JButton loadAssignmentData = new JButton("Load Data");
-		GraphicsHelpers.modifyButton(loadAssignmentData, 250, 45);
+		JButton loadAssignmentData = new JButton("Load Assignment Data");
+		GraphicsHelpers.modifyButton(loadAssignmentData, 400, 45);
 		loadData.addActionListener(new ActionListener() {
 
 			@Override
@@ -117,7 +124,7 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 				if (index != 0) {
 					givenName.setText(assignments.get(index - 1).getName());
 					givenPoints.setText(String.valueOf(assignments.get(index - 1).getPoints()));
-					
+					assignmentID = assignments.get(index - 1).getAssignmentID();
 				}
 			}
 
@@ -129,7 +136,36 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (classID != -1) {
+					String name = givenName.getText();
+					int points = -1;
+					String weight = "";
+					if (DataManagement.getGradingMethod(classID) == Constants.GRADE_POINTS) {
+						try {
+							points = Integer.parseInt(givenPoints.getText());
+						} catch (Exception exc) {
+							
+						}
+					} else if (DataManagement.getGradingMethod(classID) == Constants.GRADE_WEIGHTS) {
+						weight = String.valueOf(givenWeights.getSelectedItem());
+					}
 					
+					if (assignmentID == -1) {
+						
+					}
+				}
+			}
+			
+		});
+		
+		JButton deleteAssignment = new JButton("Delete Assignment");
+		GraphicsHelpers.modifyButton(deleteAssignment, 350, 45);
+		deleteAssignment.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
 			}
 			
 		});
@@ -147,6 +183,8 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 		centerPanel.add(givenPoints);
 		centerPanel.add(enterWeights);
 		centerPanel.add(givenWeights);
+		centerPanel.add(enterData);
+		centerPanel.add(deleteAssignment);
 
 		sl.putConstraint(SpringLayout.WEST, enterClass, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, enterClass, 50, SpringLayout.NORTH, centerPanel);
@@ -162,16 +200,20 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 		sl.putConstraint(SpringLayout.NORTH, loadAssignmentData, 25, SpringLayout.SOUTH, assignmentList);
 		sl.putConstraint(SpringLayout.WEST, enterName, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, enterName, 400, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, givenName, 550, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, givenName, 570, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, givenName, 400, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, enterPoints, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, enterPoints, 500, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, givenPoints, 550, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, givenPoints, 570, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, givenPoints, 500, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, enterWeights, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, enterWeights, 600, SpringLayout.NORTH, centerPanel);
-		sl.putConstraint(SpringLayout.WEST, givenWeights, 550, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, givenWeights, 570, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, givenWeights, 600, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, enterData, 570, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, enterData, 700, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, deleteAssignment, 450, SpringLayout.WEST, assignmentList);
+		sl.putConstraint(SpringLayout.NORTH, deleteAssignment, 25, SpringLayout.SOUTH, assignmentList);
 
 		add(centerPanel, BorderLayout.CENTER);
 	}

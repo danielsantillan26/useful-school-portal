@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.StackWalker.StackFrame;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -97,9 +96,15 @@ public class TeacherManageClassesPanel extends JPanel {
 					int currentGradingMethod = DataManagement.getGradingMethod(classID);
 					if (currentGradingMethod == Constants.GRADE_WEIGHTS) {
 						gradingSystemList.setSelectedIndex(0);
+						ArrayList<String> weights = DataManagement.getWeightCategories(classID);
+						ArrayList<Integer> percents = DataManagement.getWeightPercents(classID);
+						for (int i = 0; i < weights.size(); i++) {
+							table.setValueAt(weights.get(i), i, 0);
+							table.setValueAt(percents.get(i), i, 1);
+						}
 					} else if (currentGradingMethod == Constants.GRADE_PERCENTS) {
 						gradingSystemList.setSelectedIndex(1);
-					}
+					} else { }
 				} else { }
 			}
 
@@ -149,7 +154,7 @@ public class TeacherManageClassesPanel extends JPanel {
 					try {
 						
 						int result = JOptionPane.showConfirmDialog(centerPanel, "Are you sure you want"
-								+ " to proceed? This will delete all existing assignments.",
+								+ " to proceed? If any weight is renamed, this will delete all existing assignments.",
 								"Warning", JOptionPane.OK_CANCEL_OPTION);
 						if (result == JOptionPane.OK_OPTION) {
 							for (int i = 0; i < 9 ; i++) {

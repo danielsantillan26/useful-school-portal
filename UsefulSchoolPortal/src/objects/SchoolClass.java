@@ -203,6 +203,21 @@ public class SchoolClass {
 				bWriter.write(givenCategories.get(i) + "," + String.valueOf(givenPercents.get(i)) + "\n");
 			}
 			bWriter.close();
+			
+			boolean deleteAssignments = false;
+			if (givenCategories.size() != weightCategories.size()) {
+				deleteAssignments = true;
+			} else {
+				for (int j = 0; j < givenCategories.size(); j++) {
+					if (!givenCategories.get(j).equals(weightCategories.get(j))) {
+						deleteAssignments = true;
+					}
+				}
+			}
+			if (deleteAssignments) {
+				deleteAllAssignments();
+			}
+			
 			addWeights();
 			return true;
 		} catch (IOException e) {
@@ -220,7 +235,6 @@ public class SchoolClass {
 			}
 		}
 	}
-
 
 
 	public String getName() {
@@ -298,6 +312,9 @@ public class SchoolClass {
 
 
 	public void setGradingMethod(int gradingMethod) {
+		if (this.gradingMethod != gradingMethod) {
+			deleteAllAssignments();
+		}
 		this.gradingMethod = gradingMethod;
 	}
 
