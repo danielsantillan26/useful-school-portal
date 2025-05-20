@@ -100,14 +100,6 @@ public class TeacherManageClassesPanel extends JPanel {
 					} else if (currentGradingMethod == Constants.GRADE_PERCENTS) {
 						gradingSystemList.setSelectedIndex(1);
 					}
-					if (classes.get(index - 1).getWeightCategories() != null) {
-						ArrayList<String> weightCategories = classes.get(index - 1).getWeightCategories();
-						ArrayList<Integer> weightPercents = classes.get(index - 1).getWeightPercents();
-
-						for (int i = 0; i < weightCategories.size(); i++) {
-							table.setValueAt(weightCategories.get(i), i, 0);
-						}
-					}
 				} else { }
 			}
 
@@ -167,11 +159,12 @@ public class TeacherManageClassesPanel extends JPanel {
 							}
 
 							for (int j = 0; j < 9; j++) {
-								if (table.getValueAt(j, 1) != null && String.valueOf(table.getValueAt(j, 1)).strip() != "") {
+								if (table.getValueAt(j, 1) != null && !String.valueOf(table.getValueAt(j, 1)).strip().isEmpty()) {
 									percents.add(Integer.parseInt(String.valueOf(table.getValueAt(j, 1))));
 								}
 							}
 
+							
 							if (categories != null && percents != null) {
 								
 								if (categories.size() + 0 != percents.size() + 0) {
@@ -188,13 +181,13 @@ public class TeacherManageClassesPanel extends JPanel {
 								}
 
 								DataManagement.setWeights(categories, percents, classID);
+								
 							}
+							
 						} else {
 							
 						}
 					} catch (Exception exc) {
-						System.out.println(exc.toString());
-						
 						JOptionPane.showMessageDialog(centerPanel, "Invalid Input:\n"
 								+ "- There must be the same number of categories and weights.\n"
 								+ "- Every entry in the right column must be an integer.\n"

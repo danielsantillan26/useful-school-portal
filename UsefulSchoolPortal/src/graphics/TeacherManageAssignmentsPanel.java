@@ -28,6 +28,7 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 	private JComboBox<String> classList;
 	private ArrayList<Assignment> assignments;
 	private JComboBox<String> assignmentList;
+	private JComboBox<String> givenWeights;
 
 
 	public TeacherManageAssignmentsPanel() {
@@ -102,7 +103,7 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 		JLabel enterWeights = new JLabel("Enter Weights");
 		enterWeights.setFont(GraphicsConstants.FONT_ROBOTO_B50);
 		
-		JComboBox<String> givenWeights = new JComboBox<String>();
+		givenWeights = new JComboBox<String>();
 		givenWeights.setFont(GraphicsConstants.FONT_ROBOTO_B30);
 		givenWeights.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
 
@@ -116,9 +117,21 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 				if (index != 0) {
 					givenName.setText(assignments.get(index - 1).getName());
 					givenPoints.setText(String.valueOf(assignments.get(index - 1).getPoints()));
+					
 				}
 			}
 
+		});
+		
+		JButton enterData = new JButton("Confirm");
+		GraphicsHelpers.modifyButton(enterData, 225, 45);
+		enterData.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+					
+			}
+			
 		});
 
 

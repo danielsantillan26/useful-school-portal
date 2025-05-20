@@ -215,8 +215,8 @@ public class SchoolClass {
 		ArrayList<String> contents = FileWorker.readFile(classWeights);
 		if (contents != null) {
 			for (int i = 1; i < contents.size(); i++) {
-				weightCategories.add(contents.get(i).substring(0, contents.indexOf(",")));
-				weightPercents.add(Integer.parseInt(contents.get(i).substring(contents.indexOf(",") + 1)));
+				weightCategories.add(contents.get(i).substring(0, contents.get(i).indexOf(",")));
+				weightPercents.add(Integer.parseInt(contents.get(i).substring(contents.get(i).indexOf(",") + 1)));
 			}
 		}
 	}
