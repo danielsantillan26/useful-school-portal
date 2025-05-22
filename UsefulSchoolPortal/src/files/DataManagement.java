@@ -630,4 +630,24 @@ public class DataManagement {
 		}
 	}
 
+	
+	public static void addAssignment(int classID, String name, int points) {
+		
+	}
+	
+	
+	public static void addAssignment(int classID, String name, String weightCategory) {
+		
+	}
+	
+	
+	public static void modifyAssignment(int classID, int assignmentID, String name, int points) {
+		
+	}
+	
+	
+	public static void modifyAssignment(int classID, int assignmentID, String name, String weightCategory) {
+		
+	}
+	
 }
