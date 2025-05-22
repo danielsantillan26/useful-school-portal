@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import files.Constants;
 import files.FileWorker;
 
 public class SchoolClass {
@@ -40,6 +41,7 @@ public class SchoolClass {
 
 		teachers = new ArrayList<Teacher>();
 		students = new ArrayList<Student>();
+		assignments = new ArrayList<Assignment>();
 		weightCategories = new ArrayList<String>();
 		weightPercents = new ArrayList<Integer>();
 
@@ -174,14 +176,46 @@ public class SchoolClass {
 	}
 
 
-	public void addAssignment(Assignment a) {
+	public void addNewAssignment(Assignment a) {
 		assignments.add(a);
+		String name = a.getName();
+		String assignmentID = String.valueOf(a.getAssignmentID());
+		String dataInput = "";
+		if (gradingMethod == Constants.GRADE_POINTS) {
+			dataInput = name + "," + assignmentID + "," + String.valueOf(a.getPoints());
+		} else if (gradingMethod == Constants.GRADE_WEIGHTS) {
+			dataInput = name + "," + assignmentID + "," + a.getWeightCategory();
+		} else {
+			dataInput = name + "," + assignmentID;
+		}
+		
+		ArrayList<String> contents = FileWorker.readFile(classAssignments);
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(classAssignments, false));
+			for (int i = 0; i < contents.size(); i++) {
+				bw.write(contents.get(i) + "\n");
+			}
+			bw.write(dataInput);
+			bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 
 
 	public void deleteAssignment(Assignment a) {
 		assignments.remove(a);
+	}
+	
+	
+	public void addExistingAssignment(Assignment a) {
+		
+	}
+	
+	
+	public void modifyExistingAssignment(Assignment a) {
+		
 	}
 
 

@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
@@ -92,24 +93,24 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 		assignmentList = new JComboBox<String>();
 		assignmentList.setFont(GraphicsConstants.FONT_ROBOTO_B30);
 		assignmentList.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
-		
+
 		JLabel enterName = new JLabel("Enter Name:");
 		enterName.setFont(GraphicsConstants.FONT_ROBOTO_B50);
-		
+
 		JTextField givenName = new JTextField();
 		givenName.setFont(GraphicsConstants.FONT_ROBOTO_B30);
 		givenName.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
-		
+
 		JLabel enterPoints = new JLabel("Enter Points Value:");
 		enterPoints.setFont(GraphicsConstants.FONT_ROBOTO_B50);
-		
+
 		JTextField givenPoints = new JTextField();
 		givenPoints.setFont(GraphicsConstants.FONT_ROBOTO_B30);
 		givenPoints.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
-		
+
 		JLabel enterWeights = new JLabel("Enter Weights");
 		enterWeights.setFont(GraphicsConstants.FONT_ROBOTO_B50);
-		
+
 		givenWeights = new JComboBox<String>();
 		givenWeights.setFont(GraphicsConstants.FONT_ROBOTO_B30);
 		givenWeights.setPreferredSize(GraphicsConstants.DIMENSION_TEXTFIELD_DEFAULT);
@@ -129,35 +130,47 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 			}
 
 		});
-		
+
 		JButton enterData = new JButton("Confirm");
 		GraphicsHelpers.modifyButton(enterData, 225, 45);
 		enterData.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (classID != -1) {
-					String name = givenName.getText();
-					int points = -1;
-					String weight = "";
-					if (DataManagement.getGradingMethod(classID) == Constants.GRADE_POINTS) {
-						try {
-							points = Integer.parseInt(givenPoints.getText());
-						} catch (Exception exc) {
-							
+				try {
+					if (classID != -1) {
+						String name = givenName.getText();
+						for (int i = 0; i < name.length(); i++) {
+							if (name.substring(i, i+1).equals(",")) {
+								throw new Exception();
+							}
 						}
-					} else if (DataManagement.getGradingMethod(classID) == Constants.GRADE_WEIGHTS) {
-						weight = String.valueOf(givenWeights.getSelectedItem());
-					}
-					
-					if (assignmentID == -1) {
 						
+						int points = -1;
+						String weight = "";
+						if (DataManagement.getGradingMethod(classID) == Constants.GRADE_POINTS) {
+							points = Integer.parseInt(givenPoints.getText());
+							DataManagement.addAssignment(classID, name, points);
+
+						} else if (DataManagement.getGradingMethod(classID) == Constants.GRADE_WEIGHTS) {
+							weight = String.valueOf(givenWeights.getSelectedItem());
+							DataManagement.addAssignment(classID, name, weight);
+						}
+
+						if (assignmentID == -1) {
+
+						}
 					}
+				} catch (Exception exc) { 
+					JOptionPane.showMessageDialog(centerPanel, "Invalid Input:\n"
+							+ "- There must be a numerical value for points.\n"
+							+ "- There must be no commas in the assignment name.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
-			
+
 		});
-		
+
 		JButton deleteAssignment = new JButton("Delete Assignment");
 		GraphicsHelpers.modifyButton(deleteAssignment, 350, 45);
 		deleteAssignment.addActionListener(new ActionListener() {
@@ -165,9 +178,9 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
 
 

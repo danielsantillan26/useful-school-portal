@@ -509,7 +509,7 @@ public class DataManagement {
 			boolean alreadyBusy = false;
 			for (SchoolClass sc : classes) {
 				if (sc.getSchoolID() == currentSchool.getSchoolID()) {
-					if (sc.hasID(studentID)) {
+					if (sc.hasID(studentID) && sc.getBlock() == c.getBlock()) {
 						alreadyBusy = true;
 						c = sc;
 					}
@@ -549,7 +549,7 @@ public class DataManagement {
 			boolean alreadyBusy = false;
 			for (SchoolClass sc : classes) {
 				if (sc.getSchoolID() == currentSchool.getSchoolID()) {
-					if (sc.hasID(teacherID)) {
+					if (sc.hasID(teacherID) && sc.getBlock() == c.getBlock()) {
 						alreadyBusy = true;
 						c = sc;
 					}
@@ -632,12 +632,22 @@ public class DataManagement {
 
 	
 	public static void addAssignment(int classID, String name, int points) {
-		
+		Assignment a = new Assignment(name, points, classID, currentSchool.getSchoolID());
+		for (SchoolClass c : classes) {
+			if (c.getClassID() == classID) {
+				c.addNewAssignment(a);
+			}
+		}
 	}
 	
 	
 	public static void addAssignment(int classID, String name, String weightCategory) {
-		
+		Assignment a = new Assignment(name, weightCategory, classID, currentSchool.getSchoolID());
+		for (SchoolClass c : classes) {
+			if (c.getClassID() == classID) {
+				c.addNewAssignment(a);
+			}
+		}
 	}
 	
 	
@@ -647,6 +657,11 @@ public class DataManagement {
 	
 	
 	public static void modifyAssignment(int classID, int assignmentID, String name, String weightCategory) {
+		
+	}
+	
+	
+	public static void deleteAssignments() {
 		
 	}
 	
