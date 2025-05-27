@@ -208,21 +208,82 @@ public class SchoolClass {
 
 	public void deleteAssignment(Assignment a) {
 		assignments.remove(a);
-	}
-
-
-	public void addExistingAssignment(Assignment a) {
-
-	}
-	
+	}	
 	
 	public void modifyExistingAssignment(int assignmentID, String name, String weightCategory) {
+		for (Assignment a : assignments) {
+			if (a.getAssignmentID() == assignmentID) {
+				a.setName(name);
+				a.setWeightCategory(weightCategory);
+			}
+		}
+		
+		ArrayList<String> contents = FileWorker.readFile(classAssignments);
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(classAssignments, false));
+			for (int i = 0; i < contents.size(); i++) {
+				if (contents.get(i).contains(String.valueOf(assignmentID))) {
+					bw.write(name + "," + String.valueOf(assignmentID) + "," + weightCategory);
+				} else {
+					bw.write(contents.get(i) + "\n");
+				}
+			}
+			bw.close();
+		} catch (Exception e) { }
 		
 	}
 
 
 	public void modifyExistingAssignment(int assignmentID, String name, int points) {
-
+		for (Assignment a : assignments) {
+			if (a.getAssignmentID() == assignmentID) {
+				a.setName(name);
+				a.setPoints(points);
+			}
+		}
+		
+		ArrayList<String> contents = FileWorker.readFile(classAssignments);
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(classAssignments, false));
+			for (int i = 0; i < contents.size(); i++) {
+				if (contents.get(i).contains(String.valueOf(assignmentID))) {
+					bw.write(name + "," + String.valueOf(assignmentID) + "," + String.valueOf(points));
+				} else {
+					bw.write(contents.get(i) + "\n");
+				}
+			}
+			bw.close();
+		} catch (Exception e) { }
+	}
+	
+	
+	public void modifyExistingAssignment(int assignmentID, String name) {
+		for (Assignment a : assignments) {
+			if (a.getAssignmentID() == assignmentID) {
+				a.setName(name);
+			}
+		}
+		
+		ArrayList<String> contents = FileWorker.readFile(classAssignments);
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(classAssignments, false));
+			for (int i = 0; i < contents.size(); i++) {
+				if (contents.get(i).contains(String.valueOf(assignmentID))) {
+					bw.write(name + "," + String.valueOf(assignmentID));
+				} else {
+					bw.write(contents.get(i) + "\n");
+				}
+			}
+			bw.close();
+		} catch (Exception e) { }
+	}
+	
+	
+	public void deleteAssignment(int assignmentID) {
+		int index = -1;
+		for (int i = 0; i < assignments.size(); i++) {
+			
+		}
 	}
 
 

@@ -29,6 +29,11 @@ public class Assignment {
 	public Assignment(String name, String weightCategory, int classID, int schoolID) {
 		this(name, weightCategory, (int)(Math.random()*1000000000), classID, schoolID);
 	}
+	
+	
+	public Assignment(String name, int classID, int schoolID) {
+		this((int)Math.random()*1000000000, name, classID, schoolID);
+	}
 
 
 	public Assignment(String name, int points, int id, int classID, int schoolID) {
@@ -47,6 +52,18 @@ public class Assignment {
 	public Assignment(String name, String weightCategory, int id, int classID, int schoolID) {
 		this.name = name;
 		this.weightCategory = weightCategory;
+		this.assignmentID = id;
+		this.classID = classID;
+		this.schoolID = schoolID;
+		grades = new ArrayList<Double>();
+		students = new ArrayList<Student>();
+		gradesList = new File("Assignment_" + schoolID + "_" + classID + "_" + assignmentID + "_Grades.csv");
+		createFile();
+	}
+	
+	
+	public Assignment(int id, String name, int classID, int schoolID) {
+		this.name = name;
 		this.assignmentID = id;
 		this.classID = classID;
 		this.schoolID = schoolID;
@@ -148,6 +165,11 @@ public class Assignment {
 	
 	public String getWeightCategory() {
 		return weightCategory;
+	}
+	
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 
 

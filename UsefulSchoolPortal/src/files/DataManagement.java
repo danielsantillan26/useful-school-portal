@@ -643,16 +643,23 @@ public class DataManagement {
 	
 	public static void addAssignment(int classID, String name, int points) {
 		Assignment a = new Assignment(name, points, classID, currentSchool.getSchoolID());
-		for (SchoolClass c : classes) {
-			if (c.getClassID() == classID) {
-				c.addNewAssignment(a);
-			}
-		}
+		addAssignment(a, classID);
 	}
 	
 	
 	public static void addAssignment(int classID, String name, String weightCategory) {
 		Assignment a = new Assignment(name, weightCategory, classID, currentSchool.getSchoolID());
+		addAssignment(a, classID);
+	}
+	
+	
+	public static void addAssignment(int classID, String name) {
+		Assignment a = new Assignment(name, classID, currentSchool.getSchoolID());
+		addAssignment(a, classID);
+	}
+	
+	
+	private static void addAssignment(Assignment a, int classID) {
 		for (SchoolClass c : classes) {
 			if (c.getClassID() == classID) {
 				c.addNewAssignment(a);
@@ -664,18 +671,31 @@ public class DataManagement {
 	public static void modifyAssignment(int classID, int assignmentID, String name, int points) {
 		for (SchoolClass c : classes) {
 			if (c.getClassID() == classID) {
-				c.modifyExistingAssignment;
+				c.modifyExistingAssignment(assignmentID, name, points);
 			}
 		}
 	}
 	
 	
 	public static void modifyAssignment(int classID, int assignmentID, String name, String weightCategory) {
-		
+		for (SchoolClass c : classes) {
+			if (c.getClassID() == classID) {
+				c.modifyExistingAssignment(assignmentID, name, weightCategory);
+			}
+		}
 	}
 	
 	
-	public static void deleteAssignments() {
+	public static void modifyAssignment(int classID, int assignmentID, String name) {
+		for (SchoolClass c : classes) {
+			if (c.getClassID() == classID) {
+				c.modifyExistingAssignment(assignmentID, name);
+			}
+		}
+	}
+	
+	
+	public static void deleteAssignment(int classID, int assignmentID) {
 		
 	}
 	
