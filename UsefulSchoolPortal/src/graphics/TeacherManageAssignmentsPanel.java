@@ -117,7 +117,7 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 
 		JButton loadAssignmentData = new JButton("Load Assignment Data");
 		GraphicsHelpers.modifyButton(loadAssignmentData, 400, 45);
-		loadData.addActionListener(new ActionListener() {
+		loadAssignmentData.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -126,6 +126,14 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 					givenName.setText(assignments.get(index - 1).getName());
 					givenPoints.setText(String.valueOf(assignments.get(index - 1).getPoints()));
 					assignmentID = assignments.get(index - 1).getAssignmentID();
+					if (DataManagement.getGradingMethod(classID) == Constants.GRADE_WEIGHTS) {
+						String weightCategory = DataManagement.getIndividualAssignmentWeightCategory(classID, assignmentID);
+						for (int i = 0; i < givenWeights.getItemCount(); i++) {
+							if (givenWeights.getItemAt(i).equals(weightCategory)) {
+								givenWeights.setSelectedIndex(i);
+							}
+						}
+					}
 				}
 			}
 

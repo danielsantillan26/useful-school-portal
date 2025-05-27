@@ -612,6 +612,16 @@ public class DataManagement {
 	}
 	
 	
+	public static String getIndividualAssignmentWeightCategory(int classID, int assignmentID) {
+		for (SchoolClass c : classes) {
+			if (c.getClassID() == classID) {
+				return c.getIndividualAssignmentWeightCategory(assignmentID);
+			}
+		}
+		return null;
+	}
+	
+	
 	public static ArrayList<Integer> getWeightPercents(int classID) {
 		for (SchoolClass c : classes) {
 			if (c.getClassID() == classID) {
@@ -652,7 +662,11 @@ public class DataManagement {
 	
 	
 	public static void modifyAssignment(int classID, int assignmentID, String name, int points) {
-		
+		for (SchoolClass c : classes) {
+			if (c.getClassID() == classID) {
+				c.modifyExistingAssignment;
+			}
+		}
 	}
 	
 	

@@ -65,6 +65,8 @@ public class SchoolClass {
 				BufferedWriter bWriter = new BufferedWriter(new FileWriter(classAssignments, false));
 				bWriter.write("Assignment Name,Assignment ID,Points or Weight");
 				bWriter.close();
+			} else {
+				addExistingAssignments();
 			}
 
 			if (!classAnnouncements.exists()) {
@@ -188,7 +190,7 @@ public class SchoolClass {
 		} else {
 			dataInput = name + "," + assignmentID;
 		}
-		
+
 		ArrayList<String> contents = FileWorker.readFile(classAssignments);
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(classAssignments, false));
@@ -207,15 +209,20 @@ public class SchoolClass {
 	public void deleteAssignment(Assignment a) {
 		assignments.remove(a);
 	}
-	
-	
+
+
 	public void addExistingAssignment(Assignment a) {
-		
+
 	}
 	
 	
-	public void modifyExistingAssignment(Assignment a) {
+	public void modifyExistingAssignment(int assignmentID, String name, String weightCategory) {
 		
+	}
+
+
+	public void modifyExistingAssignment(int assignmentID, String name, int points) {
+
 	}
 
 
@@ -237,7 +244,7 @@ public class SchoolClass {
 				bWriter.write(givenCategories.get(i) + "," + String.valueOf(givenPercents.get(i)) + "\n");
 			}
 			bWriter.close();
-			
+
 			boolean deleteAssignments = false;
 			if (givenCategories.size() != weightCategories.size()) {
 				deleteAssignments = true;
@@ -251,21 +258,62 @@ public class SchoolClass {
 			if (deleteAssignments) {
 				deleteAllAssignments();
 			}
-			
+
 			addWeights();
 			return true;
 		} catch (IOException e) {
 			return false;
 		}
 	}
-	
-	
+
+
 	private void addWeights() {
 		ArrayList<String> contents = FileWorker.readFile(classWeights);
 		if (contents != null) {
 			for (int i = 1; i < contents.size(); i++) {
 				weightCategories.add(contents.get(i).substring(0, contents.get(i).indexOf(",")));
 				weightPercents.add(Integer.parseInt(contents.get(i).substring(contents.get(i).indexOf(",") + 1)));
+			}
+		}
+	}
+	
+	
+	public String getIndividualAssignmentWeightCategory(int assignmentID) {
+		for (Assignment a : assignments) {
+			if (a.getAssignmentID() == assignmentID) {
+				return a.getWeightCategory();
+			}
+		}
+		return null;
+	}
+	
+	
+	public int getIndividualAssignmentPoints(int assignmentID) {
+		for (Assignment a : assignments) {
+			if (a.getAssignmentID() == assignmentID) {
+				return a.getPoints();
+			}
+		}
+		return -1;
+	}
+
+
+	private void addExistingAssignments() {
+		ArrayList<String> contents = FileWorker.readFile(classAssignments);
+		if (contents != null) {
+			for (int i = 1; i < contents.size(); i++) {
+				String x = contents.get(i);
+				String name = x.substring(0, x.indexOf(","));
+				x = x.substring(x.indexOf(",") + 1);
+				int assignmentID = Integer.parseInt(x.substring(0, x.indexOf(",")));
+				x = x.substring(x.indexOf(",") + 1);
+				if (gradingMethod == Constants.GRADE_WEIGHTS) {
+					String weightCategory = x;
+					assignments.add(new Assignment(name, weightCategory, assignmentID, this.classID, this.schoolID));
+				} else if (gradingMethod == Constants.GRADE_POINTS) {
+					int points = Integer.parseInt(x);
+					assignments.add(new Assignment(name, points, assignmentID, this.classID, this.schoolID));
+				}
 			}
 		}
 	}
@@ -314,12 +362,12 @@ public class SchoolClass {
 	public ArrayList<Assignment> getAssignments() {
 		return assignments;
 	}
-	
-	
+
+
 	public ArrayList<String> getWeightCategories() {
 		return weightCategories;
 	}
-	
+
 	public ArrayList<Integer> getWeightPercents() {
 		return weightPercents;
 	}
