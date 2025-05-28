@@ -696,7 +696,11 @@ public class DataManagement {
 	
 	
 	public static void deleteAssignment(int classID, int assignmentID) {
-		
+		for (SchoolClass c : classes) {
+			if (c.getClassID() == classID) {
+				c.deleteAssignment(assignmentID);
+			}
+		}
 	}
 	
 }

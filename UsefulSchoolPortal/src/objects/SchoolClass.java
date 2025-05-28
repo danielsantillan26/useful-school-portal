@@ -280,10 +280,7 @@ public class SchoolClass {
 	
 	
 	public void deleteAssignment(int assignmentID) {
-		int index = -1;
-		for (int i = 0; i < assignments.size(); i++) {
-			
-		}
+		FileWorker.removeLine(classAssignments, assignmentID);
 	}
 
 

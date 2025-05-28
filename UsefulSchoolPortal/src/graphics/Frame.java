@@ -196,6 +196,9 @@ public class Frame extends JFrame {
 		JButton buttonPanelTeacherManageAssignmentsReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherManageAssignmentsReturn, 220, 45);
 		
+		JButton buttonPanelTeacherGradeAssignmentsReturn = new JButton("Return");
+		GraphicsHelpers.modifyButton(buttonPanelTeacherGradeAssignmentsReturn, 220, 45);
+		
 		JButton buttonPanelTeacherEditProfileReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherEditProfileReturn, 220, 45);
 		
@@ -258,6 +261,7 @@ public class Frame extends JFrame {
 		panelTeacherManageClasses.addChangePageButtons(buttonPanelTeacherManageClassesReturn);
 		panelTeacherViewRosters.addChangePageButtons(buttonPanelTeacherViewRostersReturn);
 		panelTeacherManageAssignments.addChangePageButtons(buttonPanelTeacherManageAssignmentsReturn);
+		panelTeacherGradeAssignments.addChangePageButtons(buttonPanelTeacherGradeAssignmentsReturn);
 		panelTeacherEditProfile.addChangePageButtons(buttonPanelTeacherEditProfileReturn);
 		panelStudentHomepage.addChangePageButtons(buttonPanelStudentHomepageClassHomepage,
 				buttonPanelStudentHomepageViewRosters, buttonPanelStudentHomepageViewGrades,
@@ -503,6 +507,10 @@ public class Frame extends JFrame {
 					for (int i = 0; i < 5; i++) {
 						cl.previous(container);
 					}
+				}  else if (e.getSource() == buttonPanelTeacherGradeAssignmentsReturn) { 
+					for (int i = 0; i < 6; i++) {
+						
+					}
 				} else if (e.getSource() == buttonPanelTeacherEditProfileReturn) {
 					for (int i = 0; i < 8; i++) {
 						cl.previous(container);
@@ -587,6 +595,7 @@ public class Frame extends JFrame {
 		buttonPanelTeacherManageClassesReturn.addActionListener(al);
 		buttonPanelTeacherViewRostersReturn.addActionListener(al);
 		buttonPanelTeacherManageAssignmentsReturn.addActionListener(al);
+		buttonPanelTeacherGradeAssignmentsReturn.addActionListener(al);
 		buttonPanelTeacherEditProfileReturn.addActionListener(al);
 		buttonPanelStudentHomepageClassHomepage.addActionListener(al);
 		buttonPanelStudentHomepageViewRosters.addActionListener(al);

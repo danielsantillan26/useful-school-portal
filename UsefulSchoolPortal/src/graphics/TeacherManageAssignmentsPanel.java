@@ -143,6 +143,7 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 				} else {
 					givenName.setText("");
 					givenPoints.setText("");
+					assignmentID = -1;
 				}
 			}
 
