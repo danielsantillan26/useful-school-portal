@@ -124,6 +124,8 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 		tableModel = new DefaultTableModel(data, columnNames);
 		table.setModel(tableModel);
 
+		JLabel points = new JLabel();
+		points.setFont(GraphicsConstants.FONT_ROBOTO_B30);
 
 
 		JButton loadData = new JButton("Load Data");
@@ -137,22 +139,24 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 				if (index != 0) {
 					classID = classes.get(index - 1).getClassID();
 					refreshAssignmentList();
-					
+
 					if (classID != -1) {
 						studentList = DataManagement.getClassStudents(classID);
+						studentNames = new ArrayList<String>();
 						for (Student s : studentList) {
 							studentNames.add(s.getLastName() + ", " + s.getFirstName());
 							studentIDs.add(s.getID());
 						}
-						
+
 						for (int i = 0; i < tableModel.getRowCount(); i++) {
 							tableModel.setValueAt("", i, 0);
+							tableModel.setValueAt("", i, 1);
 						}
-						
+
 						for (int i = 0; i < studentNames.size(); i++) {
 							tableModel.setValueAt(studentNames.get(i), i, 0);
 						}
-						
+
 					}
 				} else {
 					classID = -1;
@@ -176,6 +180,12 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 					assignmentID = assignments.get(index - 1).getAssignmentID();
 				} else {
 					assignmentID = -1;
+				}
+
+				if (classID != -1) {
+					if (DataManagement.getGradingMethod(classID) == Constants.GRADE_POINTS) {
+
+					}
 				}
 			}
 
@@ -214,6 +224,7 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 		centerPanel.add(assignmentList);
 		centerPanel.add(loadAssignmentData);
 		centerPanel.add(spTable);
+		centerPanel.add(confirm);
 
 		sl.putConstraint(SpringLayout.WEST, enterClass, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, enterClass, 50, SpringLayout.NORTH, centerPanel);
@@ -229,6 +240,8 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 		sl.putConstraint(SpringLayout.NORTH, loadAssignmentData, 25, SpringLayout.SOUTH, assignmentList);
 		sl.putConstraint(SpringLayout.WEST, spTable, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, spTable, 400, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, confirm, 100, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, confirm, 25, SpringLayout.SOUTH, spTable);
 
 		add(centerPanel, BorderLayout.CENTER);
 	}
