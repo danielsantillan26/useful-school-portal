@@ -10,16 +10,19 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SpringLayout;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import files.Constants;
 import files.DataManagement;
 import objects.Assignment;
 import objects.SchoolClass;
+import objects.Student;
 
 public class TeacherGradeAssignmentsPanel extends JPanel {
 
@@ -31,14 +34,23 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 	private JComboBox<String> classList;
 	private ArrayList<Assignment> assignments;
 	private JComboBox<String> assignmentList;
+	private ArrayList<Student> studentList;
+	private ArrayList<String> studentNames;
+	private ArrayList<Integer> studentIDs;
 	private JTable table;
 	private JScrollPane spTable;
+	private DefaultTableModel tableModel;
 
 
 	public TeacherGradeAssignmentsPanel() {
 		setLayout(new BorderLayout());
 		prepareNorthPanel();
 		prepareCenterPanel();
+		classID = -1;
+		assignmentID = -1;
+		studentList = new ArrayList<Student>();
+		studentNames = new ArrayList<String>();
+		studentIDs = new ArrayList<Integer>();
 	}
 
 
@@ -109,6 +121,8 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 		table.setFillsViewportHeight(false);
 		spTable = new JScrollPane(table);
 		spTable.setPreferredSize(new Dimension(1300, 300));
+		tableModel = new DefaultTableModel(data, columnNames);
+		table.setModel(tableModel);
 
 
 
@@ -123,9 +137,30 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 				if (index != 0) {
 					classID = classes.get(index - 1).getClassID();
 					refreshAssignmentList();
+					
+					if (classID != -1) {
+						studentList = DataManagement.getClassStudents(classID);
+						for (Student s : studentList) {
+							studentNames.add(s.getLastName() + ", " + s.getFirstName());
+							studentIDs.add(s.getID());
+						}
+						
+						for (int i = 0; i < tableModel.getRowCount(); i++) {
+							tableModel.setValueAt("", i, 0);
+						}
+						
+						for (int i = 0; i < studentNames.size(); i++) {
+							tableModel.setValueAt(studentNames.get(i), i, 0);
+						}
+						
+					}
+				} else {
+					classID = -1;
+					for (int i = 0; i < tableModel.getRowCount(); i++) {
+						tableModel.setValueAt("", i, 0);
+					}
 				}
-				
-				// TODO: PICKING UP: Code the addition of the students.
+
 			}
 
 		});
@@ -145,17 +180,31 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 			}
 
 		});
-		
+
 		JButton confirm = new JButton("Confirm");
 		GraphicsHelpers.modifyButton(confirm, 220, 45);
 		confirm.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO: Look at everything in column 1 and make sure they are numbers (or null).
-				
+				ArrayList<Integer> grades = new ArrayList<Integer>();
+				for (int i = 0; i < table.getRowCount(); i++) {
+					if (tableModel.getValueAt(i, 1).toString().strip() == "") {
+						grades.add(null);
+					} else {
+						try {
+							int individualGrade = Integer.parseInt(table.getValueAt(i,  1).toString());
+							grades.add(individualGrade);
+						} catch (Exception exc)  {
+							JOptionPane.showMessageDialog(centerPanel, "Invalid Input\n"
+									+ "- All grade cells should either have a number or be empty", 
+									"Error", JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				}
+
 			}
-			
+
 		});
 
 		centerPanel.add(enterClass);
