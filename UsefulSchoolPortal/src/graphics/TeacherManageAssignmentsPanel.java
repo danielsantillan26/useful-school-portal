@@ -210,6 +210,7 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (classID != -1 && assignmentID != -1) {
 					DataManagement.deleteAssignment(classID, assignmentID);
+					refreshAssignmentList();
 				}
 			}
 
@@ -304,7 +305,8 @@ public class TeacherManageAssignmentsPanel extends JPanel {
 				}
 			}
 		}
-
+		givenName.setText("");
+		givenPoints.setText("");
 	}
 
 }

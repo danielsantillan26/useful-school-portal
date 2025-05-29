@@ -479,6 +479,7 @@ public class Frame extends JFrame {
 					for (int i = 0; i < 6; i++) {
 						cl.next(container);
 					}
+					panelTeacherGradeAssignments.refreshComboBox();
 				} else if (e.getSource() == buttonPanelTeacherHomepageInfractStudents) {
 					for (int i = 0; i < 7; i++) {
 						cl.next(container);
@@ -509,7 +510,7 @@ public class Frame extends JFrame {
 					}
 				}  else if (e.getSource() == buttonPanelTeacherGradeAssignmentsReturn) { 
 					for (int i = 0; i < 6; i++) {
-						
+						cl.previous(container);
 					}
 				} else if (e.getSource() == buttonPanelTeacherEditProfileReturn) {
 					for (int i = 0; i < 8; i++) {

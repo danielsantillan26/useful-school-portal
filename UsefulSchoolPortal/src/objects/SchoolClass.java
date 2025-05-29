@@ -281,6 +281,11 @@ public class SchoolClass {
 	
 	public void deleteAssignment(int assignmentID) {
 		FileWorker.removeLine(classAssignments, assignmentID);
+		for (int i = 0; i < assignments.size(); i++) {
+			if (assignments.get(i).getAssignmentID() == assignmentID) {
+				assignments.remove(i);
+			}
+		}
 	}
 
 
