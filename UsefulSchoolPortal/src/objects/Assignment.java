@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import files.Constants;
 import files.DataManagement;
 import files.FileWorker;
 
@@ -79,17 +80,24 @@ public class Assignment {
 		if (gradesList.exists()) {
 			ArrayList<String> contents = FileWorker.readFile(gradesList);
 			if (contents.size() > 1) {
-				
+				for (int i = 1; i < contents.size(); i++) {
+					if (contents.get(i).substring(contents.get(i).indexOf(",") + 1).equals(Character.toString(Constants.DELIMITER_NULL_GRADE)) || 
+							contents.get(i).substring(contents.get(i).indexOf(",") + 1).equals("")) {
+						grades.add(null);
+					} else {
+						grades.add(Double.parseDouble(contents.get(i).substring(contents.get(i).indexOf(",") + 1)));
+					}
+				}
 			}
 		} else {
 			try {
 				gradesList.createNewFile();
 				BufferedWriter bw = new BufferedWriter(new FileWriter(gradesList, false));
-				bw.write("Total Points/Weight,Grade,Grade,Grade,Grade,Grade,Grade,\n");
+				bw.write("Student ID,Grade,\n");
 				
 				students = DataManagement.getClassStudents(classID);
 				for (int i = 0; i < students.size(); i++) {
-					bw.write("NA,");
+					bw.write(String.valueOf(students.get(i).getID()) + ",\n");
 				}
 				
 				bw.close();
@@ -100,13 +108,31 @@ public class Assignment {
 	}
 	
 	
-	
+	public ArrayList<Double> getGrades() {
+		return grades;
+	}
 
 
 
-	public boolean setGrade(int index, double grade) {
+	public boolean setGrades(ArrayList<Double> grades) {
 		try {
-			grades.set(index, grade);
+			this.grades = grades;
+			ArrayList<String> contents = FileWorker.readFile(gradesList);
+			BufferedWriter bw = new BufferedWriter(new FileWriter(gradesList, false));
+			
+			for (int i = 0; i < contents.size(); i++) {
+				if (i == 0) {
+					bw.write(contents.get(i).substring(0, contents.get(i).indexOf(",")) + ",\n");
+				} else {
+					if (grades.get(i - 1) == null) {
+						bw.write(contents.get(i).substring(0, contents.get(i).indexOf(",")) + "," + Constants.DELIMITER_NULL_GRADE + "\n");
+					} else {
+						bw.write(contents.get(i).substring(0, contents.get(i).indexOf(",")) + "," + String.valueOf(grades.get(i - 1)) + "\n");
+					}
+				}
+			}
+			
+			bw.close();
 			return true;
 		} catch (Exception e) {
 			return false;

@@ -9,5 +9,7 @@ public class Constants {
 	public static final int GRADE_WEIGHTS = 290;
 	public static final int GRADE_PERCENTS = 291;
 	public static final int GRADE_POINTS = 292;
+	
+	public static final char DELIMITER_NULL_GRADE = '消';
 
 }

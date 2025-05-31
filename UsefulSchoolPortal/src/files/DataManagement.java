@@ -622,6 +622,16 @@ public class DataManagement {
 	}
 	
 	
+	public static int getIndividualAssignmentPoints(int classID, int assignmentID) {
+		for (SchoolClass c : classes) {
+			if (c.getClassID() == classID) {
+				return c.getIndividualAssignmentPoints(assignmentID);
+			}
+		}
+		return -1;
+	}
+	
+	
 	public static ArrayList<Integer> getWeightPercents(int classID) {
 		for (SchoolClass c : classes) {
 			if (c.getClassID() == classID) {
@@ -629,6 +639,16 @@ public class DataManagement {
 			}
 		}
 		return null;
+	}
+	
+	
+	public static int getWeightPercentByCategory(int classID, String weight) {
+		for (SchoolClass c : classes) {
+			if (c.getClassID() == classID) {
+				return c.getPercentByCategory(weight);
+			}
+		}
+		return -1;
 	}
 	
 	
@@ -699,6 +719,25 @@ public class DataManagement {
 		for (SchoolClass c : classes) {
 			if (c.getClassID() == classID) {
 				c.deleteAssignment(assignmentID);
+			}
+		}
+	}
+	
+	
+	public static ArrayList<Double> getGrades(int classID, int assignmentID) {
+		for (SchoolClass c : classes) {
+			if (c.getClassID() == classID) {
+				return c.getGrades(assignmentID);
+			}
+		}
+		return null;
+	}
+	
+	
+	public static void setGrades(int classID, int assignmentID, ArrayList<Double> grades) {
+		for (SchoolClass c : classes) {
+			if (c.getClassID() == classID) {
+				c.setGrades(assignmentID, grades);
 			}
 		}
 	}

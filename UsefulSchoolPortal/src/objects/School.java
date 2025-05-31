@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import files.Constants;
 import files.DataManagement;
 import files.FileWorker;
 import files.InvalidFileInputException;

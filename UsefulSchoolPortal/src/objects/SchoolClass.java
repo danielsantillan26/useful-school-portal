@@ -380,6 +380,25 @@ public class SchoolClass {
 			}
 		}
 	}
+	
+	
+	public ArrayList<Double> getGrades(int assignmentID) {
+		for (Assignment a : assignments) {
+			if (a.getAssignmentID() == assignmentID) {
+				return a.getGrades();
+			}
+		}
+		return null;
+	}
+	
+	
+	public void setGrades(int assignmentID, ArrayList<Double> grades) {
+		for (Assignment a : assignments) {
+			if (a.getAssignmentID() == assignmentID) {
+				a.setGrades(grades);
+			}
+		}
+	}
 
 
 	public String getName() {
@@ -433,6 +452,16 @@ public class SchoolClass {
 
 	public ArrayList<Integer> getWeightPercents() {
 		return weightPercents;
+	}
+	
+	
+	public int getPercentByCategory(String weight) {
+		for (int i = 0; i < weightCategories.size(); i++) {
+			if (weightCategories.get(i).equals(weight)) {
+				return weightPercents.get(i);
+			}
+		}
+		return -1;
 	}
 
 

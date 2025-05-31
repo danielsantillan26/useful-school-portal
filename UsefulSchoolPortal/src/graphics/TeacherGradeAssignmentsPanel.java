@@ -40,6 +40,7 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 	private JTable table;
 	private JScrollPane spTable;
 	private DefaultTableModel tableModel;
+	private JLabel gradingInfo;
 
 
 	public TeacherGradeAssignmentsPanel() {
@@ -124,8 +125,8 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 		tableModel = new DefaultTableModel(data, columnNames);
 		table.setModel(tableModel);
 
-		JLabel points = new JLabel();
-		points.setFont(GraphicsConstants.FONT_ROBOTO_B30);
+		gradingInfo = new JLabel();
+		gradingInfo.setFont(GraphicsConstants.FONT_ROBOTO_B30);
 
 
 		JButton loadData = new JButton("Load Data");
@@ -178,15 +179,32 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 				int index = assignmentList.getSelectedIndex();
 				if (index != 0) {
 					assignmentID = assignments.get(index - 1).getAssignmentID();
+
+					if (classID != -1) {
+						if (DataManagement.getGradingMethod(classID) == Constants.GRADE_POINTS) {
+							int points = DataManagement.getIndividualAssignmentPoints(classID, assignmentID);
+							gradingInfo.setText("This assignment is worth " + String.valueOf(points) + " points.");
+						} else if (DataManagement.getGradingMethod(classID) == Constants.GRADE_WEIGHTS) {
+							String weight = DataManagement.getIndividualAssignmentWeightCategory(classID, assignmentID);
+							int percent = DataManagement.getWeightPercentByCategory(classID, weight);
+							gradingInfo.setText("This assignment is weighted as " + weight + ", worth " + String.valueOf(percent) + "%.");
+						}
+
+						ArrayList<Double> assignmentGrades = DataManagement.getGrades(classID, assignmentID);
+
+						if (assignmentGrades != null) {
+							for (int i = 0; i < assignmentGrades.size(); i++) {
+								if (assignmentGrades.get(i) != null) {
+									tableModel.setValueAt(assignmentGrades.get(i), i, 1);
+								}
+							}
+						}
+					}
 				} else {
 					assignmentID = -1;
+					gradingInfo.setText("");
 				}
-
-				if (classID != -1) {
-					if (DataManagement.getGradingMethod(classID) == Constants.GRADE_POINTS) {
-
-					}
-				}
+				repaint();
 			}
 
 		});
@@ -197,13 +215,13 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Integer> grades = new ArrayList<Integer>();
+				ArrayList<Double> grades = new ArrayList<Double>();
 				for (int i = 0; i < table.getRowCount(); i++) {
 					if (tableModel.getValueAt(i, 1).toString().strip() == "") {
 						grades.add(null);
 					} else {
 						try {
-							int individualGrade = Integer.parseInt(table.getValueAt(i,  1).toString());
+							double individualGrade = Double.parseDouble(table.getValueAt(i,  1).toString());
 							grades.add(individualGrade);
 						} catch (Exception exc)  {
 							JOptionPane.showMessageDialog(centerPanel, "Invalid Input\n"
@@ -212,7 +230,7 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 						}
 					}
 				}
-
+				DataManagement.setGrades(classID, assignmentID, grades);
 			}
 
 		});
@@ -224,6 +242,7 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 		centerPanel.add(assignmentList);
 		centerPanel.add(loadAssignmentData);
 		centerPanel.add(spTable);
+		centerPanel.add(gradingInfo);
 		centerPanel.add(confirm);
 
 		sl.putConstraint(SpringLayout.WEST, enterClass, 100, SpringLayout.WEST, centerPanel);
@@ -242,6 +261,8 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 		sl.putConstraint(SpringLayout.NORTH, spTable, 400, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, confirm, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, confirm, 25, SpringLayout.SOUTH, spTable);
+		sl.putConstraint(SpringLayout.WEST, gradingInfo, 50, SpringLayout.EAST, confirm);
+		sl.putConstraint(SpringLayout.NORTH, gradingInfo, 0, SpringLayout.NORTH, confirm);
 
 		add(centerPanel, BorderLayout.CENTER);
 	}
@@ -270,6 +291,8 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 		assignmentList.addItem("-- Select Assignment --");
 		classID = -1;
 		assignmentID = -1;
+		gradingInfo.setText("");
+		repaint();
 	}
 
 
@@ -286,6 +309,8 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 			}
 		}
 
+		gradingInfo.setText("");
+		repaint();
 	}
 
 }
