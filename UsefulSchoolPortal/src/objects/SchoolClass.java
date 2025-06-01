@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import calculations.GradeCalculations;
 import files.Constants;
 import files.FileWorker;
 
@@ -133,6 +134,9 @@ public class SchoolClass {
 
 
 	public boolean addStudent(Student s) {
+		for (Assignment a : assignments) {
+			a.addStudentDisplacement(s.getID());
+		}
 		return addUser(s, "Student");
 	}
 
@@ -153,10 +157,16 @@ public class SchoolClass {
 
 
 	public boolean deleteStudent(Student s) {
+		int index = 0;
 		for (int i = 0; i < students.size(); i++) {
 			if (students.get(i).getID() == s.getID()) {
 				students.remove(i);
+				index = i;
 			}
+		}
+
+		for (Assignment a : assignments) {
+			a.removeStudentDisplacement(index);
 		}
 		return deleteUser(s);
 	}
@@ -209,7 +219,7 @@ public class SchoolClass {
 	public void deleteAssignment(Assignment a) {
 		assignments.remove(a);
 	}	
-	
+
 	public void modifyExistingAssignment(int assignmentID, String name, String weightCategory) {
 		for (Assignment a : assignments) {
 			if (a.getAssignmentID() == assignmentID) {
@@ -217,7 +227,7 @@ public class SchoolClass {
 				a.setWeightCategory(weightCategory);
 			}
 		}
-		
+
 		ArrayList<String> contents = FileWorker.readFile(classAssignments);
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(classAssignments, false));
@@ -230,7 +240,7 @@ public class SchoolClass {
 			}
 			bw.close();
 		} catch (Exception e) { }
-		
+
 	}
 
 
@@ -241,7 +251,7 @@ public class SchoolClass {
 				a.setPoints(points);
 			}
 		}
-		
+
 		ArrayList<String> contents = FileWorker.readFile(classAssignments);
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(classAssignments, false));
@@ -255,15 +265,15 @@ public class SchoolClass {
 			bw.close();
 		} catch (Exception e) { }
 	}
-	
-	
+
+
 	public void modifyExistingAssignment(int assignmentID, String name) {
 		for (Assignment a : assignments) {
 			if (a.getAssignmentID() == assignmentID) {
 				a.setName(name);
 			}
 		}
-		
+
 		ArrayList<String> contents = FileWorker.readFile(classAssignments);
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(classAssignments, false));
@@ -277,8 +287,8 @@ public class SchoolClass {
 			bw.close();
 		} catch (Exception e) { }
 	}
-	
-	
+
+
 	public void deleteAssignment(int assignmentID) {
 		FileWorker.removeLine(classAssignments, assignmentID);
 		for (int i = 0; i < assignments.size(); i++) {
@@ -339,8 +349,8 @@ public class SchoolClass {
 			}
 		}
 	}
-	
-	
+
+
 	public String getIndividualAssignmentWeightCategory(int assignmentID) {
 		for (Assignment a : assignments) {
 			if (a.getAssignmentID() == assignmentID) {
@@ -349,8 +359,8 @@ public class SchoolClass {
 		}
 		return null;
 	}
-	
-	
+
+
 	public int getIndividualAssignmentPoints(int assignmentID) {
 		for (Assignment a : assignments) {
 			if (a.getAssignmentID() == assignmentID) {
@@ -380,8 +390,8 @@ public class SchoolClass {
 			}
 		}
 	}
-	
-	
+
+
 	public ArrayList<Double> getGrades(int assignmentID) {
 		for (Assignment a : assignments) {
 			if (a.getAssignmentID() == assignmentID) {
@@ -390,8 +400,70 @@ public class SchoolClass {
 		}
 		return null;
 	}
-	
-	
+
+
+	public ArrayList<Double> getAllAverages() {
+		ArrayList<Double> averages = new ArrayList<Double>();
+
+		if (gradingMethod == Constants.GRADE_POINTS) {
+			for (Student s : students) {
+				int totalPoints = 0;
+				double earnedPoints = 0;
+				for (Assignment a : assignments) {
+					if (a.getIndividualStudentGrade(s.getID()) != -1) {
+						earnedPoints += a.getIndividualStudentGrade(s.getID());
+						totalPoints += a.getPoints();
+					}
+				}
+				averages.add(GradeCalculations.calculatePointsGrade(earnedPoints, totalPoints));
+			}
+		} else if (gradingMethod == Constants.GRADE_PERCENTS) {
+			for (Student s : students) {
+				int totalAssignments = 0;
+				double earnedPoints = 0;
+				for (Assignment a : assignments) {
+					if (a.getIndividualStudentGrade(s.getID()) != -1) {
+						earnedPoints += a.getIndividualStudentGrade(s.getID());
+						totalAssignments++;
+					}
+				}
+				averages.add(GradeCalculations.calculatePercentGrade(earnedPoints, totalAssignments));
+			}
+		} else {
+			for (Student s : students) {
+				ArrayList<Double> weightedGrades = new ArrayList<Double>();
+				ArrayList<Integer> adjustedPercents = new ArrayList<Integer>();
+				int percentToAdd = 0;
+				for (int i = 0; i < weightCategories.size(); i++) {
+					int earnedPoints = 0;
+					int totalAssignments = 0;
+					for (Assignment a : assignments) {
+						if (a.getWeightCategory().equals(weightCategories.get(i))) {
+							if (a.getIndividualStudentGrade(s.getID()) != -1) {
+								earnedPoints += a.getIndividualStudentGrade(s.getID());
+								totalAssignments++;
+							}
+						}
+					}
+					if (totalAssignments == 0) {
+						percentToAdd += weightPercents.get(i);
+					} else {
+						weightedGrades.add(GradeCalculations.calculatePercentGrade(earnedPoints, totalAssignments));
+						adjustedPercents.add(weightPercents.get(i));
+					}
+				}
+
+				for (int i = 0; i < adjustedPercents.size(); i++) {
+					adjustedPercents.set(i, adjustedPercents.get(i) + (percentToAdd/adjustedPercents.size()));
+				}
+				averages.add(GradeCalculations.calculateWeightGrade(weightedGrades, adjustedPercents));
+			}
+		}
+
+		return averages;
+	}
+
+
 	public void setGrades(int assignmentID, ArrayList<Double> grades) {
 		for (Assignment a : assignments) {
 			if (a.getAssignmentID() == assignmentID) {
@@ -453,8 +525,8 @@ public class SchoolClass {
 	public ArrayList<Integer> getWeightPercents() {
 		return weightPercents;
 	}
-	
-	
+
+
 	public int getPercentByCategory(String weight) {
 		for (int i = 0; i < weightCategories.size(); i++) {
 			if (weightCategories.get(i).equals(weight)) {

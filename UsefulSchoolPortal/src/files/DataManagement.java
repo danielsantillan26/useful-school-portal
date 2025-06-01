@@ -734,6 +734,16 @@ public class DataManagement {
 	}
 	
 	
+	public static ArrayList<Double> getAllAverages(int classID) {
+		for (SchoolClass c : classes) {
+			if (c.getClassID() == classID) {
+				return c.getAllAverages();
+			}
+		}
+		return null;
+	}
+	
+	
 	public static void setGrades(int classID, int assignmentID, ArrayList<Double> grades) {
 		for (SchoolClass c : classes) {
 			if (c.getClassID() == classID) {

@@ -177,7 +177,7 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int index = assignmentList.getSelectedIndex();
-				if (index != 0) {
+				if (index != 0 && index != assignmentList.getItemCount() - 1) {
 					assignmentID = assignments.get(index - 1).getAssignmentID();
 
 					if (classID != -1) {
@@ -196,12 +196,29 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 							for (int i = 0; i < assignmentGrades.size(); i++) {
 								if (assignmentGrades.get(i) != null) {
 									tableModel.setValueAt(assignmentGrades.get(i), i, 1);
+								} else {
+									tableModel.setValueAt("", i, 1);
 								}
 							}
 						}
 					}
-				} else {
-					assignmentID = -1;
+				} else  {
+					if (classID != -1) { 
+						if (index == assignmentList.getItemCount() - 1) {
+							ArrayList<Double> allAverages = DataManagement.getAllAverages(classID);
+
+							if (allAverages != null) {
+								for (int i = 0; i < allAverages.size(); i++) {
+									tableModel.setValueAt(allAverages.get(i).toString(), i, 1);
+								}
+							}
+
+
+						} else {
+							assignmentID = -1;
+							gradingInfo.setText("");
+						}
+					}
 					gradingInfo.setText("");
 				}
 				repaint();
@@ -232,6 +249,7 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 				}
 				DataManagement.setGrades(classID, assignmentID, grades);
 			}
+
 
 		});
 
@@ -287,6 +305,12 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 			}
 		}
 
+		for (int i = 0; i < tableModel.getRowCount(); i++) {
+			for (int j = 0; j < tableModel.getColumnCount(); j++) {
+				tableModel.setValueAt("", i, j);
+			}
+		}
+
 		assignmentList.removeAllItems();
 		assignmentList.addItem("-- Select Assignment --");
 		classID = -1;
@@ -300,7 +324,7 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 		assignmentList.removeAllItems();
 		assignments = DataManagement.getClassAssignments(classID);
 
-		assignmentList.addItem("-- New Assignment --");
+		assignmentList.addItem("-- Select Assignment --");
 		if (classID != -1) {
 			if (assignments != null) {
 				for (Assignment a : assignments) {
@@ -308,6 +332,7 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 				}
 			}
 		}
+		assignmentList.addItem("-- Overall --");
 
 		gradingInfo.setText("");
 		repaint();

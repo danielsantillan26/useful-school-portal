@@ -15,7 +15,6 @@ public class Assignment {
 	private String name;
 	private int points;
 	private String weightCategory;
-	private ArrayList<Student> students;
 	private ArrayList<Double> grades;
 	private int assignmentID;
 	private int classID;
@@ -44,7 +43,6 @@ public class Assignment {
 		this.classID = classID;
 		this.schoolID = schoolID;
 		grades = new ArrayList<Double>();
-		students = new ArrayList<Student>();
 		gradesList = new File("Assignment_" + schoolID + "_" + classID + "_" + assignmentID + "_Grades.csv");
 		createFile();
 	}
@@ -57,7 +55,6 @@ public class Assignment {
 		this.classID = classID;
 		this.schoolID = schoolID;
 		grades = new ArrayList<Double>();
-		students = new ArrayList<Student>();
 		gradesList = new File("Assignment_" + schoolID + "_" + classID + "_" + assignmentID + "_Grades.csv");
 		createFile();
 	}
@@ -69,7 +66,6 @@ public class Assignment {
 		this.classID = classID;
 		this.schoolID = schoolID;
 		grades = new ArrayList<Double>();
-		students = new ArrayList<Student>();
 		gradesList = new File("Assignment_" + schoolID + "_" + classID + "_" + assignmentID + "_Grades.csv");
 		createFile();
 	}
@@ -95,7 +91,7 @@ public class Assignment {
 				BufferedWriter bw = new BufferedWriter(new FileWriter(gradesList, false));
 				bw.write("Student ID,Grade,\n");
 				
-				students = DataManagement.getClassStudents(classID);
+				ArrayList<Student> students = DataManagement.getClassStudents(classID);
 				for (int i = 0; i < students.size(); i++) {
 					bw.write(String.valueOf(students.get(i).getID()) + ",\n");
 				}
@@ -140,21 +136,42 @@ public class Assignment {
 	}
 
 
-	public boolean addStudentDisplacement(int index) {
+	public void addStudentDisplacement(int studentID) {
 		try {
-			grades.add(index, null);
-			return true;
+			ArrayList<String> contents = FileWorker.readFile(gradesList);
+			BufferedWriter bw = new BufferedWriter(new FileWriter(gradesList, false));
+			
+			for (int i = 0; i < contents.size(); i++) {
+				bw.write(contents.get(i) + "\n");
+			}
+			
+			bw.write(String.valueOf(studentID) + ",");
+			bw.close();
 		} catch (Exception e) {
-			return false;
+			
 		}
 	}
 
 
-	public boolean removeStudentDisplacement(int index) {
-		try {
-			return true;
-		} catch (Exception e) {
-			return false;
+	public void removeStudentDisplacement(int index) {
+		FileWorker.removeLineByIndex(gradesList, index + 1);
+		grades.remove(index);
+	}
+	
+	
+	public double getIndividualStudentGrade(int studentID) {
+		ArrayList<String> contents = FileWorker.readFile(gradesList);
+		String grade = "";
+		for (String s : contents) {
+			if (s.contains(String.valueOf(studentID))) {
+				grade = s.substring(s.indexOf(",") + 1);
+			}
+		}
+		
+		if (grade.equals(Character.toString(Constants.DELIMITER_NULL_GRADE)) || grade.equals("")) {
+			return -1;
+		} else {
+			return Double.parseDouble(grade);
 		}
 	}
 	
