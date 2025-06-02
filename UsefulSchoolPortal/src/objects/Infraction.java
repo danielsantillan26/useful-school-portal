@@ -1,7 +1,5 @@
 package objects;
 
-import java.io.File;
-
 public class Infraction {
 	
 	private String name;

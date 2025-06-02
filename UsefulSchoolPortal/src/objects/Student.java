@@ -1,10 +1,5 @@
 package objects;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class Student extends User {
 
 	public Student(String username, String firstName, String lastName,

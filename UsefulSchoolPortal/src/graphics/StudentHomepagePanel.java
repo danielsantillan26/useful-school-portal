@@ -1,7 +1,6 @@
 package graphics;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
@@ -56,13 +55,14 @@ public class StudentHomepagePanel extends JPanel {
 	
 	
 	public void addChangePageButtons(JButton classHomepage, JButton viewRosters,
-			JButton viewGrades, JButton gradingSimulator, JButton editProfile,
+			JButton viewGrades, JButton gradingSimulator, JButton editProfile, JButton viewInfractions,
 			JButton logOut) {
 		centerPanel.add(classHomepage);
 		centerPanel.add(viewRosters);
 		centerPanel.add(viewGrades);
 		centerPanel.add(gradingSimulator);
 		centerPanel.add(editProfile);
+		centerPanel.add(viewInfractions);
 		
 		sl.putConstraint(SpringLayout.WEST, classHomepage, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, classHomepage, 200, SpringLayout.NORTH, centerPanel);
@@ -72,6 +72,8 @@ public class StudentHomepagePanel extends JPanel {
 		sl.putConstraint(SpringLayout.NORTH, viewGrades, 200, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, gradingSimulator, 100, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, gradingSimulator, 300, SpringLayout.NORTH, centerPanel);
+		sl.putConstraint(SpringLayout.WEST, viewInfractions, 1150, SpringLayout.WEST, centerPanel);
+		sl.putConstraint(SpringLayout.NORTH, viewInfractions, 300, SpringLayout.NORTH, centerPanel);
 		sl.putConstraint(SpringLayout.WEST, editProfile, 700, SpringLayout.WEST, centerPanel);
 		sl.putConstraint(SpringLayout.NORTH, editProfile, 300, SpringLayout.NORTH, centerPanel);
 		

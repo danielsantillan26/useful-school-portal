@@ -19,7 +19,6 @@ import javax.swing.table.DefaultTableModel;
 import files.DataManagement;
 import objects.Assignment;
 import objects.SchoolClass;
-import objects.Student;
 
 public class StudentViewGradesPanel extends JPanel {
 

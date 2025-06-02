@@ -779,8 +779,34 @@ public class DataManagement {
 	}
 	
 	
+	public static void modifyInfraction(String name, int infractionID, int studentID, String reason) {
+		currentSchool.modifyInfraction(name, infractionID, studentID, loggedInUser.getID(), reason);
+	}
+	
+	
+	public static void deleteInfraction(int infractionID) {
+		currentSchool.deleteInfraction(infractionID);
+	}
+	
+	
+	public static ArrayList<Infraction> getInfractionsByUser(int userID) {
+		return currentSchool.getInfractionsByUser(userID);
+	}
+	
+	
 	public static ArrayList<Infraction> getCurrentSchoolInfractions() {
 		return currentSchool.getInfractions();
+	}
+	
+	
+	public static String getNameByID(int id) {
+		String name = "";
+		for (User u : users) {
+			if (u.getID() == id) {
+				name = u.getFirstName() + " " + u.getLastName();
+			}
+		}
+		return name;
 	}
 	
 }

@@ -17,7 +17,6 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import files.DataManagement;
-import objects.Teacher;
 import objects.User;
 
 public class AdminManageUsersPanel extends JPanel {

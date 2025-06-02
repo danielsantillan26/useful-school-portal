@@ -15,7 +15,6 @@ import javax.swing.SpringLayout;
 
 import files.DataManagement;
 import objects.SchoolClass;
-import objects.User;
 
 public class AdminDeleteClassesPanel extends JPanel {
 

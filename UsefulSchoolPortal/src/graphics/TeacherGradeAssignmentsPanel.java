@@ -16,7 +16,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SpringLayout;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import files.Constants;
 import files.DataManagement;

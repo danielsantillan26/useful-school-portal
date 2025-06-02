@@ -35,6 +35,7 @@ public class School {
 		teachers = new ArrayList<Teacher>();
 		students = new ArrayList<Student>();
 		classes = new ArrayList<SchoolClass>();
+		infractions = new ArrayList<Infraction>();
 
 		userList = new File("SchoolUsers_" + schoolID + ".csv");
 		classList = new File("SchoolClasses_" + schoolID + ".csv");
@@ -307,8 +308,8 @@ public class School {
 				bw.write(contents.get(i) + "\n");
 			}
 			bw.write(inf.getName() + "," + String.valueOf(inf.getId()) + "," + 
-			String.valueOf(inf.getStudentID()) + "," + String.valueOf(inf.getStaffID())
-			+ "," + inf.getReason());
+					String.valueOf(inf.getStudentID()) + "," + String.valueOf(inf.getStaffID())
+					+ "," + inf.getReason() + "\n");
 			bw.close();
 		} catch (Exception e) {
 
@@ -316,8 +317,53 @@ public class School {
 	}
 
 
-	public void deleteInfraction() {
+	public void modifyInfraction(String name, int infractionID, int studentID, int staffID, String reason) {
+		Infraction inf = new Infraction(name, infractionID, studentID, schoolID, staffID, reason);
+		for (int i = 0; i < infractions.size(); i++) {
+			if (infractions.get(i).getId() == infractionID) {
+				infractions.set(i, inf);
+			}
+		}
 
+		ArrayList<String> contents = FileWorker.readFile(infractionList);
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(infractionList, false));
+			for (int i = 0; i < contents.size(); i++) {
+				if (contents.get(i).contains(String.valueOf(infractionID))) {
+					bw.write(inf.getName() + "," + String.valueOf(inf.getId()) + "," + 
+							String.valueOf(inf.getStudentID()) + "," + String.valueOf(inf.getStaffID())
+							+ "," + inf.getReason() + "\n");
+				} else {
+					bw.write(contents.get(i) + "\n");
+				}
+			}
+			bw.close();
+		} catch (Exception e) {
+
+		}
+
+
+	}
+
+
+	public void deleteInfraction(int infractionID) {
+		for (int i = 0; i < infractions.size(); i++) {
+			if (infractions.get(i).getId() == infractionID) {
+				infractions.remove(i);
+			}
+		}
+	}
+
+
+	public ArrayList<Infraction> getInfractionsByUser(int userID) {
+		ArrayList<String> contents = FileWorker.readFile(infractionList);
+		ArrayList<Infraction> returnInfractions = new ArrayList<Infraction>();
+		for (int i = 1; i < contents.size(); i++) {
+			if (contents.get(i).contains(String.valueOf(userID))) {
+				returnInfractions.add(infractions.get(i - 1));
+			}
+		}
+		return returnInfractions;
 	}
 
 
@@ -325,11 +371,21 @@ public class School {
 		ArrayList<String> contents = FileWorker.readFile(infractionList);
 		if (contents != null) {
 			for (int i = 1; i < contents.size(); i++) {
-
+				String info = contents.get(i);
+				String infractionName = info.substring(0, info.indexOf(','));
+				info = info.substring(info.indexOf(',') + 1);
+				int infractionID = Integer.parseInt(info.substring(0, info.indexOf(',')));
+				info = info.substring(info.indexOf(',') + 1);
+				int studentInfractedID = Integer.parseInt(info.substring(0, info.indexOf(',')));
+				info = info.substring(info.indexOf(',') + 1);
+				int staffInfractingID = Integer.parseInt(info.substring(0, info.indexOf(',')));
+				info = info.substring(info.indexOf(',') + 1);
+				String infractionReason = info;
+				infractions.add(new Infraction(infractionName, infractionID, 
+						studentInfractedID, schoolID, staffInfractingID, infractionReason));
 			}
 		}
 	}
-
 
 
 
@@ -409,8 +465,8 @@ public class School {
 	public ArrayList<SchoolClass> getClasses() {
 		return classes;
 	}
-	
-	
+
+
 	public ArrayList<Infraction> getInfractions() {
 		return infractions;
 	}
