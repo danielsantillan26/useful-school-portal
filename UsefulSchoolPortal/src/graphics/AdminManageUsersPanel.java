@@ -39,8 +39,7 @@ public class AdminManageUsersPanel extends JPanel {
 		northPanel.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		northPanel.setPreferredSize(new Dimension(getWidth(), 75));
 
-		//TODO: I need to change this to manage users.
-		JLabel header = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("HEADER_MANAGE_TEACHERS.png")));
+		JLabel header = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("HEADER_MANAGE_USERS.png")));
 		northPanel.add(header);
 
 		add(northPanel, BorderLayout.NORTH);

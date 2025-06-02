@@ -386,6 +386,8 @@ public class SchoolClass {
 				} else if (gradingMethod == Constants.GRADE_POINTS) {
 					int points = Integer.parseInt(x);
 					assignments.add(new Assignment(name, points, assignmentID, this.classID, this.schoolID));
+				} else {
+					assignments.add(new Assignment(name, assignmentID, this.classID, this.schoolID));
 				}
 			}
 		}
@@ -405,62 +407,73 @@ public class SchoolClass {
 	public ArrayList<Double> getAllAverages() {
 		ArrayList<Double> averages = new ArrayList<Double>();
 
-		if (gradingMethod == Constants.GRADE_POINTS) {
-			for (Student s : students) {
-				int totalPoints = 0;
-				double earnedPoints = 0;
-				for (Assignment a : assignments) {
-					if (a.getIndividualStudentGrade(s.getID()) != -1) {
-						earnedPoints += a.getIndividualStudentGrade(s.getID());
-						totalPoints += a.getPoints();
-					}
-				}
-				averages.add(GradeCalculations.calculatePointsGrade(earnedPoints, totalPoints));
-			}
-		} else if (gradingMethod == Constants.GRADE_PERCENTS) {
-			for (Student s : students) {
-				int totalAssignments = 0;
-				double earnedPoints = 0;
-				for (Assignment a : assignments) {
-					if (a.getIndividualStudentGrade(s.getID()) != -1) {
-						earnedPoints += a.getIndividualStudentGrade(s.getID());
-						totalAssignments++;
-					}
-				}
-				averages.add(GradeCalculations.calculatePercentGrade(earnedPoints, totalAssignments));
-			}
-		} else {
-			for (Student s : students) {
-				ArrayList<Double> weightedGrades = new ArrayList<Double>();
-				ArrayList<Integer> adjustedPercents = new ArrayList<Integer>();
-				int percentToAdd = 0;
-				for (int i = 0; i < weightCategories.size(); i++) {
-					int earnedPoints = 0;
-					int totalAssignments = 0;
-					for (Assignment a : assignments) {
-						if (a.getWeightCategory().equals(weightCategories.get(i))) {
-							if (a.getIndividualStudentGrade(s.getID()) != -1) {
-								earnedPoints += a.getIndividualStudentGrade(s.getID());
-								totalAssignments++;
-							}
-						}
-					}
-					if (totalAssignments == 0) {
-						percentToAdd += weightPercents.get(i);
-					} else {
-						weightedGrades.add(GradeCalculations.calculatePercentGrade(earnedPoints, totalAssignments));
-						adjustedPercents.add(weightPercents.get(i));
-					}
-				}
-
-				for (int i = 0; i < adjustedPercents.size(); i++) {
-					adjustedPercents.set(i, adjustedPercents.get(i) + (percentToAdd/adjustedPercents.size()));
-				}
-				averages.add(GradeCalculations.calculateWeightGrade(weightedGrades, adjustedPercents));
-			}
+		for (Student s : students) {
+			averages.add(getAverage(s.getID()));
 		}
 
 		return averages;
+	}
+	
+	
+	public ArrayList<Double> getIndividualStudentAssignmentGrades(int studentID) {
+		ArrayList<Double> individualGrades = new ArrayList<Double>();
+		for (Assignment a : assignments) {
+			individualGrades.add(a.getIndividualStudentGrade(studentID));
+		}
+		return individualGrades;
+	}
+	
+	
+	public double getAverage(int studentID) {
+		if (gradingMethod == Constants.GRADE_POINTS) {
+			int totalPoints = 0;
+			double earnedPoints = 0;
+			for (Assignment a : assignments) {
+				if (a.getIndividualStudentGrade(studentID) != -1) {
+					earnedPoints += a.getIndividualStudentGrade(studentID);
+					totalPoints += a.getPoints();
+				}
+			}
+			return GradeCalculations.calculatePointsGrade(earnedPoints, totalPoints);
+		} else if (gradingMethod == Constants.GRADE_PERCENTS) {
+			int totalAssignments = 0;
+			double earnedPoints = 0;
+			for (Assignment a : assignments) {
+				if (a.getIndividualStudentGrade(studentID) != -1) {
+					earnedPoints += a.getIndividualStudentGrade(studentID);
+					totalAssignments++;
+				}
+			}
+			return GradeCalculations.calculatePercentGrade(earnedPoints, totalAssignments);
+		} else {
+			ArrayList<Double> weightedGrades = new ArrayList<Double>();
+			ArrayList<Integer> adjustedPercents = new ArrayList<Integer>();
+			int percentToAdd = 0;
+			for (int i = 0; i < weightCategories.size(); i++) {
+				int earnedPoints = 0;
+				int totalAssignments = 0;
+				for (Assignment a : assignments) {
+					if (a.getWeightCategory().equals(weightCategories.get(i))) {
+						if (a.getIndividualStudentGrade(studentID) != -1) {
+							earnedPoints += a.getIndividualStudentGrade(studentID);
+							totalAssignments++;
+						}
+					}
+				}
+				if (totalAssignments == 0) {
+					percentToAdd += weightPercents.get(i);
+				} else {
+					weightedGrades.add(GradeCalculations.calculatePercentGrade(earnedPoints, totalAssignments));
+					adjustedPercents.add(weightPercents.get(i));
+				}
+			}
+
+			for (int i = 0; i < adjustedPercents.size(); i++) {
+				adjustedPercents.set(i, adjustedPercents.get(i) + (percentToAdd/adjustedPercents.size()));
+			}
+			
+			return GradeCalculations.calculateWeightGrade(weightedGrades, adjustedPercents);
+		}
 	}
 
 
@@ -510,6 +523,22 @@ public class SchoolClass {
 
 	public ArrayList<Student> getStudents() {
 		return students;
+	}
+	
+	
+	// gets the roster in order for proper display of grading
+	public ArrayList<Integer> getStudentIDs() {
+		ArrayList<String> contents = FileWorker.readFile(classRoster);
+		ArrayList<Integer> ids = new ArrayList<Integer>();
+		for (String s : contents) {
+			if (s.contains("Student")) {
+				for (int i = 0; i < 4; i++) {
+					s = s.substring(s.indexOf(',') + 1);
+				}
+				ids.add(Integer.parseInt(s));
+			}
+		}
+		return ids;
 	}
 
 

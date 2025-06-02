@@ -734,6 +734,26 @@ public class DataManagement {
 	}
 	
 	
+	public static ArrayList<Double> getIndividualStudentAssignmentGrades(int classID, int studentID) {
+		for (SchoolClass c : classes) {
+			if (c.getClassID() == classID) {
+				return c.getIndividualStudentAssignmentGrades(studentID);
+			}
+		}
+		return null;
+	}
+	
+	
+	public static double getIndividualStudentAverage(int classID, int studentID) {
+		for (SchoolClass c : classes) {
+			if (c.getClassID() == classID) {
+				return c.getAverage(studentID);
+			}
+		}
+		return -1;
+	}
+	
+	
 	public static ArrayList<Double> getAllAverages(int classID) {
 		for (SchoolClass c : classes) {
 			if (c.getClassID() == classID) {
@@ -750,6 +770,17 @@ public class DataManagement {
 				c.setGrades(assignmentID, grades);
 			}
 		}
+	}
+	
+	
+	public static void addInfraction(String name, int studentID, String reason) {
+		Infraction inf = new Infraction(name, studentID, currentSchool.getSchoolID(), loggedInUser.getID(), reason);
+		currentSchool.addNewInfraction(inf);
+	}
+	
+	
+	public static ArrayList<Infraction> getCurrentSchoolInfractions() {
+		return currentSchool.getInfractions();
 	}
 	
 }

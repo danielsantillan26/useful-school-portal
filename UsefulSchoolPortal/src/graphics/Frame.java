@@ -226,6 +226,9 @@ public class Frame extends JFrame {
 		JButton buttonPanelStudentViewRostersReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelStudentViewRostersReturn, 220, 45);
 		
+		JButton buttonPanelStudentViewGradesReturn = new JButton("Return");
+		GraphicsHelpers.modifyButton(buttonPanelStudentViewGradesReturn, 220, 45);
+		
 		JButton buttonPanelStudentGradingSimulatorReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelStudentGradingSimulatorReturn, 220, 45);
 		
@@ -269,6 +272,7 @@ public class Frame extends JFrame {
 				buttonPanelStudentHomepageLogOut);
 		panelStudentClassHomepage.addChangePageButtons(buttonPanelStudentClassHomepageReturn);
 		panelStudentViewRosters.addChangePageButtons(buttonPanelStudentViewRostersReturn);
+		panelStudentViewGrades.addChangePageButtons(buttonPanelStudentViewGradesReturn);
 		panelStudentGradingSimulator.addChangePageButtons(buttonPanelStudentGradingSimulatorReturn);
 		panelStudentEditProfile.addChangePageButtons(buttonPanelStudentEditProfileReturn);
 		
@@ -527,6 +531,7 @@ public class Frame extends JFrame {
 					cl.next(container);
 					cl.next(container);
 					cl.next(container);
+					panelStudentViewGrades.refreshComboBox();
 				} else if (e.getSource() == buttonPanelStudentHomepageGradingSimulator) {
 					for (int i = 0; i < 4; i++) {
 						cl.next(container);
@@ -541,6 +546,10 @@ public class Frame extends JFrame {
 				} else if (e.getSource() == buttonPanelStudentClassHomepageReturn){
 					cl.previous(container);
 				} else if (e.getSource() == buttonPanelStudentViewRostersReturn) {
+					cl.previous(container);
+					cl.previous(container);
+				} else if (e.getSource() == buttonPanelStudentViewGradesReturn) {
+					cl.previous(container);
 					cl.previous(container);
 					cl.previous(container);
 				} else if (e.getSource() == buttonPanelStudentGradingSimulatorReturn) {
@@ -606,6 +615,7 @@ public class Frame extends JFrame {
 		buttonPanelStudentHomepageLogOut.addActionListener(al);
 		buttonPanelStudentClassHomepageReturn.addActionListener(al);
 		buttonPanelStudentViewRostersReturn.addActionListener(al);
+		buttonPanelStudentViewGradesReturn.addActionListener(al);
 		buttonPanelStudentGradingSimulatorReturn.addActionListener(al);
 		buttonPanelStudentEditProfileReturn.addActionListener(al);
 

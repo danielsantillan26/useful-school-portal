@@ -32,7 +32,7 @@ public class Assignment {
 	
 	
 	public Assignment(String name, int classID, int schoolID) {
-		this((int)Math.random()*1000000000, name, classID, schoolID);
+		this((int)(Math.random()*1000000000), name, classID, schoolID);
 	}
 
 

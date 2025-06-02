@@ -17,10 +17,12 @@ public class School {
 	private int schoolID;
 	private File userList;
 	private File classList;
+	private File infractionList;
 	private ArrayList<Administrator> admins;
 	private ArrayList<Teacher> teachers;
 	private ArrayList<Student> students;
 	private ArrayList<SchoolClass> classes;
+	private ArrayList<Infraction> infractions;
 	private int blocks;
 
 
@@ -36,6 +38,7 @@ public class School {
 
 		userList = new File("SchoolUsers_" + schoolID + ".csv");
 		classList = new File("SchoolClasses_" + schoolID + ".csv");
+		infractionList = new File("SchoolInfractions_" + schoolID + ".csv");
 
 		try {
 			if (!userList.exists()) {
@@ -55,6 +58,15 @@ public class School {
 				bWriter.close();
 			} else {
 				addExistingClasses();
+			}
+
+			if (!infractionList.exists()) {
+				infractionList.createNewFile();
+				BufferedWriter bWriter = new BufferedWriter(new FileWriter(infractionList, false));
+				bWriter.write("Infraction Name,Infraction ID,Student Infracted ID,Staff ID, Reason");
+				bWriter.close();
+			} else {
+				addExistingInfractions();
 			}
 		} catch (Exception e) {
 
@@ -213,9 +225,11 @@ public class School {
 					}
 				}
 
-				for (Student s : students) {
-					if (sc.hasID(s.getID())) {
-						sc.addExistingStudent(s);
+				for (int id : sc.getStudentIDs()) {
+					for (Student s : students) {
+						if (id == s.getID()) {
+							sc.addExistingStudent(s);
+						}
 					}
 				}
 
@@ -277,30 +291,75 @@ public class School {
 			FileWorker.removeLine(classList, cl.getClassID());
 		} catch (Exception e) { }
 	}
-	
-	
+
+
+
+
+
+
+
+	public void addNewInfraction(Infraction inf) {
+		infractions.add(inf);
+		ArrayList<String> contents = FileWorker.readFile(infractionList);
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(infractionList, false));
+			for (int i = 0; i < contents.size(); i++) {
+				bw.write(contents.get(i) + "\n");
+			}
+			bw.write(inf.getName() + "," + String.valueOf(inf.getId()) + "," + 
+			String.valueOf(inf.getStudentID()) + "," + String.valueOf(inf.getStaffID())
+			+ "," + inf.getReason());
+			bw.close();
+		} catch (Exception e) {
+
+		}
+	}
+
+
+	public void deleteInfraction() {
+
+	}
+
+
+	private void addExistingInfractions() {
+		ArrayList<String> contents = FileWorker.readFile(infractionList);
+		if (contents != null) {
+			for (int i = 1; i < contents.size(); i++) {
+
+			}
+		}
+	}
+
+
+
+
+
+
+
+
+
 	public void modifyClassInFile(SchoolClass cl, int gradingMethod) {
 		try {
 			for (int i = 0; i < classes.size(); i++) {
 				if (classes.get(i).getClassID() == cl.getClassID()) {
 					ArrayList<String> contents = FileWorker.readFile(classList);
-					
+
 					int refactorIndex = -1;
 					for (int j = 0; j < contents.size(); j++) {
 						if (contents.get(j).contains(Integer.toString(classes.get(i).getClassID()))) {
 							refactorIndex = j;;
 						}
 					}
-					
+
 					String replace = contents.get(refactorIndex);
 					String replacePreID = "";
 					for (int k = 0; k < 3; k++) {
 						replacePreID += replace.substring(0, replace.indexOf(',') + 1);
 						replace = replace.substring(replace.indexOf(',') + 1);
 					}
-					
+
 					BufferedWriter bWriter = new BufferedWriter(new FileWriter(classList, false));
-					
+
 					for (int l = 0; l < contents.size(); l++) {
 						if (l != refactorIndex) {
 							bWriter.write(contents.get(l) + "\n");
@@ -308,7 +367,7 @@ public class School {
 							bWriter.write(replacePreID + gradingMethod + "\n");
 						}
 					}
-					
+
 					bWriter.close();
 				}
 			}
@@ -349,6 +408,11 @@ public class School {
 
 	public ArrayList<SchoolClass> getClasses() {
 		return classes;
+	}
+	
+	
+	public ArrayList<Infraction> getInfractions() {
+		return infractions;
 	}
 
 

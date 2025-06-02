@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class GradeCalculations {
 
 	public static double calculatePercentGrade(double earnedPercents, int totalAssignments) {
-		return (earnedPercents/(totalAssignments * 100))*100;
+		return Math.round((((earnedPercents/(totalAssignments * 100))*100)) * 100 / 100);
 	}
 	
 	
 	public static double calculatePointsGrade(double earnedPoints, int totalPoints) {
-		return (earnedPoints/totalPoints)*100;
+		return Math.round((((earnedPoints/totalPoints)*100) * 100) / 100);
 	}
 	
 	

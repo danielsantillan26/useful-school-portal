@@ -192,6 +192,10 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 
 						ArrayList<Double> assignmentGrades = DataManagement.getGrades(classID, assignmentID);
 
+						for (int j = 0; j < tableModel.getRowCount(); j++) {
+							tableModel.setValueAt("", j, 1);
+						}
+						
 						if (assignmentGrades != null) {
 							for (int i = 0; i < assignmentGrades.size(); i++) {
 								if (assignmentGrades.get(i) != null) {
