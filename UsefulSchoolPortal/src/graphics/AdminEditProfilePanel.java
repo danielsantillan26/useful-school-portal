@@ -17,11 +17,26 @@ import javax.swing.SpringLayout;
 
 import files.DataManagement;
 
+/**
+ * The AdminEditProfilePanel class contains the graphics necessary to edit their
+ * own profile in the school system. In this panel, administrators have text
+ * boxes they can use to edit information about themselves.
+ * 
+ * @author Daniel Santillan
+ * @version 1.0
+ */
 public class AdminEditProfilePanel extends JPanel {
 
+	/** Version */
 	private static final long serialVersionUID = 1L;
+	/** Determines whether the password should be shown on the JPanel */
 	private boolean isPasswordShown;
 
+	
+	/**
+	 * The constructor establishes the layout for the panel and adds the
+	 * panel's sections to the overall panel itself.
+	 */
 	public AdminEditProfilePanel() {
 		setLayout(new BorderLayout());
 		prepareNorthPanel();
@@ -29,6 +44,11 @@ public class AdminEditProfilePanel extends JPanel {
 	}
 
 
+	/**
+	 * The prepareNorthPanel method creates the graphics for the header of this
+	 * panel, taking out a .png file from the src folder and using it for the
+	 * header.
+	 */
 	private void prepareNorthPanel() {
 		JPanel northPanel = new JPanel();
 		northPanel.setBackground(GraphicsConstants.COLOR_BG_HEADER);
@@ -41,6 +61,13 @@ public class AdminEditProfilePanel extends JPanel {
 	}
 
 
+	/**
+	 * The prepareCenterPanel method creates the graphics for the middle portion
+	 * of this panel.
+	 * 
+	 * This includes the text boxes used to edit the user's information and a
+	 * button to confirm the data will be sent to be edited.
+	 */
 	private void prepareCenterPanel() {
 		SpringLayout sl = new SpringLayout();
 		JPanel centerPanel = new JPanel(sl);
@@ -86,6 +113,13 @@ public class AdminEditProfilePanel extends JPanel {
 		GraphicsHelpers.modifyButton(showHidePassword, 500, 45);
 		showHidePassword.addActionListener(new ActionListener() {
 
+			/**
+			 * The actionPerformed method for this button hides or shows the
+			 * password based on whether the password is already shown on the
+			 * panel.
+			 * 
+			 * @param e 	The ActionEvent
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String textVisiblePassword = String.valueOf(givenPassword.getPassword());
@@ -106,6 +140,14 @@ public class AdminEditProfilePanel extends JPanel {
 		GraphicsHelpers.modifyButton(confirm, 250, 45);
 		confirm.addActionListener(new ActionListener() {
 
+			/**
+			 * The actionPerformed method for this button takes in the data from
+			 * the text boxes. If the confirm button is pressed, the user
+			 * information is passed to data for creation. Invalid input (i.e.,
+			 * having commas in any information) is handled, ending the task.
+			 * 
+			 * @param e 	The ActionEvent
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String username = givenUsername.getText();
@@ -136,7 +178,6 @@ public class AdminEditProfilePanel extends JPanel {
 			
 		});
 		
-
 		centerPanel.add(enterUsername);
 		centerPanel.add(givenUsername);
 		centerPanel.add(enterFirstName);
@@ -176,6 +217,12 @@ public class AdminEditProfilePanel extends JPanel {
 	}
 
 
+	/**
+	 * The addChangePageButtons method adds the buttons from this panel that
+	 * swap between pages of the program.
+	 * 
+	 * @param goHome 		Button that returns to the user homepage
+	 */
 	public void addChangePageButtons(JButton goHome) {
 		JPanel southPanel = new JPanel();
 		southPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
@@ -183,4 +230,12 @@ public class AdminEditProfilePanel extends JPanel {
 		add(southPanel, BorderLayout.SOUTH);
 	}
 
+	
+	/**
+	 * This is the toString method for this class.
+	 */
+	@Override
+	public String toString() {
+		return "AdminEditProfilePanel [isPasswordShown=" + isPasswordShown + "]";
+	}
 }

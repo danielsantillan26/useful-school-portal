@@ -20,16 +20,36 @@ import files.Constants;
 import files.DataManagement;
 import objects.SchoolClass;
 
+/**
+ * The TeacherManageClassesPanel class contains the graphics necessary to change
+ * the grading methods for assignments. Weights are created in this class as
+ * well. 
+ * 
+ * @author Daniel Santillan
+ * @version 1.0
+ */
 public class TeacherManageClassesPanel extends JPanel {
 
+	/** Version */
 	private static final long serialVersionUID = 1L;
 
+	/** JComboBox with list of classes */
 	private JComboBox<String> classList;
+	/** ArrayList with classes */
 	private ArrayList<SchoolClass> classes;
+	/** Class ID of class being edited */
 	private int classID;
+	/** JTable to hold weights */
 	private JTable table;
+	/** JScrollPane to hold table */
 	private JScrollPane spTable;
 
+
+	/**
+	 * The constructor establishes the layout for the panel and adds the
+	 * panel's sections to the overall panel itself. ID and index values
+	 * are reset.
+	 */
 	public TeacherManageClassesPanel() {
 		setLayout(new BorderLayout());
 		prepareNorthPanel();
@@ -38,6 +58,11 @@ public class TeacherManageClassesPanel extends JPanel {
 	}
 
 
+	/**
+	 * The prepareNorthPanel method creates the graphics for the header of this
+	 * panel, taking out a .png file from the src folder and using it for the
+	 * header.
+	 */
 	private void prepareNorthPanel() {
 		JPanel northPanel = new JPanel();
 		northPanel.setBackground(GraphicsConstants.COLOR_BG_HEADER);
@@ -50,6 +75,14 @@ public class TeacherManageClassesPanel extends JPanel {
 	}
 
 
+	/**
+	 * The prepareCenterPanel method creates the graphics for the middle portion
+	 * of this panel.
+	 * 
+	 * This includes the labels and lists necessary for the user to successfully
+	 * fix the grading methods for assignments as well as the JTable to enter
+	 * weights if applicable.
+	 */
 	private void prepareCenterPanel() {
 		SpringLayout sl = new SpringLayout();
 		JPanel centerPanel = new JPanel(sl);
@@ -88,6 +121,12 @@ public class TeacherManageClassesPanel extends JPanel {
 		GraphicsHelpers.modifyButton(loadData, 250, 45);
 		loadData.addActionListener(new ActionListener() {
 
+			/**
+			 * The actionPerformed method for this button loads the grading
+			 * method and weights for the class selected for future reference.
+			 * 
+			 * @param e 	The ActionEvent
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int index = classList.getSelectedIndex();
@@ -120,6 +159,13 @@ public class TeacherManageClassesPanel extends JPanel {
 		GraphicsHelpers.modifyButton(enterData, 250, 45);
 		enterData.addActionListener(new ActionListener() {
 
+			/**
+			 * The actionPerformed method for this button sets the grading
+			 * method. A prompt is given to teachers reminding them that all
+			 * assignments will be deleted upon the change of a grading method.
+			 * 
+			 * @param e 	The ActionEvent
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (classID != 0) {
@@ -145,6 +191,12 @@ public class TeacherManageClassesPanel extends JPanel {
 		GraphicsHelpers.modifyButton(enterWeights, 300, 45);
 		enterWeights.addActionListener(new ActionListener() {
 
+			/**
+			 * The actionPerformed method for this button adds the weights if
+			 * applicable.
+			 * 
+			 * @param e 	The ActionEvent
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<String> categories = new ArrayList<String>();
@@ -152,7 +204,7 @@ public class TeacherManageClassesPanel extends JPanel {
 
 				if (classID != 0 || DataManagement.getGradingMethod(classID) == Constants.GRADE_WEIGHTS) {
 					try {
-						
+
 						int result = JOptionPane.showConfirmDialog(centerPanel, "Are you sure you want"
 								+ " to proceed? If any weight is renamed, this will delete all existing assignments.",
 								"Warning", JOptionPane.OK_CANCEL_OPTION);
@@ -169,9 +221,9 @@ public class TeacherManageClassesPanel extends JPanel {
 								}
 							}
 
-							
+
 							if (categories != null && percents != null) {
-								
+
 								if (categories.size() + 0 != percents.size() + 0) {
 									throw new Exception();
 								}
@@ -180,17 +232,17 @@ public class TeacherManageClassesPanel extends JPanel {
 								for (Integer k : percents) {
 									sum += k;
 								}
-								
+
 								if (sum + 0 != 100 + 0) {
 									throw new Exception();
 								}
 
 								DataManagement.setWeights(categories, percents, classID);
-								
+
 							}
-							
+
 						} else {
-							
+
 						}
 					} catch (Exception exc) {
 						JOptionPane.showMessageDialog(centerPanel, "Invalid Input:\n"
@@ -244,6 +296,12 @@ public class TeacherManageClassesPanel extends JPanel {
 	}
 
 
+	/**
+	 * The addChangePageButtons method adds the buttons from this panel that
+	 * swap between pages of the program.
+	 * 
+	 * @param goHome 		Button that returns to the user homepage
+	 */
 	public void addChangePageButtons(JButton goHome) {
 		JPanel southPanel = new JPanel();
 		southPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
@@ -252,6 +310,9 @@ public class TeacherManageClassesPanel extends JPanel {
 	}
 
 
+	/**
+	 * The refreshComboBox method refreshes the lists and tables for future use.
+	 */
 	public void refreshComboBox() {
 		classList.removeAllItems();
 		classList.addItem("-- Select Class --");
@@ -265,5 +326,15 @@ public class TeacherManageClassesPanel extends JPanel {
 				table.setValueAt("", i, j);
 			}
 		}
+	}
+
+
+	/**
+	 * This is the toString method for this class.
+	 */
+	@Override
+	public String toString() {
+		return "TeacherManageClassesPanel [classList=" + classList + ", classes=" + classes + ", classID=" + classID
+				+ ", table=" + table + ", spTable=" + spTable + "]";
 	}
 }

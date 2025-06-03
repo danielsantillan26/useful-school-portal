@@ -13,9 +13,25 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+/**
+ * The StudentGradingSimulatorPanel contains the graphics necessary to see what
+ * grade they need to earn on their final to achieve a particular grade or the
+ * grade they are projected to achieve. Weights are involved in this feature,
+ * as quarter/semester exams are worth different values.
+ * 
+ * @author Daniel Santillan
+ * @version 1.0
+ */
 public class StudentGradingSimulatorPanel extends JPanel {
 
+	/** Version */
 	private static final long serialVersionUID = 1L;
+
+
+	/**
+	 * The constructor establishes the layout for the panel and adds the
+	 * panel's sections to the overall panel itself.
+	 */
 
 	public StudentGradingSimulatorPanel() {
 		setLayout(new BorderLayout());
@@ -24,6 +40,11 @@ public class StudentGradingSimulatorPanel extends JPanel {
 	}
 
 
+	/**
+	 * The prepareNorthPanel method creates the graphics for the header of this
+	 * panel, taking out a .png file from the src folder and using it for the
+	 * header.
+	 */
 	private void prepareNorthPanel() {
 		JPanel northPanel = new JPanel();
 		northPanel.setBackground(GraphicsConstants.COLOR_BG_HEADER);
@@ -36,6 +57,13 @@ public class StudentGradingSimulatorPanel extends JPanel {
 	}
 
 
+	/**
+	 * The prepareCenterPanel method creates the graphics for the middle portion
+	 * of this panel.
+	 * 
+	 * This includes the labels and fields to enter text and numbers, as well as
+	 * the button to receive the calculations.
+	 */
 	private void prepareCenterPanel() {
 		SpringLayout sl = new SpringLayout();
 		JPanel centerPanel = new JPanel(sl);
@@ -90,6 +118,15 @@ public class StudentGradingSimulatorPanel extends JPanel {
 		GraphicsHelpers.modifyButton(enter, 220, 45);
 		enter.addActionListener(new ActionListener() {
 
+			/**
+			 * The actionPerformed method for this button takes in data and 
+			 * determines either the final exam grade necessary to reach a
+			 * particular grade or the final projected grade based on what is
+			 * entered. Invalid data is handled through a JOptionPane error
+			 * message.
+			 * 
+			 * @param e 	The ActionEvent
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				double firstQuarterGrade = -1;
@@ -113,7 +150,7 @@ public class StudentGradingSimulatorPanel extends JPanel {
 								((secondQuarterGrade * secondQuarterWeight))/100)/(finalExamWeight);
 						result *= 100;
 						givenFinalExamGrade.setText(String.valueOf(result));
-						
+
 					} else {
 						finalExamGrade = Double.parseDouble(givenFinalExamGrade.getText());
 						double result = firstQuarterGrade * firstQuarterWeight
@@ -201,6 +238,12 @@ public class StudentGradingSimulatorPanel extends JPanel {
 	}
 
 
+	/**
+	 * The addChangePageButtons method adds the buttons from this panel that
+	 * swap between pages of the program.
+	 * 
+	 * @param goHome 		Button that returns to the user homepage
+	 */
 	public void addChangePageButtons(JButton goHome) {
 		JPanel southPanel = new JPanel();
 		southPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
@@ -208,4 +251,12 @@ public class StudentGradingSimulatorPanel extends JPanel {
 		add(southPanel, BorderLayout.SOUTH);
 	}
 
+
+	/**
+	 * This is the toString method for this class.
+	 */
+	@Override
+	public String toString() {
+		return "StudentGradingSimulatorPanel []";
+	}
 }

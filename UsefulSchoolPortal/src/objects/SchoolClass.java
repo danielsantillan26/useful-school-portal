@@ -10,29 +10,73 @@ import calculations.GradeCalculations;
 import files.Constants;
 import files.FileWorker;
 
+/**
+ * The SchoolClass class is a representation of a class in a school system. It
+ * has many essential fields for a course as well as files that hold data for
+ * the class.
+ * 
+ * @author Daniel Santillan
+ * @version 1.0
+ */
 public class SchoolClass {
 
+	/** The class's name */
 	private String name;
+	/** This class's block */
 	private int block;
+	/** The class's ID */
 	private int classID;
+	/** The class's school ID */
 	private int schoolID;
+	/** The class's list of teachers */
 	private ArrayList<Teacher> teachers;
+	/** The class's list of students */
 	private ArrayList<Student> students;
+	/** The class's announcement */
 	private String announcement;
+	/** The class's grading method */
 	private int gradingMethod;
+	/** The class's roster file */
 	private File classRoster;
+	/** The class's assignments file */
 	private File classAssignments;
+	/** The class's announcements file */
 	private File classAnnouncements;
+	/** The class's weights file */
 	private File classWeights;
+	/** The list of assignments */
 	private ArrayList<Assignment> assignments;
+	/** The list of weight categories */
 	private ArrayList<String> weightCategories;
+	/** The list of weight percents */
 	private ArrayList<Integer> weightPercents;
 
+
+	/**
+	 * This constructor builds a new class, as the ID is randomized. All other
+	 * fields are set by the program parameters from the user.
+	 * 
+	 * @param name				Given name
+	 * @param block				Given block
+	 * @param gradingMethod		Given grading method
+	 * @param schoolID			Given school ID
+	 */
 	public SchoolClass(String name, int block, int gradingMethod, int schoolID) {
 		this(name, block, gradingMethod, schoolID, (int)(Math.random()*10000000));
 	}
 
 
+	/**
+	 * This constructor builds an existing class, as the ID along with the other
+	 * fields are set by the program parameters from the user. The files are
+	 * instantiated and set up in this method.
+	 * 
+	 * @param name				Given name
+	 * @param block				Given block
+	 * @param gradingMethod		Given grading method
+	 * @param schoolID			Given school ID
+	 * @param classID			Given class ID
+	 */
 	public SchoolClass(String name, int block, int gradingMethod, int schoolID, int classID) {
 		this.name = name;
 		this.block = block;
@@ -91,6 +135,13 @@ public class SchoolClass {
 	}
 
 
+	/**
+	 * The addUser method adds a user to the class.
+	 * 
+	 * @param u			The user to add
+	 * @param role		The user's role
+	 * @return			Whether the method ran smoothly
+	 */
 	private boolean addUser(User u, String role) {
 		ArrayList<String> contents = FileWorker.readFile(classRoster);
 		try {
@@ -116,6 +167,13 @@ public class SchoolClass {
 	}
 
 
+	/**
+	 * The hasId method returns whether a user with the given ID exists in the
+	 * list of users.
+	 * 
+	 * @param id		The given ID
+	 * @return			Whether or not a user with the ID is in the class
+	 */
 	public boolean hasID(int id) {
 		ArrayList<String> contents = FileWorker.readFile(classRoster);
 		boolean hasID = false;
@@ -128,11 +186,25 @@ public class SchoolClass {
 	}
 
 
+	/**
+	 * The deleteUser method deletes a user from the files list.
+	 * 
+	 * @param u		The user to remove
+	 * @return		Whether the removal was successful
+	 */
 	public boolean deleteUser(User u) {
 		return FileWorker.removeLine(classRoster, u.getID());
 	}
 
 
+	/**
+	 * The addStudent method adds a student to the list of students and the
+	 * file. The student's ID is alo added to the list of IDs for the class
+	 * assignments.
+	 * 
+	 * @param s		The student to add
+	 * @return		Whether the addition worked
+	 */
 	public boolean addStudent(Student s) {
 		for (Assignment a : assignments) {
 			a.addStudentDisplacement(s.getID());
@@ -141,21 +213,45 @@ public class SchoolClass {
 	}
 
 
+	/**
+	 * The addTeacher method adds a teacher to the list of teachers and the
+	 * file.
+	 * 
+	 * @param t			The teacher to add
+	 * @return			Whether the addition worked
+	 */
 	public boolean addTeacher(Teacher t) {
 		return addUser(t, "Teacher");
 	}
 
 
+	/**
+	 * The addExistingStudent method adds an existing student from the file.
+	 * 
+	 * @param s		The student to add
+	 */
 	public void addExistingStudent(Student s) {
 		students.add(s);
 	}
 
 
+	/**
+	 * The addExistingTeacher method adds an existing teacher from the file.
+	 * 
+	 * @param t		The teacher to add
+	 */
 	public void addExistingTeacher(Teacher t) {
 		teachers.add(t);
 	}
 
 
+	/**
+	 * The deleteStudent method removes a student from the ArrayList and the
+	 * file. The student's ID is also removed from the assignment files.
+	 * 
+	 * @param s		The student to remove
+	 * @return		Whether the removal worked
+	 */
 	public boolean deleteStudent(Student s) {
 		int index = 0;
 		for (int i = 0; i < students.size(); i++) {
@@ -171,6 +267,14 @@ public class SchoolClass {
 		return deleteUser(s);
 	}
 
+
+	/**
+	 * The deleteTeacher method removes a teacher from the ArrayList and the
+	 * file.
+	 * 
+	 * @param t		The teacher to remove
+	 * @return		Whether the removal worked
+	 */
 	public boolean deleteTeacher(Teacher t) {
 		for (int i = 0; i < teachers.size(); i++) {
 			if (teachers.get(i).getID() == t.getID()) {
@@ -181,6 +285,10 @@ public class SchoolClass {
 		return deleteUser(t);
 	}
 
+
+	/**
+	 * The deleteFiles method removes all the files.
+	 */
 	public void deleteFiles() {
 		classRoster.delete();
 		classAssignments.delete();
@@ -188,6 +296,12 @@ public class SchoolClass {
 	}
 
 
+	/**
+	 * The addNewAssignment method adds a new assignment to the assignments
+	 * ArrayList and the file.
+	 * 
+	 * @param a		The assignment to add
+	 */
 	public void addNewAssignment(Assignment a) {
 		assignments.add(a);
 		String name = a.getName();
@@ -210,16 +324,31 @@ public class SchoolClass {
 			bw.write(dataInput);
 			bw.close();
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 
 	}
 
 
+	/**
+	 * The deleteAssignment method deletes an assignment from the ArrayList and
+	 * the file.
+	 * 
+	 * @param a		The assignment to remove
+	 */
 	public void deleteAssignment(Assignment a) {
 		assignments.remove(a);
 	}	
 
+
+	/**
+	 * The modifyexistingAssignment method modifies an existing assignment by
+	 * searching for its ID and modifying the line with that ID on the file.
+	 * This method is for assignments with weight grading.
+	 * 
+	 * @param assignmentID			The assignment ID
+	 * @param name					The given name
+	 * @param weightCategory		The given weight category
+	 */
 	public void modifyExistingAssignment(int assignmentID, String name, String weightCategory) {
 		for (Assignment a : assignments) {
 			if (a.getAssignmentID() == assignmentID) {
@@ -244,6 +373,15 @@ public class SchoolClass {
 	}
 
 
+	/**
+	 * The modifyexistingAssignment method modifies an existing assignment by
+	 * searching for its ID and modifying the line with that ID on the file.
+	 * This method is for assignments with points grading.
+	 * 
+	 * @param assignmentID			The assignment ID
+	 * @param name					The given name
+	 * @param points				The given points count
+	 */
 	public void modifyExistingAssignment(int assignmentID, String name, int points) {
 		for (Assignment a : assignments) {
 			if (a.getAssignmentID() == assignmentID) {
@@ -267,6 +405,14 @@ public class SchoolClass {
 	}
 
 
+	/**
+	 * The modifyexistingAssignment method modifies an existing assignment by
+	 * searching for its ID and modifying the line with that ID on the file.
+	 * This method is for assignments with percents grading.
+	 * 
+	 * @param assignmentID			The assignment ID
+	 * @param name					The given name
+	 */
 	public void modifyExistingAssignment(int assignmentID, String name) {
 		for (Assignment a : assignments) {
 			if (a.getAssignmentID() == assignmentID) {
@@ -289,6 +435,11 @@ public class SchoolClass {
 	}
 
 
+	/**
+	 * The deleteAssignment method deletes an assignment by assignment ID.
+	 * 
+	 * @param assignmentID		The ID of the assignment to remove
+	 */
 	public void deleteAssignment(int assignmentID) {
 		FileWorker.removeLine(classAssignments, assignmentID);
 		for (int i = 0; i < assignments.size(); i++) {
@@ -299,6 +450,10 @@ public class SchoolClass {
 	}
 
 
+	/**
+	 * The deleteAllAssignments method removes all the assignments from the
+	 * assignments list.
+	 */
 	public void deleteAllAssignments() {
 		if (assignments != null) {
 			for (Assignment a : assignments) {
@@ -309,6 +464,14 @@ public class SchoolClass {
 	}
 
 
+	/**
+	 * The setWeights method sets the weights for the class. Weights require a
+	 * list of categories and a list of percents.
+	 * 
+	 * @param givenCategories		The list of categories
+	 * @param givenPercents			The list of percents
+	 * @return						Whether the change went smoothly
+	 */
 	public boolean setWeights(ArrayList<String> givenCategories, ArrayList<Integer> givenPercents) {
 		try {
 			BufferedWriter bWriter = new BufferedWriter(new FileWriter(classWeights, false));
@@ -340,6 +503,9 @@ public class SchoolClass {
 	}
 
 
+	/**
+	 * The addWeights method adds weights to the class from the file.
+	 */
 	private void addWeights() {
 		ArrayList<String> contents = FileWorker.readFile(classWeights);
 		if (contents != null) {
@@ -351,6 +517,13 @@ public class SchoolClass {
 	}
 
 
+	/**
+	 * The getIndividualAssignmentWeightCategory method takes an assignment and
+	 * returns its individual weight category.
+	 * 
+	 * @param assignmentID		The assignment ID
+	 * @return					The weight category of the assignment
+	 */
 	public String getIndividualAssignmentWeightCategory(int assignmentID) {
 		for (Assignment a : assignments) {
 			if (a.getAssignmentID() == assignmentID) {
@@ -361,6 +534,13 @@ public class SchoolClass {
 	}
 
 
+	/**
+	 * The getIndividualAssignmentPoints method takes an assignmet and returns
+	 * its indivdiual points value.
+	 * 
+	 * @param assignmentID		The assignment ID
+	 * @return					The points value of the assignment
+	 */
 	public int getIndividualAssignmentPoints(int assignmentID) {
 		for (Assignment a : assignments) {
 			if (a.getAssignmentID() == assignmentID) {
@@ -371,6 +551,10 @@ public class SchoolClass {
 	}
 
 
+	/**
+	 * The addExistingAssignments method adds assignments from the
+	 * assignments file.
+	 */
 	private void addExistingAssignments() {
 		ArrayList<String> contents = FileWorker.readFile(classAssignments);
 		if (contents != null) {
@@ -394,6 +578,13 @@ public class SchoolClass {
 	}
 
 
+	/**
+	 * The getGrades method returns the grades of all students from a particular
+	 * assignment.
+	 * 
+	 * @param assignmentID		The assignment ID
+	 * @return					The grades of all students of the assignment
+	 */
 	public ArrayList<Double> getGrades(int assignmentID) {
 		for (Assignment a : assignments) {
 			if (a.getAssignmentID() == assignmentID) {
@@ -404,6 +595,12 @@ public class SchoolClass {
 	}
 
 
+	/**
+	 * The getAllAverages method returns the average grade of every student in
+	 * the class.
+	 * 
+	 * @return		The average grade of every student in the class
+	 */
 	public ArrayList<Double> getAllAverages() {
 		ArrayList<Double> averages = new ArrayList<Double>();
 
@@ -413,8 +610,15 @@ public class SchoolClass {
 
 		return averages;
 	}
-	
-	
+
+
+	/**
+	 * The getIndividualStudentAssignmentGrades method gets an individual's
+	 * grade for every assignment in the class.
+	 * 	
+	 * @param studentID		The student ID
+	 * @return				The grade for every assignment available
+	 */
 	public ArrayList<Double> getIndividualStudentAssignmentGrades(int studentID) {
 		ArrayList<Double> individualGrades = new ArrayList<Double>();
 		for (Assignment a : assignments) {
@@ -422,8 +626,16 @@ public class SchoolClass {
 		}
 		return individualGrades;
 	}
-	
-	
+
+
+	/**
+	 * The getAverage method returns the average grade based on the grades
+	 * of all assignments. For weight categories without an assignment, the
+	 * program reassigns percents equally to make the grade realistic.
+	 * 
+	 * @param studentID			The student ID
+	 * @return					The overall average
+	 */
 	public double getAverage(int studentID) {
 		if (gradingMethod == Constants.GRADE_POINTS) {
 			int totalPoints = 0;
@@ -471,12 +683,18 @@ public class SchoolClass {
 			for (int i = 0; i < adjustedPercents.size(); i++) {
 				adjustedPercents.set(i, adjustedPercents.get(i) + (percentToAdd/adjustedPercents.size()));
 			}
-			
+
 			return GradeCalculations.calculateWeightGrade(weightedGrades, adjustedPercents);
 		}
 	}
 
 
+	/**
+	 * The setGrades method sets the grades for a particular assignment.
+	 * 
+	 * @param assignmentID		The assignment ID
+	 * @param grades			The grades to set to
+	 */
 	public void setGrades(int assignmentID, ArrayList<Double> grades) {
 		for (Assignment a : assignments) {
 			if (a.getAssignmentID() == assignmentID) {
@@ -486,47 +704,91 @@ public class SchoolClass {
 	}
 
 
+	/**
+	 * Returns the name.
+	 * 
+	 * @return	The name
+	 */
 	public String getName() {
 		return name;
 	}
 
 
+	/**
+	 * Returns the block.
+	 * 
+	 * @return	The block
+	 */
 	public int getBlock() {
 		return block;
 	}
 
 
+	/**
+	 * Returns the class ID.
+	 * 
+	 * @return	The class ID
+	 */
 	public int getClassID() {
 		return classID;
 	}
 
 
+	/**
+	 * Returns the school ID.
+	 * 
+	 * @return	The school ID
+	 */
 	public int getSchoolID() {
 		return schoolID;
 	}
 
 
+	/**
+	 * Returns the grading method.
+	 * 
+	 * @return	The grading method
+	 */
 	public int getGradingMethod() {
 		return gradingMethod;
 	}
 
 
+	/**
+	 * Returns the announcement.
+	 * 
+	 * @return	The announcement
+	 */
 	public String getAnnouncement() {
 		return announcement;
 	}
 
 
+	/**
+	 * Returns the list of teachers.
+	 * 
+	 * @return	The list of teachers
+	 */
 	public ArrayList<Teacher> getTeachers() {
 		return teachers;
 	}
 
 
+	/**
+	 * Returns the list of students.
+	 * 
+	 * @return	The list of students
+	 */
 	public ArrayList<Student> getStudents() {
 		return students;
 	}
-	
-	
-	// gets the roster in order for proper display of grading
+
+	/**
+	 * The getStudentIDs method returns the student IDs from the roster file
+	 * to ensure proper ordering and grading display for the program.
+	 * 
+	 * @return	The list of student IDs in order of appearance on the file.
+	 */
 	public ArrayList<Integer> getStudentIDs() {
 		ArrayList<String> contents = FileWorker.readFile(classRoster);
 		ArrayList<Integer> ids = new ArrayList<Integer>();
@@ -541,21 +803,42 @@ public class SchoolClass {
 		return ids;
 	}
 
-
+	/**
+	 * Returns the list of assignments.
+	 * 
+	 * @return	The list of assignments.
+	 */
 	public ArrayList<Assignment> getAssignments() {
 		return assignments;
 	}
 
 
+	/**
+	 * Returns the list of weight categories.
+	 * 
+	 * @return	The list of weight categories
+	 */
 	public ArrayList<String> getWeightCategories() {
 		return weightCategories;
 	}
 
+
+	/**
+	 * Returns the list of weight percents.
+	 * 
+	 * @return		The list of weight percents.
+	 */
 	public ArrayList<Integer> getWeightPercents() {
 		return weightPercents;
 	}
 
 
+	/**
+	 * Returns the percent of a particular weight by its name.
+	 * 
+	 * @param weight		The weight
+	 * @return				The percent value of the weight
+	 */
 	public int getPercentByCategory(String weight) {
 		for (int i = 0; i < weightCategories.size(); i++) {
 			if (weightCategories.get(i).equals(weight)) {
@@ -566,26 +849,51 @@ public class SchoolClass {
 	}
 
 
+	/**
+	 * Sets the name.
+	 * 
+	 * @param name	Given name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
 
+	/**
+	 * Sets the block.
+	 * 
+	 * @param block		Given block
+	 */
 	public void setBlock(int block) {
 		this.block = block;
 	}
 
 
+	/**
+	 * Sets the class ID.
+	 * 
+	 * @param classID	Given class ID
+	 */
 	public void setClassID(int classID) {
 		this.classID = classID;
 	}
 
 
+	/**
+	 * Sets the school ID.
+	 * 
+	 * @param schoolID	Given school ID
+	 */
 	public void setSchoolID(int schoolID) {
 		this.schoolID = schoolID;
 	}
 
 
+	/**
+	 * Sets the grading method.
+	 * 
+	 * @param gradingMethod		Given grading method
+	 */
 	public void setGradingMethod(int gradingMethod) {
 		if (this.gradingMethod != gradingMethod) {
 			deleteAllAssignments();
@@ -594,6 +902,11 @@ public class SchoolClass {
 	}
 
 
+	/**
+	 * Sets the announcement.
+	 * 
+	 * @param announcement	Given announcement
+	 */
 	public void setAnnouncement(String announcement) {
 		this.announcement = announcement;
 		try {
@@ -606,4 +919,17 @@ public class SchoolClass {
 
 	}
 
+
+	/**
+	 * This is the toString method for this class.
+	 */
+	@Override
+	public String toString() {
+		return "SchoolClass [name=" + name + ", block=" + block + ", classID=" + classID + ", schoolID=" + schoolID
+				+ ", teachers=" + teachers + ", students=" + students + ", announcement=" + announcement
+				+ ", gradingMethod=" + gradingMethod + ", classRoster=" + classRoster + ", classAssignments="
+				+ classAssignments + ", classAnnouncements=" + classAnnouncements + ", classWeights=" + classWeights
+				+ ", assignments=" + assignments + ", weightCategories=" + weightCategories + ", weightPercents="
+				+ weightPercents + "]";
+	}
 }

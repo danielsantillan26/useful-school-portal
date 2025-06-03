@@ -17,16 +17,34 @@ import javax.swing.SpringLayout;
 import files.DataManagement;
 import objects.SchoolClass;
 
+/**
+ * The TeacherEditClassHomepagePanel class contains the graphics necessary to
+ * edit a class homepage. This feature is accessible to teachers only. This
+ * lets teachers edit a homework page-style announcements page that students
+ * can view.
+ * 
+ * @author Daniel Santillan
+ * @version 1.0
+ */
 public class TeacherEditClassHomepagePanel extends JPanel {
 
+	/** Version */
 	private static final long serialVersionUID = 1L;
 
+	/** JComboBox with list of classes */
 	private JComboBox<String> classList;
+	/** ArrayList with classes */
 	private ArrayList<SchoolClass> classes;
+	/** ClassID of class to edit */
 	private int classID;
+	/** JTextArea with announcement */
 	private JTextArea homepageText;
 
 
+	/**
+	 * The constructor establishes the layout for the panel and adds the
+	 * panel's sections to the overall panel itself.
+	 */
 	public TeacherEditClassHomepagePanel() {
 		setLayout(new BorderLayout());
 		prepareNorthPanel();
@@ -35,6 +53,11 @@ public class TeacherEditClassHomepagePanel extends JPanel {
 	}
 
 
+	/**
+	 * The prepareNorthPanel method creates the graphics for the header of this
+	 * panel, taking out a .png file from the src folder and using it for the
+	 * header.
+	 */
 	private void prepareNorthPanel() {
 		JPanel northPanel = new JPanel();
 		northPanel.setBackground(GraphicsConstants.COLOR_BG_HEADER);
@@ -47,6 +70,13 @@ public class TeacherEditClassHomepagePanel extends JPanel {
 	}
 
 
+	/**
+	 * The prepareCenterPanel method creates the graphics for the middle portion
+	 * of this panel.
+	 * 
+	 * This includes preparing the class list and the JButton to send the new
+	 * announcement from the JTextArea to data.
+	 */
 	private void prepareCenterPanel() {
 		SpringLayout sl = new SpringLayout();
 		JPanel centerPanel = new JPanel(sl);
@@ -72,6 +102,13 @@ public class TeacherEditClassHomepagePanel extends JPanel {
 		GraphicsHelpers.modifyButton(loadData, 250, 45);
 		loadData.addActionListener(new ActionListener() {
 
+			/**
+			 * The actionPerformed method for this button gets the index from
+			 * the class list and uses it to get the correct announcement for
+			 * editing.
+			 * 
+			 * @param e		The ActionEvent
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int index = classList.getSelectedIndex();
@@ -87,6 +124,12 @@ public class TeacherEditClassHomepagePanel extends JPanel {
 		GraphicsHelpers.modifyButton(confirm, 220, 45);
 		confirm.addActionListener(new ActionListener() {
 
+			/**
+			 * The actionPerformed method for this button sets the announcement
+			 * for the class.
+			 * 
+			 * @param e 	The ActionEvent
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (classID != 0) {
@@ -120,6 +163,12 @@ public class TeacherEditClassHomepagePanel extends JPanel {
 	}
 
 
+	/**
+	 * The addChangePageButtons method adds the buttons from this panel that
+	 * swap between pages of the program.
+	 * 
+	 * @param goHome 		Button that returns to the user homepage
+	 */
 	public void addChangePageButtons(JButton goHome) {
 		JPanel southPanel = new JPanel();
 		southPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
@@ -128,6 +177,10 @@ public class TeacherEditClassHomepagePanel extends JPanel {
 	}
 
 
+	/**
+	 * The refreshComboBox method refreshes the list of classes and the
+	 * announcement text.
+	 */
 	public void refreshComboBox() {
 		classList.removeAllItems();
 		classes = DataManagement.getCurrentUserClasses();
@@ -138,7 +191,17 @@ public class TeacherEditClassHomepagePanel extends JPanel {
 				classList.addItem(sc.getName() + " - Block " + sc.getBlock());
 			}
 		}
-		
+
 		homepageText.setText("");
+	}
+
+
+	/**
+	 * This is the toString method for this class.
+	 */
+	@Override
+	public String toString() {
+		return "TeacherEditClassHomepagePanel [classList=" + classList + ", classes=" + classes + ", classID=" + classID
+				+ ", homepageText=" + homepageText + "]";
 	}
 }

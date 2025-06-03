@@ -11,35 +11,58 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+/**
+ * The TermsAndConditionsPanel class contains the graphics necessary to have a
+ * terms and conditions page.
+ * 
+ * @author Daniel Santillan
+ * @version 1.0
+ */
 public class TermsAndConditionsPanel extends JPanel {
 
+	/** Version */
 	private static final long serialVersionUID = 1L;
-	
-	
+
+
+	/**
+	 * The constructor establishes the layout for the panel and adds the
+	 * panel's sections to the overall panel itself.
+	 */
 	public TermsAndConditionsPanel() {
 		setLayout(new BorderLayout());
 		prepareNorthPanel();
 		prepareCenterPanel();
 	}
-	
-	
+
+
+	/**
+	 * The prepareNorthPanel method creates the graphics for the header of this
+	 * panel, taking out a .png file from the src folder and using it for the
+	 * header.
+	 */
 	private void prepareNorthPanel() {
 		JPanel northPanel = new JPanel();
 		northPanel.setBackground(GraphicsConstants.COLOR_BG_HEADER);
 		northPanel.setPreferredSize(new Dimension(getWidth(), 75));
-		
+
 		JLabel header = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("HEADER_TOC.png")));
 		northPanel.add(header);
-		
+
 		add(northPanel, BorderLayout.NORTH);
 	}
-	
-	
+
+
+	/**
+	 * The prepareCenterPanel method creates the graphics for the middle portion
+	 * of this panel.
+	 * 
+	 * This includes the terms and conditions in a scrollable text area.
+	 */
 	private void prepareCenterPanel() {
 		JPanel centerPanel = new JPanel();
 		centerPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
 		centerPanel.setLayout(new FlowLayout());
-		
+
 		JTextArea textArea = new JTextArea(50, 150);
 		textArea.setLineWrap(true);
 		textArea.setEditable(false);
@@ -118,19 +141,34 @@ public class TermsAndConditionsPanel extends JPanel {
 				+ "\r\n"
 				+ "So you decided to read all the way down here? We salute you. Please email us with the words \"DS Tech deserves to go to MIT and Harvard and other nerdy universities so he can get a ****load of cash but also end up in wads of student debt\" to get a free sneak peek of the next products coming from us.");
 		JScrollPane jsp = new JScrollPane(textArea);
-		
+
 		centerPanel.add(jsp);
-		
+
 		add(centerPanel, BorderLayout.CENTER);
-		
+
 	}
-	
-	
+
+
+	/**
+	 * The addChangePageButtons method adds the buttons from this panel that
+	 * swap between pages of the program.
+	 * 
+	 * @param goHome 		Button that returns to the user homepage
+	 */
+
 	public void addChangePageButtons(JButton goHome) {
 		JPanel southPanel = new JPanel();
 		southPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
 		southPanel.add(goHome);
 		add(southPanel, BorderLayout.SOUTH);
 	}
-	
+
+
+	/**
+	 * This is the toString method for this class.
+	 */
+	@Override
+	public String toString() {
+		return "TermsAndConditionsPanel []";
+	}
 }

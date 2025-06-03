@@ -23,25 +23,50 @@ import objects.Assignment;
 import objects.SchoolClass;
 import objects.Student;
 
+/**
+ * The TeacherGradeAssignmentsPanel class contains the graphics necessary to
+ * properly grade assignments for each class a teacher is in. This feature is
+ * only accessible to teachers. In this panel, teachers can select classes
+ * and assignments to enter grades for each student.
+ */
 public class TeacherGradeAssignmentsPanel extends JPanel {
 
+	/** Version */
 	private static final long serialVersionUID = 1L;
 
+	/** The class ID of the class the teacher is currently grading */
 	private int classID;
+	/** The assignment ID of the assignment the teacher is currently grading */
 	private int assignmentID;
+	/** ArrayList with classes */
 	private ArrayList<SchoolClass> classes;
+	/** JComboBox with list of classes */
 	private JComboBox<String> classList;
+	/** ArrayList with assignments */
 	private ArrayList<Assignment> assignments;
+	/** JComboBox with list of assignments */
 	private JComboBox<String> assignmentList;
+	/** ArrayList with students */
 	private ArrayList<Student> studentList;
+	/** ArrayList with student names */
 	private ArrayList<String> studentNames;
+	/** ArrayList with student IDs */
 	private ArrayList<Integer> studentIDs;
+	/** JTable to hold data */
 	private JTable table;
+	/** JScrollPane to hold JTable */
 	private JScrollPane spTable;
+	/** TableModel for table */
 	private DefaultTableModel tableModel;
+	/** JLabel with grading information specific to each assignment */
 	private JLabel gradingInfo;
 
 
+	/**
+	 * The constructor establishes the layout for the panel and adds the
+	 * panel's sections to the overall panel itself. Values for IDs and lists
+	 * are reset.
+	 */
 	public TeacherGradeAssignmentsPanel() {
 		setLayout(new BorderLayout());
 		prepareNorthPanel();
@@ -54,6 +79,11 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 	}
 
 
+	/**
+	 * The prepareNorthPanel method creates the graphics for the header of this
+	 * panel, taking out a .png file from the src folder and using it for the
+	 * header.
+	 */
 	private void prepareNorthPanel() {
 		JPanel northPanel = new JPanel();
 		northPanel.setBackground(GraphicsConstants.COLOR_BG_HEADER);
@@ -66,6 +96,13 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 	}
 
 
+	/**
+	 * The prepareCenterPanel method creates the graphics for the middle portion
+	 * of this panel.
+	 * 
+	 * This includes the JTable to hold grades, labels with instructions, and
+	 * buttons to send information to data.
+	 */
 	private void prepareCenterPanel() {
 		SpringLayout sl = new SpringLayout();
 		JPanel centerPanel = new JPanel(sl);
@@ -108,6 +145,14 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 
 			private static final long serialVersionUID = 1L;
 
+			/**
+			 * Ensures that cells in column 0 cannot be editable since it has
+			 * the class roster.
+			 * 
+			 * @param row		Row
+			 * @param column	Column
+			 * @return			Whether cell is editable
+			 */
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				if (column == 0) {
@@ -132,6 +177,13 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 		GraphicsHelpers.modifyButton(loadData, 250, 45);
 		loadData.addActionListener(new ActionListener() {
 
+			/**
+			 * The actionPerformed method for this button loads the list of
+			 * assignments based on the class selected. The class roster is
+			 * loaded onto the table.
+			 * 
+			 * @param e 	The ActionEvent
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int index = classList.getSelectedIndex();
@@ -173,6 +225,14 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 		GraphicsHelpers.modifyButton(loadAssignmentData, 400, 45);
 		loadAssignmentData.addActionListener(new ActionListener() {
 
+			/**
+			 * The actionPerformed method for this button loads the
+			 * saved grades for the selected assignment for modification or
+			 * reference. Average grades are also an option for assignments
+			 * and can be loaded in as well.
+			 * 
+			 * @param e 	The ActionEvent
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int index = assignmentList.getSelectedIndex();
@@ -194,7 +254,7 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 						for (int j = 0; j < tableModel.getRowCount(); j++) {
 							tableModel.setValueAt("", j, 1);
 						}
-						
+
 						if (assignmentGrades != null) {
 							for (int i = 0; i < assignmentGrades.size(); i++) {
 								if (assignmentGrades.get(i) != null) {
@@ -233,6 +293,12 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 		GraphicsHelpers.modifyButton(confirm, 220, 45);
 		confirm.addActionListener(new ActionListener() {
 
+			/**
+			 * The actionPerformed method for this button saves the newly-input
+			 * grades into the data.
+			 * 
+			 * @param e 	The ActionEvent
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<Double> grades = new ArrayList<Double>();
@@ -289,6 +355,12 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 	}
 
 
+	/**
+	 * The addChangePageButtons method adds the buttons from this panel that
+	 * swap between pages of the program.
+	 * 
+	 * @param goHome 		Button that returns to the user homepage
+	 */
 	public void addChangePageButtons(JButton goHome) {
 		JPanel southPanel = new JPanel();
 		southPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
@@ -297,6 +369,10 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 	}
 
 
+	/**
+	 * The refreshComboBox method refreshes the class list and assignment list,
+	 * removing all items.
+	 */
 	public void refreshComboBox() {
 		classList.removeAllItems();
 		classes = DataManagement.getCurrentUserClasses();
@@ -323,6 +399,10 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 	}
 
 
+	/**
+	 * The refreshAssignmentList method adds assignments from a newly-selected
+	 * class to the list of assignments.
+	 */
 	private void refreshAssignmentList() {
 		assignmentList.removeAllItems();
 		assignments = DataManagement.getClassAssignments(classID);
@@ -341,4 +421,16 @@ public class TeacherGradeAssignmentsPanel extends JPanel {
 		repaint();
 	}
 
+
+	/**
+	 * This is the toString method for this class.
+	 */
+	@Override
+	public String toString() {
+		return "TeacherGradeAssignmentsPanel [classID=" + classID + ", assignmentID=" + assignmentID + ", classes="
+				+ classes + ", classList=" + classList + ", assignments=" + assignments + ", assignmentList="
+				+ assignmentList + ", studentList=" + studentList + ", studentNames=" + studentNames + ", studentIDs="
+				+ studentIDs + ", table=" + table + ", spTable=" + spTable + ", tableModel=" + tableModel
+				+ ", gradingInfo=" + gradingInfo + "]";
+	}
 }

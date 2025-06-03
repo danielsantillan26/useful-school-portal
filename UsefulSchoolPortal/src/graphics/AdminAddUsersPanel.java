@@ -18,17 +18,39 @@ import javax.swing.SpringLayout;
 
 import files.DataManagement;
 
+/**
+ * The AdminAddUsersPanel class contains the graphics necessary to add users to
+ * a school system. This feature is only accessible to administrators. In this
+ * panel, administrators add new users by entering crucial user information that
+ * gets sent in for data creation.
+ * 
+ * @author Daniel Santillan
+ * @version 1.0
+ */
 public class AdminAddUsersPanel extends JPanel {
 
+	/** Version */
 	private static final long serialVersionUID = 1L;
+	/** Determines whether the password should be shown on the JPanel */
 	private boolean isPasswordShown;
 
+	
+	/**
+	 * The constructor establishes the layout for the panel and adds the
+	 * panel's sections to the overall panel itself.
+	 */
 	public AdminAddUsersPanel() {
 		setLayout(new BorderLayout());
 		prepareNorthPanel();
 		prepareCenterPanel();
 	}
 
+	
+	/**
+	 * The prepareNorthPanel method creates the graphics for the header of this
+	 * panel, taking out a .png file from the src folder and using it for the
+	 * header.
+	 */
 	private void prepareNorthPanel() {
 		JPanel northPanel = new JPanel();
 		northPanel.setBackground(GraphicsConstants.COLOR_BG_HEADER);
@@ -41,6 +63,14 @@ public class AdminAddUsersPanel extends JPanel {
 	}
 
 
+	/**
+	 * The prepareCenterPanel method creates the graphics for the middle portion
+	 * of this panel.
+	 * 
+	 * This includes the JLabels asking for user information and the JTextFields
+	 * that allow adminitrators to enter user information. It also includes the
+	 * buttons to show/hide password and create user.
+	 */
 	private void prepareCenterPanel() {
 		SpringLayout sl = new SpringLayout();
 		JPanel centerPanel = new JPanel(sl);
@@ -100,6 +130,15 @@ public class AdminAddUsersPanel extends JPanel {
 
 		ActionListener al = new ActionListener() {
 
+			/**
+			 * The actionPerformed method for this panel has the code run when
+			 * a button in this panel is pressed. If the show/hide password 
+			 * button is pressed, the password is either shown or hidden. If the
+			 * confirm button is pressed, the user information is passed to data
+			 * to be created.
+			 * 
+			 * @param e 	The ActionEvent
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == showHidePassword) {
@@ -219,11 +258,26 @@ public class AdminAddUsersPanel extends JPanel {
 	}
 	
 	
+	/**
+	 * The addChangePageButtons method adds the buttons from this panel that
+	 * swap between pages of the program.
+	 * 
+	 * @param goHome 		Button that returns to the user homepage
+	 */
 	public void addChangePageButtons(JButton goHome) {
 		JPanel southPanel = new JPanel();
 		southPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
 		southPanel.add(goHome);
 		add(southPanel, BorderLayout.SOUTH);
+	}
+
+
+	/**
+	 * This is the toString method for this class.
+	 */
+	@Override
+	public String toString() {
+		return "AdminAddUsersPanel [isPasswordShown=" + isPasswordShown + "]";
 	}
 
 }

@@ -12,13 +12,30 @@ import javax.swing.SpringLayout;
 import files.DataManagement;
 import objects.User;
 
+/**
+ * The AdminHomepagePanel class contains the graphics necessary to establish a
+ * hub for administrators upon login. They can access all the pages they need
+ * to use and log out if necessary.
+ * 
+ * @author Daniel Santillan
+ * @version 1.0
+ */
 public class AdminHomepagePanel extends JPanel {
 
+	/** Version */
 	private static final long serialVersionUID = 1L;
+	/** The center portion of the panel */
 	private JPanel centerPanel;
+	/** The layout of the panel */
 	private SpringLayout sl;
+	/** A welcome message that is personalized by user */
 	private JLabel welcome;
 
+
+	/**
+	 * The constructor establishes the layout for the panel and adds the
+	 * panel's sections to the overall panel itself.
+	 */
 	public AdminHomepagePanel() {
 		setLayout(new BorderLayout());
 		prepareNorthPanel();
@@ -26,6 +43,11 @@ public class AdminHomepagePanel extends JPanel {
 	}
 
 
+	/**
+	 * The prepareNorthPanel method creates the graphics for the header of this
+	 * panel, taking out a .png file from the src folder and using it for the
+	 * header.
+	 */
 	private void prepareNorthPanel() {
 		JPanel northPanel = new JPanel();
 		northPanel.setBackground(GraphicsConstants.COLOR_BG_HEADER);
@@ -38,6 +60,12 @@ public class AdminHomepagePanel extends JPanel {
 	}
 
 
+	/**
+	 * The prepareCenterPanel method creates the graphics for the middle portion
+	 * of this panel.
+	 * 
+	 * This includes setting up the welcome message.
+	 */
 	private void prepareCenterPanel() {
 		sl = new SpringLayout();
 		centerPanel = new JPanel(sl);
@@ -55,6 +83,21 @@ public class AdminHomepagePanel extends JPanel {
 	}
 
 
+	/**
+	 * The addChangePageButtons method adds the buttons from this panel that
+	 * swap between pages of the program.
+	 * 
+	 * @param manageSchedule	Button that goes to the manage schedule page
+	 * @param addUsers			Button that goes to the add users page
+	 * @param addClasses		Button that goes to the add classes page
+	 * @param deleteUsers		Button that goes to the delete users page
+	 * @param deleteClasses		Button that goes to the delete classes page
+	 * @param manageTeachers	Button that goes to the manage teachers page
+	 * @param manageStudents	Button that goes to the manage students page
+	 * @param manageClasses		Button that goes to the manage classes page
+	 * @param editProfile		Button that goes to the edit profile page
+	 * @param logOut			Button that logs out user and returns to home
+	 */
 	public void addChangePageButtons(JButton manageSchedule, JButton addUsers,
 			JButton addClasses, JButton deleteUsers, JButton deleteClasses,
 			JButton manageTeachers, JButton manageStudents, JButton manageClasses,
@@ -94,8 +137,12 @@ public class AdminHomepagePanel extends JPanel {
 		add(southPanel, BorderLayout.SOUTH);
 
 	}
-	
-	
+
+
+	/**
+	 * The updateUsername method updates the welcome message for the logged in
+	 * user.
+	 */
 	public void updateUsername() {
 		User u = DataManagement.getLoggedInUser();
 		String welcomeText = "Welcome, " + u.getFirstName() + " " + u.getLastName() + "!";
@@ -103,4 +150,12 @@ public class AdminHomepagePanel extends JPanel {
 		repaint();
 	}
 
+	
+	/**
+	 * This is the toString method for this class.
+	 */
+	@Override
+	public String toString() {
+		return "AdminHomepagePanel [centerPanel=" + centerPanel + ", sl=" + sl + ", welcome=" + welcome + "]";
+	}
 }

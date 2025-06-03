@@ -15,13 +15,29 @@ import javax.swing.JOptionPane;
 import files.Constants;
 import files.DataManagement;
 
+/**
+ * The Frame class is the class that creates all the panels and serves as the
+ * backbone of the graphics structure for this program. It builds a card
+ * layout that holds all of the panels and sets up the buttons that move between
+ * each page.
+ * 
+ * @author Daniel Santillan
+ * @version 1.0
+ */
 public class Frame extends JFrame {
 
+	/** Version */
 	private static final long serialVersionUID = 1L;
+	/** The card layout */
 	private CardLayout cl;
+	/** The container */
 	private Container container;
 
 
+	/**
+	 * The Frame constructor sets the name, dimensions, and other important
+	 * infromation for the JFrame. The card layout is also created.
+	 */
 	public Frame() {
 		setTitle("Useful School Portal");
 		Dimension x = Toolkit.getDefaultToolkit().getScreenSize();
@@ -41,6 +57,10 @@ public class Frame extends JFrame {
 	}
 
 
+	/**
+	 * The prepareCardLayout method sets up the JPanels for each page and the
+	 * buttons necessary to move between pages.
+	 */
 	private void prepareCardLayout() {
 		IntroductionPanel panelIntro = new IntroductionPanel();
 		TermsAndConditionsPanel panelToC = new TermsAndConditionsPanel();
@@ -72,7 +92,7 @@ public class Frame extends JFrame {
 		StudentGradingSimulatorPanel panelStudentGradingSimulator = new StudentGradingSimulatorPanel();
 		StudentEditProfilePanel panelStudentEditProfile = new StudentEditProfilePanel();
 		StudentViewInfractionsPanel panelStudentViewInfractions = new StudentViewInfractionsPanel();
-		
+
 
 		JButton buttonPanelIntroRegister = new JButton("Register");
 		GraphicsHelpers.modifyButton(buttonPanelIntroRegister, 200, 45);
@@ -127,124 +147,124 @@ public class Frame extends JFrame {
 
 		JButton buttonPanelAdminHomepageLogOut = new JButton("Log Out");
 		GraphicsHelpers.modifyButton(buttonPanelAdminHomepageLogOut, 250, 45);
-		
+
 		JButton buttonPanelAdminManageScheduleReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelAdminManageScheduleReturn, 220, 45);
-		
+
 		JButton buttonPanelAdminAddUsersReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelAdminAddUsersReturn, 220, 45);
-		
+
 		JButton buttonPanelAdminAddClassesReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelAdminAddClassesReturn, 220, 45);
-		
+
 		JButton buttonPanelAdminDeleteUsersReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelAdminDeleteUsersReturn, 220, 45);
-		
+
 		JButton buttonPanelAdminDeleteClassesReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelAdminDeleteClassesReturn, 220, 45);
-		
+
 		JButton buttonPanelAdminManageUsersReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelAdminManageUsersReturn, 220, 45);
-		
+
 		JButton buttonPanelAdminStudentInfractionsReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelAdminStudentInfractionsReturn, 220, 45);
-		
+
 		JButton buttonPanelAdminManageClassesReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelAdminManageClassesReturn, 220, 45);
-		
+
 		JButton buttonPanelAdminEditProfileReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelAdminEditProfileReturn, 220, 45);
-		
+
 		JButton buttonPanelTeacherHomepageClassHomepage = new JButton("Class Homepage");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherHomepageClassHomepage, 450, 45);
-		
+
 		JButton buttonPanelTeacherHomepageEditClassHomepage = new JButton("Edit Class Homepage");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherHomepageEditClassHomepage, 450, 45);
-		
+
 		JButton buttonPanelTeacherHomepageManageClasses = new JButton("Manage Classes");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherHomepageManageClasses, 375, 45);
-		
+
 		JButton buttonPanelTeacherHomepageViewRosters = new JButton("View Rosters");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherHomepageViewRosters, 300, 45);
-		
+
 		JButton buttonPanelTeacherHomepageManageAssignments = new JButton("Manage Assignments");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherHomepageManageAssignments, 450, 45);
-		
+
 		JButton buttonPanelTeacherHomepageGradeAssignments = new JButton("Grade Assignments");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherHomepageGradeAssignments, 450, 45);
-		
+
 		JButton buttonPanelTeacherHomepageInfractStudents = new JButton("Infract Students");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherHomepageInfractStudents, 350, 45);
-		
+
 		JButton buttonPanelTeacherHomepageEditProfile = new JButton("Edit Profile");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherHomepageEditProfile, 300, 45);
-		
+
 		JButton buttonPanelTeacherHomepageLogOut = new JButton("Log Out");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherHomepageLogOut, 250, 45);
-		
+
 		JButton buttonPanelTeacherClassHomepageReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherClassHomepageReturn, 220, 45);
-		
+
 		JButton buttonPanelTeacherEditClassHomepageReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherEditClassHomepageReturn, 220, 45);
-		
+
 		JButton buttonPanelTeacherManageClassesReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherManageClassesReturn, 220, 45);
-		
+
 		JButton buttonPanelTeacherViewRostersReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherViewRostersReturn, 220, 45);
-		
+
 		JButton buttonPanelTeacherManageAssignmentsReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherManageAssignmentsReturn, 220, 45);
-		
+
 		JButton buttonPanelTeacherGradeAssignmentsReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherGradeAssignmentsReturn, 220, 45);
-		
+
 		JButton buttonPanelTeacherInfractStudentsReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherInfractStudentsReturn, 220, 45);
-		
+
 		JButton buttonPanelTeacherEditProfileReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelTeacherEditProfileReturn, 220, 45);
-		
+
 		JButton buttonPanelStudentHomepageClassHomepage = new JButton("Class Homepage");
 		GraphicsHelpers.modifyButton(buttonPanelStudentHomepageClassHomepage, 450, 45);
-		
+
 		JButton buttonPanelStudentHomepageViewRosters = new JButton("View Rosters");
 		GraphicsHelpers.modifyButton(buttonPanelStudentHomepageViewRosters, 300, 45);
-		
+
 		JButton buttonPanelStudentHomepageViewGrades = new JButton("View Grades");
 		GraphicsHelpers.modifyButton(buttonPanelStudentHomepageViewGrades, 300, 45);
-		
+
 		JButton buttonPanelStudentHomepageGradingSimulator = new JButton("Grading Simulator");
 		GraphicsHelpers.modifyButton(buttonPanelStudentHomepageGradingSimulator, 500, 45);
-		
+
 		JButton buttonPanelStudentHomepageEditProfile = new JButton("Edit Profile");
 		GraphicsHelpers.modifyButton(buttonPanelStudentHomepageEditProfile, 300, 45);
-		
+
 		JButton buttonPanelStudentHomepageLogOut = new JButton("Log Out");
 		GraphicsHelpers.modifyButton(buttonPanelStudentHomepageLogOut, 250, 45);
-		
+
 		JButton buttonPanelStudentHomepageViewInfractions = new JButton("View Infractions");
 		GraphicsHelpers.modifyButton(buttonPanelStudentHomepageViewInfractions, 450, 45);
-		
+
 		JButton buttonPanelStudentClassHomepageReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelStudentClassHomepageReturn, 220, 45);
-		
+
 		JButton buttonPanelStudentViewRostersReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelStudentViewRostersReturn, 220, 45);
-		
+
 		JButton buttonPanelStudentViewGradesReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelStudentViewGradesReturn, 220, 45);
-		
+
 		JButton buttonPanelStudentGradingSimulatorReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelStudentGradingSimulatorReturn, 220, 45);
-		
+
 		JButton buttonPanelStudentEditProfileReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelStudentEditProfileReturn, 220, 45);
-		
+
 		JButton buttonPanelStudentViewInfractionsReturn = new JButton("Return");
 		GraphicsHelpers.modifyButton(buttonPanelStudentViewInfractionsReturn, 220, 45);
-		
+
 
 
 
@@ -287,11 +307,18 @@ public class Frame extends JFrame {
 		panelStudentGradingSimulator.addChangePageButtons(buttonPanelStudentGradingSimulatorReturn);
 		panelStudentEditProfile.addChangePageButtons(buttonPanelStudentEditProfileReturn);
 		panelStudentViewInfractions.addChangePageButtons(buttonPanelStudentViewInfractionsReturn);
-		
-		
+
+
 
 		ActionListener al = new ActionListener() {
 
+			/**
+			 * The ActionListener for this class determines which page the
+			 * card layout should move to once a particular button has been
+			 * pressed.
+			 * 
+			 * @param e		The action event
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == buttonPanelIntroToC) {
@@ -323,7 +350,7 @@ public class Frame extends JFrame {
 								"out all values.", "Error", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-					
+
 					ArrayList<String> inputs = new ArrayList<String>();
 					inputs.add(givenSchoolName);
 					inputs.add(givenUsername);
@@ -680,4 +707,12 @@ public class Frame extends JFrame {
 		container.add(panelStudentViewInfractions);
 	}
 
+
+	/**
+	 * This is the toString method for this class.
+	 */
+	@Override
+	public String toString() {
+		return "Frame [cl=" + cl + ", container=" + container + "]";
+	}
 }

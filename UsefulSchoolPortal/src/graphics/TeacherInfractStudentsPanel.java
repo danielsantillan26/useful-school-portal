@@ -20,17 +20,39 @@ import files.DataManagement;
 import objects.Infraction;
 import objects.Student;
 
+/**
+ * The TeacherInfractStudentsPanel class contains the graphics necessary to
+ * add infractions on a student's record. In this panel, teachers select the
+ * student to infract and provide a rationale before submitting it to the
+ * system. Infractions done by the same teacher can be modified or deleted.
+ * 
+ * @author Daniel Santillan
+ * @version 1.0
+ */
 public class TeacherInfractStudentsPanel extends JPanel {
-	
+
+	/** Version */
 	private static final long serialVersionUID = 1L;
 
+	/** Index selected in the infraction list */
 	private int infractionIndex;
+	/** ID of the infraction selected from the infraction list */
 	private int infractionID;
+	/** JComboBox with list of students */
 	private JComboBox<String> studentList;
+	/** ArrayList of students */
 	private ArrayList<Student> students;
+	/** JComboBox with list of infractions */
 	private JComboBox<String> infractionList;
+	/** ArrayList of infractions */
 	private ArrayList<Infraction> infractions;
 
+
+	/**
+	 * The constructor establishes the layout for the panel and adds the
+	 * panel's sections to the overall panel itself. ID and index values
+	 * are reset.
+	 */
 	public TeacherInfractStudentsPanel() {
 		setLayout(new BorderLayout());
 		prepareNorthPanel();
@@ -40,6 +62,11 @@ public class TeacherInfractStudentsPanel extends JPanel {
 	}
 
 
+	/**
+	 * The prepareNorthPanel method creates the graphics for the header of this
+	 * panel, taking out a .png file from the src folder and using it for the
+	 * header.
+	 */
 	private void prepareNorthPanel() {
 		JPanel northPanel = new JPanel();
 		northPanel.setBackground(GraphicsConstants.COLOR_BG_HEADER);
@@ -52,6 +79,14 @@ public class TeacherInfractStudentsPanel extends JPanel {
 	}
 
 
+	/**
+	 * The prepareCenterPanel method creates the graphics for the middle portion
+	 * of this panel.
+	 * 
+	 * This includes preparing the lists and labels necessary for the user to
+	 * perform a successful infraction creation. Buttons are also made to
+	 * assist the user in performing such tasks.
+	 */
 	private void prepareCenterPanel() {
 		SpringLayout sl = new SpringLayout();
 		JPanel centerPanel = new JPanel(sl);
@@ -91,6 +126,12 @@ public class TeacherInfractStudentsPanel extends JPanel {
 		GraphicsHelpers.modifyButton(loadInfractionData, 420, 45);
 		loadInfractionData.addActionListener(new ActionListener() {
 
+			/**
+			 * The actionPerformed method for this button loads the data
+			 * from the selected infraction on the JComboBox.
+			 * 
+			 * @param e 	The ActionEvent
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				givenInfractionName.setText("");
@@ -118,6 +159,14 @@ public class TeacherInfractStudentsPanel extends JPanel {
 		GraphicsHelpers.modifyButton(updateInfraction, 350, 45);
 		updateInfraction.addActionListener(new ActionListener() {
 
+			/**
+			 * The actionPerformed method for this button either adds
+			 * or updates an infraction depending on the user's selection
+			 * on the JComboBox with the infraction list. The infraction is
+			 * sent to data to be worked on.
+			 * 
+			 * @param e 	The ActionEvent
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (givenInfractionName.getText().contains(",") ||
@@ -150,6 +199,12 @@ public class TeacherInfractStudentsPanel extends JPanel {
 		GraphicsHelpers.modifyButton(deleteInfraction, 350, 45);
 		deleteInfraction.addActionListener(new ActionListener() {
 
+			/**
+			 * The actionPerformed method for this button deletes the infraction
+			 * selected in the list.
+			 * 
+			 * @param e 	The ActionEvent
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (infractionIndex != 0) {
@@ -201,6 +256,12 @@ public class TeacherInfractStudentsPanel extends JPanel {
 	}
 
 
+	/**
+	 * The addChangePageButtons method adds the buttons from this panel that
+	 * swap between pages of the program.
+	 * 
+	 * @param goHome 		Button that returns to the user homepage
+	 */
 	public void addChangePageButtons(JButton goHome) {
 		JPanel southPanel = new JPanel();
 		southPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
@@ -209,6 +270,11 @@ public class TeacherInfractStudentsPanel extends JPanel {
 	}
 
 
+	/**
+	 * The refreshComboBox method refreshes the list of students and infractions
+	 * based on the school system's data. Only infractions involving the logged
+	 * in teacher are added.
+	 */
 	public void refreshComboBox() {
 		infractionID = -1;
 
@@ -222,7 +288,6 @@ public class TeacherInfractStudentsPanel extends JPanel {
 		}
 
 		infractionList.removeAllItems();
-		// TODO: Change this to byUser for teachers
 		infractions = DataManagement.getInfractionsByUser(DataManagement.getLoggedInUser().getID());
 		infractionList.addItem("-- New Infraction --");
 
@@ -232,4 +297,15 @@ public class TeacherInfractStudentsPanel extends JPanel {
 			}
 		}
 	}
+
+
+	/**
+	 * This is the toString method for this class.
+	 */
+	@Override
+	public String toString() {
+		return "TeacherInfractStudentsPanel [infractionIndex=" + infractionIndex + ", infractionID=" + infractionID
+				+ ", studentList=" + studentList + ", students=" + students + ", infractionList=" + infractionList
+				+ ", infractions=" + infractions + "]";
+	}	
 }

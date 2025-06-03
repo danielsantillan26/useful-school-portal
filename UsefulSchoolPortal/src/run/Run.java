@@ -15,6 +15,13 @@ import graphics.Frame;
 public class Run {
 	
 	/**
+	 * Default constructor
+	 */
+	public Run() {
+		
+	}
+
+	/**
 	 * The main method instantiates a frame that holds all the contents of the
 	 * Useful School Portal. It sets the frame as visible (so users can see it)
 	 * and prints the toString method for this class.
@@ -24,21 +31,20 @@ public class Run {
 	public static void main(String[] args) {
 		Frame frame = new Frame();
 		frame.setVisible(true);
-		
+
 		FileWorker.makeFile();
 		DataManagement.setup();
-		
+
 		System.out.println(new Run());
 	}
-	
-	
+
+
 	/**
 	 * This is the toString method for this class. It prints a message stating
 	 * that the class is working.
 	 */
-	@Override
 	public String toString() {
 		return "Run\nClass is working!";
 	}
-	
+
 }

@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"UsefulSchoolPortal","l":"calculations"},{"m":"UsefulSchoolPortal","l":"files"},{"m":"UsefulSchoolPortal","l":"graphics"},{"m":"UsefulSchoolPortal","l":"objects"},{"m":"UsefulSchoolPortal","l":"run"}];updateSearchResults();

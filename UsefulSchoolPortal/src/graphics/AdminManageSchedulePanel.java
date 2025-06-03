@@ -15,10 +15,27 @@ import javax.swing.SpringLayout;
 
 import files.DataManagement;
 
+/**
+ * The AdminManageSchedulePanel class contains the graphics necessary to manage
+ * the schedule of the school system. This feature is only accessible to
+ * administrators. In this panel, administrators determine how many blocks their
+ * school will have.
+ * 
+ * @author Daniel Santillan
+ * @version 1.0
+ */
 public class AdminManageSchedulePanel extends JPanel {
 
+	/** Version */
 	private static final long serialVersionUID = 1L;
+	/** JComboBox with list of periods */
 	private JComboBox<Integer> selectPeriods;
+
+
+	/**
+	 * The constructor establishes the layout for the panel and adds the
+	 * panel's sections to the overall panel itself.
+	 */
 
 	public AdminManageSchedulePanel() {
 		setLayout(new BorderLayout());
@@ -26,6 +43,12 @@ public class AdminManageSchedulePanel extends JPanel {
 		prepareCenterPanel();
 	}
 
+
+	/**
+	 * The prepareNorthPanel method creates the graphics for the header of this
+	 * panel, taking out a .png file from the src folder and using it for the
+	 * header.
+	 */
 	private void prepareNorthPanel() {
 		JPanel northPanel = new JPanel();
 		northPanel.setBackground(GraphicsConstants.COLOR_BG_HEADER);
@@ -38,6 +61,13 @@ public class AdminManageSchedulePanel extends JPanel {
 	}
 
 
+	/**
+	 * The prepareCenterPanel method creates the graphics for the middle portion
+	 * of this panel.
+	 * 
+	 * This includes adding the list of periods and the button to confirm
+	 * choices and send to data editing.
+	 */
 	private void prepareCenterPanel() {
 		SpringLayout sl = new SpringLayout();
 		JPanel centerPanel = new JPanel(sl);
@@ -51,12 +81,20 @@ public class AdminManageSchedulePanel extends JPanel {
 		for (int i = 6; i < 9; i++) {
 			selectPeriods.addItem(i);		
 		}
-		
+
 
 		JButton confirm = new JButton("Confirm");
 		GraphicsHelpers.modifyButton(confirm, 250, 45);
 		confirm.addActionListener(new ActionListener() {
 
+			/**
+			 * The actionPerformed method for this button sends in the period
+			 * to be changed into data. A warning appears to make sure users
+			 * understand that classes beyond the number of periods will be
+			 * deleted.
+			 * 
+			 * @param e 	The ActionEvent
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int blocks = Integer.parseInt(selectPeriods.getSelectedItem().toString());
@@ -87,14 +125,23 @@ public class AdminManageSchedulePanel extends JPanel {
 	}
 
 
+	/**
+	 * The addChangePageButtons method adds the buttons from this panel that
+	 * swap between pages of the program.
+	 * 
+	 * @param goHome 		Button that returns to the user homepage
+	 */
 	public void addChangePageButtons(JButton goHome) {
 		JPanel southPanel = new JPanel();
 		southPanel.setBackground(GraphicsConstants.COLOR_BG_MAIN);
 		southPanel.add(goHome);
 		add(southPanel, BorderLayout.SOUTH);
 	}
-	
-	
+
+
+	/**
+	 * The refreshComboBox method refreshes the list of blocks.
+	 */
 	public void refreshComboBox() {
 		int blocks = DataManagement.getBlocks();
 		if (blocks == 6) {
@@ -106,4 +153,12 @@ public class AdminManageSchedulePanel extends JPanel {
 		}
 	}
 
+
+	/**
+	 * This is the toString method for this class.
+	 */
+	@Override
+	public String toString() {
+		return "AdminManageSchedulePanel [selectPeriods=" + selectPeriods + "]";
+	}
 }
